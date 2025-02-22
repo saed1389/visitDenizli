@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CountyController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function(){
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function(){
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
+    Route::prefix('counties')->name('counties.')->group(function(){
+        Route::get('/', [CountyController::class, 'index'])->name('index');
+        Route::post('/store', [CountyController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [CountyController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [CountyController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [CountyController::class, 'delete'])->name('destroy');
+        Route::post('/upload', [CountyController::class, 'upload'])->name('ckeditor.upload');
+    });
+
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
