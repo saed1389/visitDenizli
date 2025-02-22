@@ -97,8 +97,12 @@
                                     <input type="text" class="form-control" id="name" name="name" placeholder="İlçe adı" value="{{ $county->name }}" required>
                                 </div>
                                 <div class="col-sm-12 mt-3">
-                                    <label for="ckeditor" class="form-label"><strong>Açıklama</strong></label>
-                                    <textarea class="form-control" name="description" id="ckeditor" rows="3" >{{ $county->description }}</textarea>
+                                    <label for="ckeditor_tr" class="form-label"><strong>Açıklama (TR)</strong></label>
+                                    <textarea class="form-control" name="description" id="ckeditor_tr" rows="3">{{ $county->description }}</textarea>
+                                </div>
+                                <div class="col-sm-12 mt-3">
+                                    <label for="ckeditor" class="form-label"><strong>Açıklama (EN)</strong></label>
+                                    <textarea class="form-control" name="description_en" id="ckeditor_en" rows="3">{{ $county->description_en }}</textarea>
                                 </div>
 
                                 <div class="col-sm-8 mt-3">
@@ -182,21 +186,33 @@
             };
         }
 
-        ClassicEditor
-            .create(document.querySelector('#ckeditor'), {
-                extraPlugins: [MyCustomUploadAdapterPlugin]
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        // Apply CKEditor to both textareas
+        document.addEventListener("DOMContentLoaded", function () {
+            ClassicEditor
+                .create(document.querySelector('#ckeditor_tr'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
+                .catch(error => {
+                    console.error(error);
+                });
 
-        $(document).ready(function(e){
+            ClassicEditor
+                .create(document.querySelector('#ckeditor_en'), {
+                    extraPlugins: [MyCustomUploadAdapterPlugin]
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
+        // Image Preview
+        $(document).ready(function () {
             $('#image').change(function (e) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#showImage').attr('src', e.target.result);
                 }
-                reader.readAsDataURL(e.target.files['0']);
+                reader.readAsDataURL(e.target.files[0]);
             });
         });
     </script>

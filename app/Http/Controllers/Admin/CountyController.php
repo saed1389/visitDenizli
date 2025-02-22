@@ -20,6 +20,7 @@ class CountyController extends Controller
             'name' => 'required|unique:counties',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable',
+            'description_en' => 'nullable',
             'status' => 'required',
         ]);
 
@@ -36,6 +37,7 @@ class CountyController extends Controller
             'name' => $request->input('name'),
             'slug' => Str::slug($request->input('name')),
             'description' => $request->input('description'),
+            'description_en' => $request->input('description_en'),
             'status' => $request->input('status'),
             'image' => $imageUrl,
         ];
@@ -58,6 +60,7 @@ class CountyController extends Controller
         $request->validate([
             'name' => 'required|unique:counties,name,'.$id,
             'description' => 'nullable',
+            'description_en' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -75,6 +78,7 @@ class CountyController extends Controller
             'name' => $request->input('name'),
             'slug' => Str::slug($request->input('name')),
             'description' => $request->input('description'),
+            'description_en' => $request->input('description_en'),
             'status' => $request->input('status'),
             'image' => $imageUrl,
         ];
