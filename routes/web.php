@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountyController;
+use App\Http\Controllers\Admin\GovernmentTitleController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Categories Routes
     Route::resource('categories', CategoryController::class)->except(['show', 'destroy', 'create']);
     Route::get('/categories/delete/{id}', [CategoryController::class, 'delete'])->name('categories.destroy');
+
+    // Government Title Routes
+    Route::resource('governmentTitles', GovernmentTitleController::class)->except(['show', 'destroy', 'create']);
+    Route::get('governmentTitles/delete/{id}', [GovernmentTitleController::class, 'delete'])->name('governmentTitles.destroy');
 
 });
 

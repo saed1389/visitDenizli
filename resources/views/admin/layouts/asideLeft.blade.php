@@ -28,42 +28,30 @@
                         </a>
                     </li>
                 </ul>
-                <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color1)">Sınav Sistemi</h6>
+                <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color1)">Web Sitesi</h6>
                 <ul class="list-unstyled mb-4 menu-list">
-                    <li><a href=""><span class="mx-2">Yazılı Sınavlar</span></a></li>
-                    <li><a href=""><span class="mx-2">Uygulamalı Sınavlar</span></a></li>
-                    <li><a href=""><span class="mx-2">Başvurular</span></a></li>
-                    <li><a href=""><span class="mx-2">Sınav Sonuç</span></a></li>
-                    <li><a href=""><span class="mx-2">Üye Listesi</span></a></li>
+                    <li><a href=""><span class="mx-2">Yerel Yönetim</span></a></li>
+                    <li>
+                        <a href="#Government" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Government">
+                            <span class="mx-2">Yerel Yönetim</span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="Government">
+                            <li><a href="">Yerel Yönetim</a></li>
+                            <li><a href="{{ route('admin.governmentTitles.index') }}">Ünvan Listesi</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color2)">Web Sitesi Ayarları </h6>
                 <ul class="list-unstyled mb-4 menu-list">
                     <li><a href="{{ route('admin.counties.index') }}"><span class="mx-2">İlçeler</span></a></li>
                     <li><a href="{{ route('admin.categories.index') }}"><span class="mx-2">Kategoriler</span></a></li>
                     <li>
-                        <a href="#Kurullar" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Kurullar">
-                            <span class="mx-2">Kurullar</span>
+                        <a href="#Ayarlar" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Ayarlar">
+                            <span class="mx-2">Ayarlar</span>
                         </a>
-                        <ul class="collapse list-unstyled" id="Kurullar">
+                        <ul class="collapse list-unstyled" id="Ayarlar">
                             <li><a href="">Yürütme Kurulu</a></li>
-                            <li><a href="">Eğitim Komisyonu</a></li>
-                            <li><a href="">Akreditasyon Komisyonu</a></li>
-                            <li><a href="">Sınav Komisyonu</a></li>
-                            <li><a href="">Eğitim Üst Kurulu</a></li>
-                            <li><a href="">Denetleme ve Danışma Kurulu</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#Toplanti" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Toplanti">
-                            <span class="mx-2">Toplantı</span>
-                        </a>
-                        <ul class="collapse list-unstyled" id="Toplanti">
-                            <li><a href="">Yürütme Kurulu</a></li>
-                            <li><a href="">Eğitim Komisyonu</a></li>
-                            <li><a href="">Akreditasyon Komisyonu</a></li>
-                            <li><a href="">Sınav Komisyonu</a></li>
-                            <li><a href="">Eğitim Üst Kurulu</a></li>
-                            <li><a href="">Denetleme ve Danışma Kurulu</a></li>
+
                         </ul>
                     </li>
                 </ul>
