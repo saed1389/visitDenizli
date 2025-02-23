@@ -93,16 +93,25 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="name" class="form-label"><strong>İlçe adı</strong></label>
+                                    <label for="name" class="form-label"><strong>İlçe adı <span class="text-danger">*</span></strong></label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="İlçe adı" value="{{ old('name') }}" required>
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="ckeditor_tr" class="form-label"><strong>Açıklama (TR)</strong></label>
                                     <textarea class="form-control" name="description" id="ckeditor_tr" rows="3">{{ old('description') }}</textarea>
+                                    @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="ckeditor" class="form-label"><strong>Açıklama (EN)</strong></label>
                                     <textarea class="form-control" name="description_en" id="ckeditor_en" rows="3">{{ old('description_en') }}</textarea>
+                                    @error('description_en')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-8 mt-3">
                                     <label for="image" class="form-label"><strong>Resim</strong></label>

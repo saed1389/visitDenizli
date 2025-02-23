@@ -39,7 +39,7 @@
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color2)">Web Sitesi Ayarları </h6>
                 <ul class="list-unstyled mb-4 menu-list">
                     <li><a href="{{ route('admin.counties.index') }}"><span class="mx-2">İlçeler</span></a></li>
-                    <li><a href=""><span class="mx-2">Akredite</span></a></li>
+                    <li><a href="{{ route('admin.categories.index') }}"><span class="mx-2">Kategoriler</span></a></li>
                     <li>
                         <a href="#Kurullar" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Kurullar">
                             <span class="mx-2">Kurullar</span>

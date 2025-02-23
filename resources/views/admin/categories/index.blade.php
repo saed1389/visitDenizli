@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - İlçeler Listesi @endsection
+@section('title') Visit Denizli - Kategori Listesi @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">İlçeler Listesi</li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Kategori Listesi</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -54,7 +54,7 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
-                        <h4 class="card-title m-0">İlçeler Listesi</h4>
+                        <h4 class="card-title m-0">Kategori Listesi</h4>
                     </div>
                     <div class="card-body table-main-three">
                         <table class="myDataTable table table-hover table-bordered align-middle mb-0" style="width:100%">
@@ -62,19 +62,21 @@
                             <tr class="text-center" style="vertical-align: middle;">
                                 <th>#</th>
                                 <th>Resim</th>
-                                <th>İlçe adı</th>
+                                <th>Kategori adı (TR)</th>
+                                <th>Kategori adı (EN)</th>
                                 <th>İşlem</th>
                             </tr>
                             </thead>
                             <tbody class="text-center" style="vertical-align: middle;">
-                            @foreach($counties as $item)
+                            @foreach($categories as $item)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px;"></td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->name_en }}</td>
                                     <td>
-                                        <a href="{{ route('admin.counties.edit', $item->id) }}" class="btn btn-info btn-sm mt-1"><i class="fa fa-edit"></i></a>
-                                        <button type="button" href="{{ route('admin.counties.destroy', $item->id) }}" class="btn btn-danger btn-sm mt-1" id="delete"><i class="fa fa-trash"></i></button>
+                                        <a href="{{ route('admin.categories.edit', $item->id) }}" class="btn btn-info btn-sm mt-1"><i class="fa fa-edit"></i></a>
+                                        <button type="button" href="{{ route('admin.categories.destroy', $item->id) }}" class="btn btn-danger btn-sm mt-1" id="delete"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -86,34 +88,40 @@
             <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
-                        <h4 class="card-title m-0">İlçe Güncelle</h4>
+                        <h4 class="card-title m-0">Kategori Ekle</h4>
                     </div>
-                    <form action="{{ route('admin.counties.update', $county->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.categories.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="name" class="form-label"><strong>İlçe adı <span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="İlçe adı" value="{{ $county->name }}" required>
+                                    <label for="name" class="form-label"><strong>Kategori adı (TR) <span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Kategori adı (TR)" value="{{ old('name') }}" required>
                                     @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-12 mt-3">
+                                    <label for="name_en" class="form-label"><strong>Kategori adı (EN)</strong></label>
+                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Kategori adı (EN)" value="{{ old('name_en') }}">
+                                    @error('name_en')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-12 mt-3">
                                     <label for="ckeditor_tr" class="form-label"><strong>Açıklama (TR)</strong></label>
-                                    <textarea class="form-control" name="description" id="ckeditor_tr" rows="3">{{ $county->description }}</textarea>
+                                    <textarea class="form-control" name="description" id="ckeditor_tr" rows="3">{{ old('description') }}</textarea>
                                     @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="ckeditor" class="form-label"><strong>Açıklama (EN)</strong></label>
-                                    <textarea class="form-control" name="description_en" id="ckeditor_en" rows="3">{{ $county->description_en }}</textarea>
+                                    <textarea class="form-control" name="description_en" id="ckeditor_en" rows="3">{{ old('description_en') }}</textarea>
                                     @error('description_en')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-
                                 <div class="col-sm-8 mt-3">
                                     <label for="image" class="form-label"><strong>Resim</strong></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
@@ -124,14 +132,14 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <img src="{{ $county->image ? asset($county->image) : asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
+                                    <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="status" class="form-label"><strong>Durum</strong></label>
                                     <div class="my-3">
-                                        <input id="active" name="status" type="radio" value="1" class="form-check-input" @checked($county->status == 1) required="">
+                                        <input id="active" name="status" type="radio" value="1" class="form-check-input" checked="" required="">
                                         <label class="form-check-label" for="active">Açik</label>
-                                        <input id="deactivate" name="status" type="radio" value="0" class="form-check-input" @checked($county->status == 0) required="">
+                                        <input id="deactivate" name="status" type="radio" value="0" class="form-check-input" required="">
                                         <label class="form-check-label" for="deactivate">Kapalı</label>
                                     </div>
                                     @error('status')
