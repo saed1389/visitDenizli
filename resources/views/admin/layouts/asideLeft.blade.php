@@ -33,10 +33,13 @@
                     <li><a href=""><span class="mx-2">Yerel Yönetim</span></a></li>
                     <li>
                         <a href="#Government" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Government">
-                            <span class="mx-2">Yerel Yönetim</span>
+                            @php
+                            $governmentStatus = \App\Models\Government::where('status', 0)->count();
+                            @endphp
+                            <span class="mx-2">Yerel Yönetim @if($governmentStatus > 0) <span class="bg-danger rounded-5 p-1 text-end">{{ $governmentStatus }}</span> @endif</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Government">
-                            <li><a href="">Yerel Yönetim</a></li>
+                            <li><a href="{{ route('admin.government.index') }}">Yerel Yönetim</a></li>
                             <li><a href="{{ route('admin.governmentTitles.index') }}">Ünvan Listesi</a></li>
                         </ul>
                     </li>

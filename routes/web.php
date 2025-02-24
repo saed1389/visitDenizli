@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountyController;
+use App\Http\Controllers\Admin\GovernmentController;
 use App\Http\Controllers\Admin\GovernmentTitleController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
@@ -43,6 +44,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('governmentTitles', GovernmentTitleController::class)->except(['show', 'destroy', 'create']);
     Route::get('governmentTitles/delete/{id}', [GovernmentTitleController::class, 'delete'])->name('governmentTitles.destroy');
 
+    // Government Routes
+    Route::resource('government', GovernmentController::class)->except(['show', 'destroy']);
+    Route::get('governments/delete/{id}', [GovernmentController::class, 'delete'])->name('governments.destroy');
+    Route::post('governments/upload', [GovernmentController::class, 'upload'])->name('governments.upload');
+    Route::post('governments/changeStatus/{id}/{status}', [GovernmentController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

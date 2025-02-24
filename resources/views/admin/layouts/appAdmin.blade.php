@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="keyword" content="bootstrap admin template">
+    <meta name="keyword" content="">
     <link rel="icon" href="{{ asset('panel/assets/images/favicon.ico') }}" type="image/x-icon">
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('panel/assets/images/favicon.ico') }}">
@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('panel/assets/images/apple-touch-icon.png') }}">
     <link rel="stylesheet" href="{{ asset('panel/assets/css/style.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('styles')
 </head>
 <body data-bvite="theme-CeruleanBlue" class="layout-border svgstroke-a layout-default @yield('right')">
