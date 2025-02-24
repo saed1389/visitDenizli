@@ -2,7 +2,6 @@
 @section('title') Visit Denizli - Yerel Yönetim @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <div class="px-md-4 px-2 py-2 page-header" data-bs-theme="none">
         <div class="d-flex align-items-center">
             <button class="btn d-none d-xl-inline-flex me-3 px-0 sidebar-toggle" type="button">
@@ -93,6 +92,7 @@
 @endsection
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 @endpush
 @push('scripts')
     <script src="{{ asset('panel/assets/js/code.js') }}"></script>
