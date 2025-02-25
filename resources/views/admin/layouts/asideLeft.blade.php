@@ -52,6 +52,16 @@
                             <li><a href="{{ route('admin.governmentTitles.index') }}">Ünvan Listesi</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#Places" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Places">
+                            <span class="mx-2">Gezilecek Yerler </span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="Places">
+                            <li><a href="{{ route('admin.history-places.index') }}">Tarihi Mekanlar</a></li>
+                            <li><a href="{{ route('admin.about.geographical') }}">Doğal Güzellikler</a></li>
+                            <li><a href="{{ route('admin.about.geographical') }}">Müzeler ve Sanat Galerileri</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color2)">Web Sitesi Ayarları </h6>
                 <ul class="list-unstyled mb-4 menu-list">

@@ -133,7 +133,7 @@ class GovernmentController extends Controller
         @unlink($government->image);
         $government->delete();
 
-        toastr()->success('Yerel Yönetim Başarıyla Silindi');
+        toastr()->success('Yerel Yönetim Başarıyla Silindi.');
         return redirect()->route('admin.government.index');
     }
 

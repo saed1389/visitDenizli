@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountyController;
 use App\Http\Controllers\Admin\GovernmentController;
 use App\Http\Controllers\Admin\GovernmentTitleController;
+use App\Http\Controllers\Admin\HistoryPlaceController;
+use App\Http\Controllers\Admin\VisitPlaceController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +53,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('governments/upload', [GovernmentController::class, 'upload'])->name('governments.upload');
     Route::post('governments/changeStatus/{id}/{status}', [GovernmentController::class, 'changeStatus']);
 
-    // History
+    // History and Geographical Routes
     Route::prefix('about')->name('about.')->group(function(){
         Route::get('/history', [AboutController::class, 'history'])->name('history');
         Route::post('/history/update', [AboutController::class, 'historyUpdate'])->name('history-update');
@@ -59,6 +61,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         Route::post('geographical/update', [AboutController::class, 'geographicalUpdate'])->name('geographical-update');
         Route::post('/about/upload', [AboutController::class, 'upload'])->name('upload');
     });
+
+    // Visit Places Routes
+    Route::resource('history-places', HistoryPlaceController::class)->except(['show', 'destroy']);
+    Route::get('history-places/delete/{id}', [HistoryPlaceController::class, 'delete'])->name('history-places.destroy');
+    Route::post('history-places/upload', [HistoryPlaceController::class, 'upload'])->name('upload');
+    Route::post('history-places/changeStatus/{id}/{status}', [HistoryPlaceController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
