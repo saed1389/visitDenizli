@@ -32,6 +32,15 @@
                 <ul class="list-unstyled mb-4 menu-list">
                     <li><a href=""><span class="mx-2">Yerel Yönetim</span></a></li>
                     <li>
+                        <a href="#About" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="About">
+                            <span class="mx-2">Hakkımızda </span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="About">
+                            <li><a href="{{ route('admin.about.history') }}">Tarihçe</a></li>
+                            <li><a href="{{ route('admin.about.geographical') }}">Coğrafi Bilgiler</a></li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href="#Government" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Government">
                             @php
                             $governmentStatus = \App\Models\Government::where('status', 0)->count();

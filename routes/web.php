@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountyController;
@@ -23,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function(){
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(callback: function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     // County Routes
@@ -49,6 +50,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('governments/delete/{id}', [GovernmentController::class, 'delete'])->name('governments.destroy');
     Route::post('governments/upload', [GovernmentController::class, 'upload'])->name('governments.upload');
     Route::post('governments/changeStatus/{id}/{status}', [GovernmentController::class, 'changeStatus']);
+
+    // History
+    Route::prefix('about')->name('about.')->group(function(){
+        Route::get('/history', [AboutController::class, 'history'])->name('history');
+        Route::post('/history/update', [AboutController::class, 'historyUpdate'])->name('history-update');
+        Route::get('/geographical', [AboutController::class, 'geographical'])->name('geographical');
+        Route::post('geographical/update', [AboutController::class, 'geographicalUpdate'])->name('geographical-update');
+        Route::post('/about/upload', [AboutController::class, 'upload'])->name('upload');
+    });
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
