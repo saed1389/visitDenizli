@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountyController;
+use App\Http\Controllers\Admin\FestivalController;
 use App\Http\Controllers\Admin\GovernmentController;
 use App\Http\Controllers\Admin\GovernmentTitleController;
 use App\Http\Controllers\Admin\HistoryPlaceController;
@@ -81,6 +82,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('museum-places/delete/{id}', [MuseumPlaceController::class, 'delete'])->name('museum-places.destroy');
     Route::post('museum-places/upload', [MuseumPlaceController::class, 'upload'])->name('museum-places.upload');
     Route::post('museum-places/changeStatus/{id}/{status}', [MuseumPlaceController::class, 'changeStatus']);
+
+    // Local Festivals Routes
+    Route::resource('local-festivals', FestivalController::class)->except(['show', 'destroy']);
+    Route::get('local-festivals/delete/{id}', [FestivalController::class, 'delete'])->name('local-festivals.destroy');
+    Route::post('local-festivals/upload', [FestivalController::class, 'upload'])->name('local-festivals.upload');
+    Route::post('local-festivals/changeStatus/{id}/{status}', [FestivalController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

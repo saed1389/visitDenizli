@@ -62,6 +62,17 @@
                             <li><a href="{{ route('admin.museum-places.index') }}">Müzeler ve Sanat Galerileri</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#Culture" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Culture">
+                            <span class="mx-2">Kültür ve Sanat </span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="Culture">
+                            <li><a href="{{ route('admin.local-festivals.index') }}">Yerel Festivaller</a></li>
+                            <li><a href="{{ route('admin.natural-places.index') }}">Gelenek ve Görenekler</a></li>
+                            <li><a href="{{ route('admin.museum-places.index') }}">El Sanatları</a></li>
+                            <li><a href="{{ route('admin.museum-places.index') }}">Mutfak Kültürü</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color2)">Web Sitesi Ayarları </h6>
                 <ul class="list-unstyled mb-4 menu-list">
