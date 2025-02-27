@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Tarihi Mekan Ekle @endsection
+@section('title') Visit Denizli - Doğal Güzellik Ekle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     @push('styles')
@@ -21,8 +21,8 @@
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.history-places.index') }}" >Tarihi Mekanlar Listesi</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Tarihi Mekan Ekle</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.natural-places.index') }}" >Doğal Güzellikler Listesi</a></li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Doğal Güzellik Ekle</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -50,17 +50,17 @@
         </ul>
     </div>
     <div class="ps-md-4 pe-md-3 px-2 py-3 page-body">
-        <h3 class="title-font mb-3">Tarihi Mekan Ekle</h3>
+        <h3 class="title-font mb-3">Doğal Güzellik Ekle</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body card-main-one">
-                        <form action="{{ route('admin.history-places.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.natural-places.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="name" class="form-label"><strong>Tarihi Mekan Adı (TR)<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Tarihi Mekan Adı (TR)" value="{{ old('name') }}" required>
+                                    <label for="name" class="form-label"><strong>Doğal Güzellik Adı (TR)<span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Doğal Güzellik Adı (TR)" value="{{ old('name') }}" required>
                                     @error('name')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -68,8 +68,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="name_en" class="form-label"><strong>Tarihi Mekan Adı (EN)</strong></label>
-                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Tarihi Mekan Adı (EN)" value="{{ old('name_en') }}">
+                                    <label for="name_en" class="form-label"><strong>Doğal Güzellik Adı (EN)</strong></label>
+                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Doğal Güzellik Adı (EN)" value="{{ old('name_en') }}">
                                     @error('name_en')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -109,8 +109,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 mt-3">
-                                    <label for="latitude" class="form-label"><strong>Tarihi Mekan Enlem</strong></label>
-                                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Tarihi Mekan Enlem " value="{{ old('latitude') }}" >
+                                    <label for="latitude" class="form-label"><strong>Doğal Güzellik Enlem</strong></label>
+                                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Doğal Güzellik Enlem " value="{{ old('latitude') }}" >
                                     @error('latitude')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -118,8 +118,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 mt-3">
-                                    <label for="longitude" class="form-label"><strong>Tarihi Mekan Boylam</strong></label>
-                                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Tarihi Mekan Boylam " value="{{ old('longitude') }}">
+                                    <label for="longitude" class="form-label"><strong>Doğal Güzellik Boylam</strong></label>
+                                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Doğal Güzellik  Boylam " value="{{ old('longitude') }}">
                                     @error('longitude')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -168,7 +168,7 @@
                                 </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.history-places.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('admin.natural-places.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.history-places.upload') }}", {
+                            fetch("{{ route('admin.natural-places.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

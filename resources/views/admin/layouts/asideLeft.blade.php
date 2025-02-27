@@ -58,8 +58,8 @@
                         </a>
                         <ul class="collapse list-unstyled" id="Places">
                             <li><a href="{{ route('admin.history-places.index') }}">Tarihi Mekanlar</a></li>
-                            <li><a href="{{ route('admin.about.geographical') }}">Doğal Güzellikler</a></li>
-                            <li><a href="{{ route('admin.about.geographical') }}">Müzeler ve Sanat Galerileri</a></li>
+                            <li><a href="{{ route('admin.natural-places.index') }}">Doğal Güzellikler</a></li>
+                            <li><a href="{{ route('admin.museum-places.index') }}">Müzeler ve Sanat Galerileri</a></li>
                         </ul>
                     </li>
                 </ul>

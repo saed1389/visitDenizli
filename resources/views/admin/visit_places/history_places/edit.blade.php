@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Tarihi Mekan Ekle @endsection
+@section('title') Visit Denizli - Tarihi Mekan Güncelle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     @push('styles')
@@ -22,7 +22,7 @@
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.history-places.index') }}" >Tarihi Mekanlar Listesi</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Tarihi Mekan Ekle</li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Tarihi Mekan Güncelle</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -50,7 +50,7 @@
         </ul>
     </div>
     <div class="ps-md-4 pe-md-3 px-2 py-3 page-body">
-        <h3 class="title-font mb-3">Tarihi Mekan Ekle</h3>
+        <h3 class="title-font mb-3">Tarihi Mekan Güncelle</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
@@ -193,7 +193,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.governments.upload') }}", {
+                            fetch("{{ route('admin.history-places.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

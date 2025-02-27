@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\CountyController;
 use App\Http\Controllers\Admin\GovernmentController;
 use App\Http\Controllers\Admin\GovernmentTitleController;
 use App\Http\Controllers\Admin\HistoryPlaceController;
+use App\Http\Controllers\Admin\MuseumPlaceController;
+use App\Http\Controllers\Admin\NaturalPlaceController;
 use App\Http\Controllers\Admin\VisitPlaceController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
@@ -65,8 +67,20 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Visit Places Routes
     Route::resource('history-places', HistoryPlaceController::class)->except(['show', 'destroy']);
     Route::get('history-places/delete/{id}', [HistoryPlaceController::class, 'delete'])->name('history-places.destroy');
-    Route::post('history-places/upload', [HistoryPlaceController::class, 'upload'])->name('upload');
+    Route::post('history-places/upload', [HistoryPlaceController::class, 'upload'])->name('history-places.upload');
     Route::post('history-places/changeStatus/{id}/{status}', [HistoryPlaceController::class, 'changeStatus']);
+
+    // Natural Place Routes
+    Route::resource('natural-places', NaturalPlaceController::class)->except(['show', 'destroy']);
+    Route::get('natural-places/delete/{id}', [NaturalPlaceController::class, 'delete'])->name('natural-places.destroy');
+    Route::post('natural-places/upload', [NaturalPlaceController::class, 'upload'])->name('natural-places.upload');
+    Route::post('natural-places/changeStatus/{id}/{status}', [NaturalPlaceController::class, 'changeStatus']);
+
+    // Museums and Art Galleries Routes
+    Route::resource('museum-places', MuseumPlaceController::class)->except(['show', 'destroy']);
+    Route::get('museum-places/delete/{id}', [MuseumPlaceController::class, 'delete'])->name('museum-places.destroy');
+    Route::post('museum-places/upload', [MuseumPlaceController::class, 'upload'])->name('museum-places.upload');
+    Route::post('museum-places/changeStatus/{id}/{status}', [MuseumPlaceController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
