@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CountyController;
 use App\Http\Controllers\Admin\FestivalController;
 use App\Http\Controllers\Admin\GovernmentController;
 use App\Http\Controllers\Admin\GovernmentTitleController;
+use App\Http\Controllers\Admin\HandicraftController;
 use App\Http\Controllers\Admin\HistoryPlaceController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
@@ -95,6 +96,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('traditions/delete/{id}', [TraditionController::class, 'delete'])->name('traditions.destroy');
     Route::post('traditions/upload', [TraditionController::class, 'upload'])->name('traditions.upload');
     Route::post('traditions/changeStatus/{id}/{status}', [TraditionController::class, 'changeStatus']);
+
+    // Handicrafts Routes
+    Route::resource('handicrafts', HandicraftController::class)->except(['show', 'destroy']);
+    Route::get('handicrafts/delete/{id}', [HandicraftController::class, 'delete'])->name('handicrafts.destroy');
+    Route::post('handicrafts/upload', [HandicraftController::class, 'upload'])->name('handicrafts.upload');
+    Route::post('handicrafts/changeStatus/{id}/{status}', [HandicraftController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

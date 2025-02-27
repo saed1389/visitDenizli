@@ -69,7 +69,7 @@
                         <ul class="collapse list-unstyled" id="Culture">
                             <li><a href="{{ route('admin.local-festivals.index') }}">Yerel Festivaller</a></li>
                             <li><a href="{{ route('admin.traditions.index') }}">Gelenek ve Görenekler</a></li>
-                            <li><a href="{{ route('admin.museum-places.index') }}">El Sanatları</a></li>
+                            <li><a href="{{ route('admin.handicrafts.index') }}">El Sanatları</a></li>
                             <li><a href="{{ route('admin.museum-places.index') }}">Mutfak Kültürü</a></li>
                         </ul>
                     </li>
