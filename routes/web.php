@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\GovernmentTitleController;
 use App\Http\Controllers\Admin\HistoryPlaceController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
+use App\Http\Controllers\Admin\TraditionController;
 use App\Http\Controllers\Admin\VisitPlaceController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
@@ -88,6 +89,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('local-festivals/delete/{id}', [FestivalController::class, 'delete'])->name('local-festivals.destroy');
     Route::post('local-festivals/upload', [FestivalController::class, 'upload'])->name('local-festivals.upload');
     Route::post('local-festivals/changeStatus/{id}/{status}', [FestivalController::class, 'changeStatus']);
+
+    // Customs and Traditions Routes
+    Route::resource('traditions', TraditionController::class)->except(['show', 'destroy']);
+    Route::get('traditions/delete/{id}', [TraditionController::class, 'delete'])->name('traditions.destroy');
+    Route::post('traditions/upload', [TraditionController::class, 'upload'])->name('traditions.upload');
+    Route::post('traditions/changeStatus/{id}/{status}', [TraditionController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
