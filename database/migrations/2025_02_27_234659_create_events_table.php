@@ -27,7 +27,11 @@ return new class extends Migration
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('county_id')->references('id')->on('counties')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

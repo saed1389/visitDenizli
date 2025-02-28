@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class EventController extends Controller
@@ -48,6 +49,7 @@ class EventController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
+            'created_by' => 'nullable|exists:users,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -81,6 +83,7 @@ class EventController extends Controller
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
+            'created_by' => Auth::user()->id,
         ];
 
         Event::create($data);
@@ -123,6 +126,7 @@ class EventController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
+            'updated_by' => 'nullable|exists:users,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -156,6 +160,7 @@ class EventController extends Controller
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
+            'updated_by' => Auth::user()->id,
         ];
 
         Event::where('id', $id)->update($data);

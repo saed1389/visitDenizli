@@ -21,8 +21,12 @@ return new class extends Migration
             $table->string('description_en')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable()->nullable();
             $table->foreign('governmentTitle_id')->references('id')->on('government_titles');
             $table->foreign('county_id')->references('id')->on('counties');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
         });
     }

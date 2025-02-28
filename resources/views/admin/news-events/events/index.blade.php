@@ -60,6 +60,8 @@
                                 <th>Başlangıç Tarihi</th>
                                 <th>Bitiş Tarihi</th>
                                 <th>İlçe</th>
+                                <th>Oluşturan</th>
+                                <th>Oluşturuldu</th>
                                 <th>Onayla</th>
                                 <th>İşlem</th>
                             </tr>
@@ -73,6 +75,8 @@
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
                                     <td>{{ $item->county->name }}</td>
+                                    <td>{{ $item->createdBy->name }}</td>
+                                    <td>{{ $item->created_at->diffForHumans() }}</td>
                                     <td class="text-center">
                                         <div class="form-check form-switch" style="justify-self: center;">
                                             <input class="form-check-input switch-input active" type="checkbox" @checked($item->status == 1) role="switch" value="{{ $item->id }}">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\Festival;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class FestivalController extends Controller
@@ -45,6 +46,7 @@ class FestivalController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
+            'created_by' => 'nullable|exists:users,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -75,6 +77,7 @@ class FestivalController extends Controller
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
+            'created_by' => Auth::user()->id,
         ];
 
         Festival::create($data);
@@ -114,6 +117,7 @@ class FestivalController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
+            'updated_by' => 'nullable|exists:users,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -144,6 +148,7 @@ class FestivalController extends Controller
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
+            'updated_by' => Auth::user()->id,
         ];
 
         Festival::where('id', $id)->update($data);

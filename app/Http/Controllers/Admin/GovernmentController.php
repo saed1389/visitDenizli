@@ -7,6 +7,7 @@ use App\Models\County;
 use App\Models\Government;
 use App\Models\GovernmentTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class GovernmentController extends Controller
@@ -44,6 +45,7 @@ class GovernmentController extends Controller
             'description_en' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
+            'created_by' => 'nullable|exists:users,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -64,6 +66,7 @@ class GovernmentController extends Controller
             'description_en' => $request->description_en,
             'image' => $imageUrl,
             'status' => $request->status,
+            'created_by' => Auth::user()->id,
         ];
 
         Government::create($data);
@@ -97,6 +100,7 @@ class GovernmentController extends Controller
             'description_en' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
+            'updated_by' => 'nullable|exists:users,id',
         ]);
 
         if ($request->hasFile('image')) {
@@ -117,9 +121,11 @@ class GovernmentController extends Controller
             'description_en' => $request->description_en,
             'image' => $imageUrl,
             'status' => $request->status,
+            'updated_by' => Auth::user()->id,
         ];
 
         Government::where('id', $id)->update($data);
+
         toastr()->success('Yerel Yönetim Başarıyla Güncellendi.');
         return redirect()->route('admin.government.index');
     }
