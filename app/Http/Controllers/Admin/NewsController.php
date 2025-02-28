@@ -4,19 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\County;
-use App\Models\Festival;
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class FestivalController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $festivals = Festival::orderBy('county_id', 'asc')->get();
-        return view('admin.culture.festivals.index', compact('festivals'));
+        $news = News::orderBy('created_at', 'asc')->get();
+        return view('admin.news-events.news.index', compact('news'));
     }
 
     /**
@@ -25,7 +26,7 @@ class FestivalController extends Controller
     public function create()
     {
         $counties = County::where('status', 1)->get();
-        return view('admin.culture.festivals.create', compact('counties'));
+        return view('admin.news-events.news.create', compact('counties'));
     }
 
     /**
@@ -36,29 +37,28 @@ class FestivalController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:festivals,slug',
+            'slug' => 'unique:news,slug',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'created_by' => 'nullable|exists:users,id',
             'status' => 'required',
         ]);
 
         if ($request->hasFile('image')) {
             $imageName = Str::slug($request->input('name')) . '-' . time() . '.' . $request->image->extension();
-            $request->file('image')->move('uploads/culture/', $imageName);
-            $imageUrl = 'uploads/culture/' . $imageName;
+            $request->file('image')->move('uploads/news/', $imageName);
+            $imageUrl = 'uploads/news/' . $imageName;
         } else {
             $imageUrl = '';
         }
 
         if ($request->hasFile('banner_image')) {
             $bannerName = Str::slug($request->input('name')) . '-banner-' . time() . '.' . $request->banner_image->extension();
-            $request->file('banner_image')->move('uploads/culture/', $bannerName);
-            $bannerUrl = 'uploads/culture/' . $bannerName;
+            $request->file('banner_image')->move('uploads/news/', $bannerName);
+            $bannerUrl = 'uploads/news/' . $bannerName;
         } else {
             $bannerUrl = '';
         }
@@ -70,18 +70,17 @@ class FestivalController extends Controller
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
+            'created_by' => Auth::user()->id,
         ];
 
-        Festival::create($data);
+        News::create($data);
 
-        toastr()->success('Yerel Festival Başarıyla Eklendi.');
+        toastr()->success('Haber Başarıyla Eklendi.');
 
-        return redirect()->route('admin.local-festivals.index');
+        return redirect()->route('admin.news.index');
     }
 
     /**
@@ -90,9 +89,9 @@ class FestivalController extends Controller
     public function edit(string $id)
     {
         $counties = County::where('status', 1)->get();
-        $festival = Festival::where('id', $id)->first();
+        $news = News::where('id', $id)->first();
 
-        return view('admin.culture.festivals.edit', compact('counties', 'festival'));
+        return view('admin.news-events.news.edit', compact('counties', 'news'));
     }
 
     /**
@@ -100,36 +99,35 @@ class FestivalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $festival = Festival::where('id', $id)->first();
+        $news = News::where('id', $id)->first();
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:festivals,slug,' . $festival->id,
+            'slug' => 'unique:news,slug,' . $news->id,
             'name_en' => 'nullable',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
+            'updated_by' => 'nullable|exists:users,id',
         ]);
 
         if ($request->hasFile('image')) {
             $imageName = Str::slug($request->input('name')) . '-' . time() . '.' . $request->image->extension();
-            $request->file('image')->move('uploads/culture/', $imageName);
-            $imageUrl = 'uploads/culture/' . $imageName;
+            $request->file('image')->move('uploads/news/', $imageName);
+            $imageUrl = 'uploads/news/' . $imageName;
         } else {
-            $imageUrl = $festival->image;
+            $imageUrl = $news->image;
         }
 
         if ($request->hasFile('banner_image')) {
             $bannerName = Str::slug($request->input('name')) . '-banner-' . time() . '.' . $request->banner_image->extension();
-            $request->file('banner_image')->move('uploads/culture/', $bannerName);
-            $bannerUrl = 'uploads/culture/' . $bannerName;
+            $request->file('banner_image')->move('uploads/news/', $bannerName);
+            $bannerUrl = 'uploads/news/' . $bannerName;
         } else {
-            $bannerUrl = $festival->banner_image;
+            $bannerUrl = $news->banner_image;
         }
 
         $data = [
@@ -139,18 +137,17 @@ class FestivalController extends Controller
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
+            'updated_by' => Auth::user()->id,
         ];
 
-        Festival::where('id', $id)->update($data);
+        News::where('id', $id)->update($data);
 
-        toastr()->success('Yerel Festival Başarıyla Güncellendi.');
+        toastr()->success('Haber Başarıyla Güncellendi.');
 
-        return redirect()->route('admin.local-festivals.index');
+        return redirect()->route('admin.news.index');
     }
 
     /**
@@ -158,14 +155,14 @@ class FestivalController extends Controller
      */
     public function delete(string $id)
     {
-        $history = Festival::where('id', $id)->first();
-        @unlink($history->image);
-        @unlink($history->banner_image);
-        $history->delete();
+        $news = News::where('id', $id)->first();
+        @unlink($news->image);
+        @unlink($news->banner_image);
+        $news->delete();
 
-        toastr()->success('Yerel Festival Başarıyla Silindi.');
+        toastr()->success('Haber Başarıyla Silindi.');
 
-        return redirect()->route('admin.local-festivals.index');
+        return redirect()->route('admin.news.index');
     }
 
     public function upload(Request $request)
@@ -173,9 +170,9 @@ class FestivalController extends Controller
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/culture/'), $fileName);
+            $file->move(public_path('uploads/news/'), $fileName);
 
-            $url = asset('uploads/culture/' . $fileName);
+            $url = asset('uploads/news/' . $fileName);
 
             return response()->json([
                 'uploaded' => true,
@@ -188,6 +185,6 @@ class FestivalController extends Controller
 
     public function changeStatus($id, $status)
     {
-        Festival::where('id', $id)->update(['status' => $status]);
+        News::where('id', $id)->update(['status' => $status]);
     }
 }

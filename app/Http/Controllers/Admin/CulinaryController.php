@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\County;
-use App\Models\Festival;
+use App\Models\Culinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class FestivalController extends Controller
+class CulinaryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $festivals = Festival::orderBy('county_id', 'asc')->get();
-        return view('admin.culture.festivals.index', compact('festivals'));
+        $culinary = Culinary::orderBy('name', 'asc')->get();
+        return view('admin.culture.culinary.index', compact('culinary'));
     }
 
     /**
@@ -24,8 +23,7 @@ class FestivalController extends Controller
      */
     public function create()
     {
-        $counties = County::where('status', 1)->get();
-        return view('admin.culture.festivals.create', compact('counties'));
+        return view('admin.culture.culinary.create');
     }
 
     /**
@@ -36,12 +34,9 @@ class FestivalController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:festivals,slug',
-            'county_id' => 'required|exists:counties,id',
+            'slug' => 'unique:culinaries,slug',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
@@ -64,24 +59,21 @@ class FestivalController extends Controller
         }
 
         $data = [
-            'county_id' => $request->input('county_id'),
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
         ];
 
-        Festival::create($data);
+        Culinary::create($data);
 
-        toastr()->success('Yerel Festival Başarıyla Eklendi.');
+        toastr()->success('Mutfak Kültürü Başarıyla Eklendi.');
 
-        return redirect()->route('admin.local-festivals.index');
+        return redirect()->route('admin.culinary.index');
     }
 
     /**
@@ -89,10 +81,9 @@ class FestivalController extends Controller
      */
     public function edit(string $id)
     {
-        $counties = County::where('status', 1)->get();
-        $festival = Festival::where('id', $id)->first();
+        $culinary = Culinary::where('id', $id)->first();
 
-        return view('admin.culture.festivals.edit', compact('counties', 'festival'));
+        return view('admin.culture.culinary.edit', compact('culinary'));
     }
 
     /**
@@ -100,17 +91,14 @@ class FestivalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $festival = Festival::where('id', $id)->first();
+        $culinary = Culinary::where('id', $id)->first();
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:festivals,slug,' . $festival->id,
+            'slug' => 'unique:culinaries,slug,' . $culinary->id,
             'name_en' => 'nullable',
-            'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
@@ -121,7 +109,7 @@ class FestivalController extends Controller
             $request->file('image')->move('uploads/culture/', $imageName);
             $imageUrl = 'uploads/culture/' . $imageName;
         } else {
-            $imageUrl = $festival->image;
+            $imageUrl = $culinary->image;
         }
 
         if ($request->hasFile('banner_image')) {
@@ -129,28 +117,25 @@ class FestivalController extends Controller
             $request->file('banner_image')->move('uploads/culture/', $bannerName);
             $bannerUrl = 'uploads/culture/' . $bannerName;
         } else {
-            $bannerUrl = $festival->banner_image;
+            $bannerUrl = $culinary->banner_image;
         }
 
         $data = [
-            'county_id' => $request->input('county_id'),
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
         ];
 
-        Festival::where('id', $id)->update($data);
+        Culinary::where('id', $id)->update($data);
 
-        toastr()->success('Yerel Festival Başarıyla Güncellendi.');
+        toastr()->success('Mutfak Kültürü Başarıyla Güncellendi.');
 
-        return redirect()->route('admin.local-festivals.index');
+        return redirect()->route('admin.culinary.index');
     }
 
     /**
@@ -158,14 +143,14 @@ class FestivalController extends Controller
      */
     public function delete(string $id)
     {
-        $history = Festival::where('id', $id)->first();
-        @unlink($history->image);
-        @unlink($history->banner_image);
-        $history->delete();
+        $culinary = Culinary::where('id', $id)->first();
+        @unlink($culinary->image);
+        @unlink($culinary->banner_image);
+        $culinary->delete();
 
-        toastr()->success('Yerel Festival Başarıyla Silindi.');
+        toastr()->success('Mutfak Kültürü Başarıyla Silindi.');
 
-        return redirect()->route('admin.local-festivals.index');
+        return redirect()->route('admin.culinary.index');
     }
 
     public function upload(Request $request)
@@ -188,6 +173,6 @@ class FestivalController extends Controller
 
     public function changeStatus($id, $status)
     {
-        Festival::where('id', $id)->update(['status' => $status]);
+        Culinary::where('id', $id)->update(['status' => $status]);
     }
 }

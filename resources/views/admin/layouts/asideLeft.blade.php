@@ -30,7 +30,6 @@
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color1)">Web Sitesi</h6>
                 <ul class="list-unstyled mb-4 menu-list">
-                    <li><a href=""><span class="mx-2">Yerel Yönetim</span></a></li>
                     <li>
                         <a href="#About" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="About">
                             <span class="mx-2">Hakkımızda </span>
@@ -70,14 +69,33 @@
                             <li><a href="{{ route('admin.local-festivals.index') }}">Yerel Festivaller</a></li>
                             <li><a href="{{ route('admin.traditions.index') }}">Gelenek ve Görenekler</a></li>
                             <li><a href="{{ route('admin.handicrafts.index') }}">El Sanatları</a></li>
-                            <li><a href="{{ route('admin.museum-places.index') }}">Mutfak Kültürü</a></li>
+                            <li><a href="{{ route('admin.culinary.index') }}">Mutfak Kültürü</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#News" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="News">
+                            <span class="mx-2">Etkinlikler ve <br> Haberler </span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="News">
+                            <li><a href="{{ route('admin.events.index') }}"> Etkinlikler</a></li>
+                            <li><a href="{{ route('admin.news.index') }}"> Haberler</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#Tourism" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Tourism">
+                            <span class="mx-2">Turizm </span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="Tourism">
+                            <li><a href="{{ route('admin.events.index') }}"> Konaklama Rehberi </a></li>
+                            <li><a href="{{ route('admin.news.index') }}"> Ulaşım Bilgileri </a></li>
+                            <li><a href="{{ route('admin.news.index') }}"> Turizm Ofisleri </a></li>
                         </ul>
                     </li>
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color2)">Web Sitesi Ayarları </h6>
                 <ul class="list-unstyled mb-4 menu-list">
-                    <li><a href="{{ route('admin.counties.index') }}"><span class="mx-2">İlçeler</span></a></li>
-                    <li><a href="{{ route('admin.categories.index') }}"><span class="mx-2">Kategoriler</span></a></li>
+                    <li><a href="{{ route('admin.counties.index') }}"><span class="mx-2">İlçeler Listesi</span></a></li>
+                    <li><a href="{{ route('admin.categories.index') }}"><span class="mx-2">Kategoriler Listesi</span></a></li>
                     <li>
                         <a href="#Ayarlar" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Ayarlar">
                             <span class="mx-2">Ayarlar</span>

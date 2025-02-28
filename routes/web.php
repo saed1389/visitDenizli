@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountyController;
+use App\Http\Controllers\Admin\CulinaryController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\FestivalController;
 use App\Http\Controllers\Admin\GovernmentController;
 use App\Http\Controllers\Admin\GovernmentTitleController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\Admin\HandicraftController;
 use App\Http\Controllers\Admin\HistoryPlaceController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TraditionController;
 use App\Http\Controllers\Admin\VisitPlaceController;
 use App\Http\Controllers\Agent\AgentController;
@@ -102,6 +105,24 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('handicrafts/delete/{id}', [HandicraftController::class, 'delete'])->name('handicrafts.destroy');
     Route::post('handicrafts/upload', [HandicraftController::class, 'upload'])->name('handicrafts.upload');
     Route::post('handicrafts/changeStatus/{id}/{status}', [HandicraftController::class, 'changeStatus']);
+
+    // Culinary Routes
+    Route::resource('culinary', CulinaryController::class)->except(['show', 'destroy']);
+    Route::get('culinary/delete/{id}', [CulinaryController::class, 'delete'])->name('culinary.destroy');
+    Route::post('culinary/upload', [CulinaryController::class, 'upload'])->name('culinary.upload');
+    Route::post('culinary/changeStatus/{id}/{status}', [CulinaryController::class, 'changeStatus']);
+
+    // Events Routes
+    Route::resource('events', EventController::class)->except(['show', 'destroy']);
+    Route::get('events/delete/{id}', [EventController::class, 'delete'])->name('events.destroy');
+    Route::post('events/upload', [EventController::class, 'upload'])->name('events.upload');
+    Route::post('events/changeStatus/{id}/{status}', [EventController::class, 'changeStatus']);
+
+    // News Routes
+    Route::resource('news', NewsController::class)->except(['show', 'destroy']);
+    Route::get('news/delete/{id}', [NewsController::class, 'delete'])->name('news.destroy');
+    Route::post('news/upload', [NewsController::class, 'upload'])->name('news.upload');
+    Route::post('news/changeStatus/{id}/{status}', [NewsController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
