@@ -86,7 +86,7 @@
                             <span class="mx-2">Turizm </span>
                         </a>
                         <ul class="collapse list-unstyled" id="Tourism">
-                            <li><a href="{{ route('admin.events.index') }}"> Konaklama Rehberi </a></li>
+                            <li><a href="{{ route('admin.housing.index') }}"> Konaklama Rehberi </a></li>
                             <li><a href="{{ route('admin.news.index') }}"> Ulaşım Bilgileri </a></li>
                             <li><a href="{{ route('admin.news.index') }}"> Turizm Ofisleri </a></li>
                         </ul>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\GovernmentController;
 use App\Http\Controllers\Admin\GovernmentTitleController;
 use App\Http\Controllers\Admin\HandicraftController;
 use App\Http\Controllers\Admin\HistoryPlaceController;
+use App\Http\Controllers\Admin\HousingController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
 use App\Http\Controllers\Admin\NewsController;
@@ -123,6 +124,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('news/delete/{id}', [NewsController::class, 'delete'])->name('news.destroy');
     Route::post('news/upload', [NewsController::class, 'upload'])->name('news.upload');
     Route::post('news/changeStatus/{id}/{status}', [NewsController::class, 'changeStatus']);
+
+    // Housing Routes
+    Route::resource('housing', HousingController::class)->except(['show', 'destroy']);
+    Route::get('housing/delete/{id}', [HousingController::class, 'delete'])->name('housing.destroy');
+    Route::post('housing/upload', [HousingController::class, 'upload'])->name('housing.upload');
+    Route::post('housing/changeStatus/{id}/{status}', [HousingController::class, 'changeStatus']);
+    Route::post('housing/delete-image', [HousingController::class, 'deleteImage'])->name('housing.delete-image');
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
