@@ -97,7 +97,7 @@
                         </a>
                         <ul class="collapse list-unstyled" id="Economy">
                             <li><a href="{{ route('admin.industries.index') }}"> Yerel Ekonomi ve Sektörler </a></li>
-                            <li><a href="{{ route('admin.news.index') }}"> Yatırım Fırsatları</a></li>
+                            <li><a href="{{ route('admin.investment.index') }}"> Yatırım Fırsatları</a></li>
                             <li><a href="{{ route('admin.tourism-office.index') }}"> Sanayi ve Ticaret Bilgileri </a></li>
                         </ul>
                     </li>

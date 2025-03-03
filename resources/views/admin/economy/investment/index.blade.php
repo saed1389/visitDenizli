@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Yerel Ekonomi ve Sektörler @endsection
+@section('title') Visit Denizli - Yatırım Fırsatları @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     <div class="px-md-4 px-2 py-2 page-header" data-bs-theme="none">
@@ -14,7 +14,7 @@
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Yerel Ekonomi ve Sektörler</li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Yatırım Fırsatları</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -45,9 +45,9 @@
             <div class="col-md-12">
                 <div class="card mb-3">
                     <div class="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
-                        <h4 class="card-title m-0">Yerel Ekonomi ve Sektörler</h4>
+                        <h4 class="card-title m-0">Yatırım Fırsatları</h4>
                         <div class="form-check form-switch table-toggle-three">
-                            <a href="{{ route('admin.industries.create') }}" class="btn btn-secondary" >Yerel Ekonomi ve Sektör Ekle</a>
+                            <a href="{{ route('admin.investment.create') }}" class="btn btn-secondary" >Yatırım Fırsat Ekle</a>
                         </div>
                     </div>
                     <div class="card-body table-main-three">
@@ -56,13 +56,13 @@
                             <tr class="text-center" style="vertical-align: middle;">
                                 <th>#</th>
                                 <th>Resim</th>
-                                <th>Sektör adı</th>
+                                <th>Fırsat adı</th>
                                 <th>Durum</th>
                                 <th>İşlem</th>
                             </tr>
                             </thead>
                             <tbody class="text-center" style="vertical-align: middle;">
-                            @foreach($industries as $item)
+                            @foreach($investments as $item)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px;"></td>
@@ -73,8 +73,8 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.industries.edit', $item->id) }}" class="btn btn-info btn-sm mt-1"><i class="fa fa-edit"></i></a>
-                                        <button type="button" href="{{ route('admin.industries.destroy', $item->id) }}" class="btn btn-danger btn-sm mt-1" id="delete"><i class="fa fa-trash"></i></button>
+                                        <a href="{{ route('admin.investment.edit', $item->id) }}" class="btn btn-info btn-sm mt-1"><i class="fa fa-edit"></i></a>
+                                        <button type="button" href="{{ route('admin.investment.destroy', $item->id) }}" class="btn btn-danger btn-sm mt-1" id="delete"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -105,7 +105,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "/admin/industries/changeStatus/" + check_id + "/" + check_active,
+                    url: "/admin/investment/changeStatus/" + check_id + "/" + check_active,
                     data: { id: check_id, active: check_active },
                     success: function(response){
                         toastr.success("Durumu başarıyla değiştirildi!");

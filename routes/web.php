@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\HandicraftController;
 use App\Http\Controllers\Admin\HistoryPlaceController;
 use App\Http\Controllers\Admin\HousingController;
 use App\Http\Controllers\Admin\IndustriesController;
+use App\Http\Controllers\Admin\InvestmentController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
 use App\Http\Controllers\Admin\NewsController;
@@ -144,6 +145,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('industries/delete/{id}', [IndustriesController::class, 'delete'])->name('industries.destroy');
     Route::post('industries/upload', [IndustriesController::class, 'upload'])->name('industries.upload');
     Route::post('industries/changeStatus/{id}/{status}', [IndustriesController::class, 'changeStatus']);
+
+    // Investment Opportunities Routes
+    Route::resource('investment', InvestmentController::class)->except(['show', 'destroy']);
+    Route::get('investment/delete/{id}', [InvestmentController::class, 'delete'])->name('investment.destroy');
+    Route::post('investment/upload', [InvestmentController::class, 'upload'])->name('investment.upload');
+    Route::post('investment/changeStatus/{id}/{status}', [InvestmentController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
