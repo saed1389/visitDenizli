@@ -91,6 +91,26 @@
                             <li><a href="{{ route('admin.tourism-office.index') }}"> Turizm Ofisleri </a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#Economy" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Economy">
+                            <span class="mx-2">İş ve Ekonomi </span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="Economy">
+                            <li><a href="{{ route('admin.industries.index') }}"> Yerel Ekonomi ve Sektörler </a></li>
+                            <li><a href="{{ route('admin.news.index') }}"> Yatırım Fırsatları</a></li>
+                            <li><a href="{{ route('admin.tourism-office.index') }}"> Sanayi ve Ticaret Bilgileri </a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#Photo" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Photo">
+                            <span class="mx-2">Fotoğraf ve <br> Video Galeri</span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="Photo">
+                            <li><a href="{{ route('admin.housing.index') }}"> Profesyonel çekimler </a></li>
+                            <li><a href="{{ route('admin.news.index') }}"> İlin farklı mevsimlerdeki görüntüleri</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color2)">Web Sitesi Ayarları </h6>
                 <ul class="list-unstyled mb-4 menu-list">
