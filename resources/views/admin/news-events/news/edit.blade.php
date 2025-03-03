@@ -220,10 +220,7 @@
                     .catch(error => {
                         console.error(error);
                     });
-            });
-        </script>
-        <script>
-            $(document).ready(function(e){
+
                 $('#image').change(function (e) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
