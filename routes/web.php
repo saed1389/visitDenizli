@@ -15,8 +15,8 @@ use App\Http\Controllers\Admin\HousingController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\TourismOfficeController;
 use App\Http\Controllers\Admin\TraditionController;
-use App\Http\Controllers\Admin\VisitPlaceController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -131,6 +131,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('housing/upload', [HousingController::class, 'upload'])->name('housing.upload');
     Route::post('housing/changeStatus/{id}/{status}', [HousingController::class, 'changeStatus']);
     Route::post('housing/delete-image', [HousingController::class, 'deleteImage'])->name('housing.delete-image');
+
+    // Tourism Offices Routes
+    Route::resource('tourism-office', TourismOfficeController::class)->except(['show', 'destroy']);
+    Route::get('tourism-office/delete/{id}', [TourismOfficeController::class, 'delete'])->name('tourism-office.destroy');
+    Route::post('tourism-office/upload', [TourismOfficeController::class, 'upload'])->name('tourism-office.upload');
+    Route::post('tourism-office/changeStatus/{id}/{status}', [TourismOfficeController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

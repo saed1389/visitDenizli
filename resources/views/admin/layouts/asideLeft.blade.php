@@ -87,8 +87,8 @@
                         </a>
                         <ul class="collapse list-unstyled" id="Tourism">
                             <li><a href="{{ route('admin.housing.index') }}"> Konaklama Rehberi </a></li>
-                            <li><a href="{{ route('admin.news.index') }}"> Ulaşım Bilgileri </a></li>
-                            <li><a href="{{ route('admin.news.index') }}"> Turizm Ofisleri </a></li>
+                            {{--<li><a href="{{ route('admin.news.index') }}"> Ulaşım Bilgileri </a></li>--}}
+                            <li><a href="{{ route('admin.tourism-office.index') }}"> Turizm Ofisleri </a></li>
                         </ul>
                     </li>
                 </ul>

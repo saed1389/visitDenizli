@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Haber Ekle @endsection
+@section('title') Visit Denizli - Turizm Ofisi Ekle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     @push('styles')
@@ -21,8 +21,8 @@
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.news.index') }}" >Haberler Listesi</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Haber Ekle</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.tourism-office.index') }}" >Turizm Ofisleri Listesi</a></li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Turizm Ofisi Ekle</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -50,27 +50,18 @@
         </ul>
     </div>
     <div class="ps-md-4 pe-md-3 px-2 py-3 page-body">
-        <h3 class="title-font mb-3">Haber Ekle</h3>
+        <h3 class="title-font mb-3">Turizm Ofisi Ekle</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body card-main-one">
-                        <form action="{{ route('admin.news.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.tourism-office.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="name" class="form-label"><strong>Haber Adı (TR)<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Haber Adı (TR)" value="{{ old('name') }}" required>
+                                    <label for="name" class="form-label"><strong>Ofis Adı<span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Ofis Adı" value="{{ old('name') }}" required>
                                     @error('name')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4">
-                                    <label for="name_en" class="form-label"><strong>Haber Adı (EN)</strong></label>
-                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Haber Adı (EN)" value="{{ old('name_en') }}">
-                                    @error('name_en')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
@@ -85,6 +76,20 @@
                                         @endforeach
                                     </select>
                                     @error('county_id')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="address" class="form-label"><strong>Ofis Adresi<span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Ofis Adresi" value="{{ old('address') }}" required>
+                                    @error('address')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                    @error('slug')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
@@ -108,6 +113,43 @@
                                     </span>
                                     @enderror
                                 </div>
+                                <div class="col-sm-6 mt-3">
+                                    <label for="phone" class="form-label"><strong>Ofis Telefonu</strong></label>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Ofis Telefonu" value="{{ old('phone') }}">
+                                    @error('phone')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-6 mt-3">
+                                    <label for="email" class="form-label"><strong>Ofis E-postası</strong></label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Ofis E-postası" value="{{ old('email') }}">
+                                    @error('email')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-sm-6 mt-3">
+                                    <label for="website" class="form-label"><strong>Ofis Web sitesi</strong></label>
+                                    <input type="text" class="form-control" id="website" name="website" placeholder="KonOfisaklama Web sitesi" value="{{ old('website') }}">
+                                    @error('website')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-6 mt-3">
+                                    <label for="facebook" class="form-label"><strong>Ofis Facebook</strong></label>
+                                    <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Ofis Facebook" value="{{ old('facebook') }}">
+                                    @error('facebook')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
                                 <div class="col-sm-4 mt-3">
                                     <label for="image" class="form-label"><strong>Resim</strong></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
@@ -119,19 +161,6 @@
                                 </div>
                                 <div class="col-sm-2 mt-3">
                                     <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
-                                </div>
-
-                                <div class="col-sm-4 mt-3">
-                                    <label for="banner_image" class="form-label"><strong>Banner Resmi</strong></label>
-                                    <input type="file" class="form-control" id="banner_image" name="banner_image" placeholder="" value="{{ old('banner_image') }}">
-                                    @error('banner_image')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-2 mt-3">
-                                    <img src="{{ asset('panel/assets/images/def.png') }}" id="showBannerImage" class="img-thumbnail" alt="" >
                                 </div>
 
                                 <div class="col-sm-3 mt-3">
@@ -150,7 +179,7 @@
                                 </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.news.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('admin.housing.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -174,7 +203,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.news.upload') }}", {
+                            fetch("{{ route('admin.housing.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -220,22 +249,13 @@
                         console.error(error);
                     });
             });
-        </script>
-        <script>
-            $(document).ready(function(e){
+            $(document).ready(function () {
                 $('#image').change(function (e) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         $('#showImage').attr('src', e.target.result);
                     }
-                    reader.readAsDataURL(e.target.files['0']);
-                });
-                $('#banner_image').change(function (e) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#showBannerImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(e.target.files['0']);
+                    reader.readAsDataURL(e.target.files[0]);
                 });
             });
         </script>
