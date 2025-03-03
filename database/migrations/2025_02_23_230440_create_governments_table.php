@@ -23,6 +23,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable()->nullable();
+            $table->string('hit')->default(0);
             $table->foreign('governmentTitle_id')->references('id')->on('government_titles');
             $table->foreign('county_id')->references('id')->on('counties');
             $table->foreign('created_by')->references('id')->on('users');

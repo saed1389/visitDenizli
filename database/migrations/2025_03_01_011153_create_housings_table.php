@@ -29,6 +29,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
+            $table->string('hit')->default(0);
             $table->foreign('county_id')->references('id')->on('counties')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

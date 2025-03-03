@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->string('hit')->default(0);
             $table->foreign('county_id')->references('id')->on('counties')->onDelete('cascade');
             $table->timestamps();
         });
