@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\Admin\TourismOfficeController;
 use App\Http\Controllers\Admin\TraditionController;
+use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -156,7 +157,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Professional shots Routes
     Route::resource('photo', PhotoController::class)->except(['show', 'destroy', 'create']);
     Route::get('photo/delete/{id}', [PhotoController::class, 'delete'])->name('photo.destroy');
-    Route::post('photo/changeStatus/{id}/{status}', [PhotoController::class, 'changeStatus']);
+
+    // Video Gallery Routes
+    Route::resource('video', VideoController::class)->except(['show', 'destroy', 'create']);
+    Route::get('video/delete/{id}', [VideoController::class, 'delete'])->name('video.destroy');
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

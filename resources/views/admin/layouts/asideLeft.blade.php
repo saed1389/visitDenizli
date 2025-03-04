@@ -106,8 +106,8 @@
                             <span class="mx-2">Fotoğraf ve <br> Video Galeri</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Photo">
-                            <li><a href="{{ route('admin.photo.index') }}"> Profesyonel çekimler </a></li>
-                            <li><a href="{{ route('admin.photo.index') }}"> İlin farklı mevsimlerdeki görüntüleri</a></li>
+                            <li><a href="{{ route('admin.video.index') }}"> Video Galerisi </a></li>
+                            <li><a href="{{ route('admin.photo.index') }}"> Fotoğraf Galerisi</a></li>
                         </ul>
                     </li>
                 </ul>

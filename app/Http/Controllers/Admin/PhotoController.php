@@ -114,9 +114,4 @@ class PhotoController extends Controller
         toastr()->success('Resim Başarıyla Silindi.');
         return redirect()->route('admin.photo.index');
     }
-
-    public function changeStatus($id, $status)
-    {
-        Photo::where('id', $id)->update(['status' => $status]);
-    }
 }
