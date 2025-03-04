@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\InvestmentController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\Admin\TourismOfficeController;
 use App\Http\Controllers\Admin\TraditionController;
 use App\Http\Controllers\Agent\AgentController;
@@ -151,6 +152,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('investment/delete/{id}', [InvestmentController::class, 'delete'])->name('investment.destroy');
     Route::post('investment/upload', [InvestmentController::class, 'upload'])->name('investment.upload');
     Route::post('investment/changeStatus/{id}/{status}', [InvestmentController::class, 'changeStatus']);
+
+    // Professional shots Routes
+    Route::resource('photo', PhotoController::class)->except(['show', 'destroy', 'create']);
+    Route::get('photo/delete/{id}', [PhotoController::class, 'delete'])->name('photo.destroy');
+    Route::post('photo/changeStatus/{id}/{status}', [PhotoController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

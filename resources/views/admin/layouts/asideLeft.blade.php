@@ -98,7 +98,6 @@
                         <ul class="collapse list-unstyled" id="Economy">
                             <li><a href="{{ route('admin.industries.index') }}"> Yerel Ekonomi ve Sektörler </a></li>
                             <li><a href="{{ route('admin.investment.index') }}"> Yatırım Fırsatları</a></li>
-                            <li><a href="{{ route('admin.tourism-office.index') }}"> Sanayi ve Ticaret Bilgileri </a></li>
                         </ul>
                     </li>
 
@@ -107,8 +106,8 @@
                             <span class="mx-2">Fotoğraf ve <br> Video Galeri</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Photo">
-                            <li><a href="{{ route('admin.housing.index') }}"> Profesyonel çekimler </a></li>
-                            <li><a href="{{ route('admin.news.index') }}"> İlin farklı mevsimlerdeki görüntüleri</a></li>
+                            <li><a href="{{ route('admin.photo.index') }}"> Profesyonel çekimler </a></li>
+                            <li><a href="{{ route('admin.photo.index') }}"> İlin farklı mevsimlerdeki görüntüleri</a></li>
                         </ul>
                     </li>
                 </ul>
