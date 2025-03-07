@@ -51,47 +51,7 @@
                         </div>
                     </div>
                     <div class="card-body table-main-three">
-                        <table class="myDataTable table table-hover table-bordered align-middle mb-0" style="width:100%">
-                            <thead class="table-info">
-                            <tr class="text-center" style="vertical-align: middle;">
-                                <th>#</th>
-                                <th>Resim</th>
-                                <th>Konaklama adı</th>
-                                <th>İlçe</th>
-                                <th>Oluşturan</th>
-                                <th>Oluşturuldu</th>
-                                <th>Onayla</th>
-                                <th>İşlem</th>
-                            </tr>
-                            </thead>
-                            <tbody class="text-center" style="vertical-align: middle;">
-                            @foreach($housings as $item)
-                                <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
-                                    <td>
-                                        @php
-                                            $images = json_decode($item->images, true);
-                                            $firstImage = $images[0];
-                                        @endphp
-                                        <img src="{{ asset($firstImage) }}" alt="" style="width: 70px;">
-                                    </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->county->name }}</td>
-                                    <td>{{ $item->createdBy->name }}</td>
-                                    <td>{{ $item->created_at->diffForHumans() }}</td>
-                                    <td class="text-center">
-                                        <div class="form-check form-switch" style="justify-self: center;">
-                                            <input class="form-check-input switch-input active" type="checkbox" @checked($item->status == 1) role="switch" value="{{ $item->id }}">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.housing.edit', $item->id) }}" class="btn btn-info btn-sm mt-1"><i class="fa fa-edit"></i></a>
-                                        <button type="button" href="{{ route('admin.housing.destroy', $item->id) }}" class="btn btn-danger btn-sm mt-1" id="delete"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        {{ $dataTable->table() }}
                     </div>
                 </div>
             </div>
@@ -103,6 +63,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 @endpush
 @push('scripts')
+    {{ $dataTable->scripts(attributes:['type' => 'module']) }}
     <script src="{{ asset('panel/assets/js/code.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
@@ -110,7 +71,7 @@
             $(document).on('change', '.switch-input.active', function() {
 
                 var check_active = $(this).is(':checked') ? 1 : 0;
-                var check_id = $(this).val();
+                var check_id = $(this).data('id');
 
                 $.ajax({
                     type: "POST",

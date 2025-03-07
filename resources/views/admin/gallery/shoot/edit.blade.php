@@ -57,31 +57,7 @@
                         <h4 class="card-title m-0">Fotoğraf Galerisi</h4>
                     </div>
                     <div class="card-body table-main-three">
-                        <table class="myDataTable table table-hover table-bordered align-middle mb-0" style="width:100%">
-                            <thead class="table-info">
-                            <tr class="text-center" style="vertical-align: middle;">
-                                <th>#</th>
-                                <th>Resim</th>
-                                <th>Fotoğraf Adı</th>
-                                <th>Fotoğrafçı</th>
-                                <th>İşlem</th>
-                            </tr>
-                            </thead>
-                            <tbody class="text-center" style="vertical-align: middle;">
-                            @foreach($photos as $item)
-                                <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
-                                    <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px;"></td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->shooter }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.photo.edit', $item->id) }}" class="btn btn-info btn-sm mt-1"><i class="fa fa-edit"></i></a>
-                                        <button type="button" href="{{ route('admin.photo.destroy', $item->id) }}" class="btn btn-danger btn-sm mt-1" id="delete"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        {{ $dataTable->table() }}
                     </div>
                 </div>
             </div>
@@ -154,10 +130,9 @@
     </div>
 @endsection
 @push('scripts')
+    {{ $dataTable->scripts(attributes:['type' => 'module']) }}
     <script src="{{ asset('panel/assets/js/code.js') }}"></script>
     <script>
-
-        // Image Preview
         $(document).ready(function () {
             $('#image').change(function (e) {
                 var reader = new FileReader();

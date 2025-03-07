@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\NewsDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\News;
@@ -14,10 +15,9 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(NewsDataTable $dataTable)
     {
-        $news = News::orderBy('created_at', 'asc')->get();
-        return view('admin.news-events.news.index', compact('news'));
+        return $dataTable->render('admin.news-events.news.index');
     }
 
     /**

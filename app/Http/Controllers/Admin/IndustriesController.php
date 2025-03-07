@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\IndustriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Industries;
 use Illuminate\Http\Request;
@@ -12,10 +13,9 @@ class IndustriesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(IndustriesDataTable $dataTable)
     {
-        $industries = Industries::orderBy('created_at', 'asc')->get();
-        return view('admin.economy.industries.index', compact('industries'));
+        return $dataTable->render('admin.economy.industries.index');
     }
 
     /**

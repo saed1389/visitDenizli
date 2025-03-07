@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\TourismOfficeDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\TourismOffice;
@@ -14,10 +15,9 @@ class TourismOfficeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(TourismOfficeDataTable $dataTable)
     {
-        $offices = TourismOffice::orderBy('created_at', 'asc')->get();
-        return view('admin.tourism.offices.index', compact('offices'));
+        return $dataTable->render('admin.tourism.offices.index');
     }
 
     /**

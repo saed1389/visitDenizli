@@ -60,8 +60,8 @@
                             @method('PUT')
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="name" class="form-label"><strong>Haber Adı (TR)<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Haber Adı (TR)" value="{{ $news->name }}" required>
+                                    <label for="name" class="form-label"><strong>Haber Başlığı (TR)<span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Haber Başlığı (TR)" value="{{ $news->name }}" required>
                                     @error('name')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -69,8 +69,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="name_en" class="form-label"><strong>Haber Adı (EN)</strong></label>
-                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Haber Adı (EN)" value="{{ $news->name_en }}">
+                                    <label for="name_en" class="form-label"><strong>Haber Başlığı (EN)</strong></label>
+                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Haber Başlığı (EN)" value="{{ $news->name_en }}">
                                     @error('name_en')
                                     <span class="text-danger">
                                         {{ $message }}

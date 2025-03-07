@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\GovernmentDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\Government;
@@ -15,10 +16,9 @@ class GovernmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(GovernmentDataTable $dataTable)
     {
-        $governments = Government::orderBy('governmentTitle_id', 'asc')->get();
-        return view('admin.government.index', compact('governments'));
+        return $dataTable->render('admin.government.index');
     }
 
     /**

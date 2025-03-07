@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\EventDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\Event;
@@ -14,10 +15,9 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(EventDataTable $dataTable)
     {
-        $events = Event::orderBy('county_id', 'asc')->get();
-        return view('admin.news-events.events.index', compact('events'));
+        return $dataTable->render('admin.news-events.events.index');
     }
 
     /**

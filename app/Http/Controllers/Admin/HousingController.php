@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\HousingDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\County;
@@ -16,10 +17,9 @@ class HousingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(HousingDataTable $dataTable)
     {
-        $housings = Housing::orderBy('county_id', 'asc')->get();
-        return view('admin.tourism.housing.index', compact('housings'));
+        return $dataTable->render('admin.tourism.housing.index');
     }
 
     /**

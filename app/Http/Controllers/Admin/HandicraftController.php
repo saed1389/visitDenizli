@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\HandicraftDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Handicraft;
 use Illuminate\Http\Request;
@@ -12,10 +13,9 @@ class HandicraftController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(HandicraftDataTable $dataTable)
     {
-        $handicrafts = Handicraft::orderBy('name', 'asc')->get();
-        return view('admin.culture.handicrafts.index', compact('handicrafts'));
+        return $dataTable->render('admin.culture.handicrafts.index');
     }
 
     /**

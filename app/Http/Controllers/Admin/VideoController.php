@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\VideoDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -11,10 +12,9 @@ class VideoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(VideoDataTable $dataTable)
     {
-        $videos = Video::all();
-        return view('admin.gallery.video.index', compact('videos'));
+        return $dataTable->render('admin.gallery.video.index');
     }
 
     /**
@@ -46,11 +46,10 @@ class VideoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(VideoDataTable $dataTable, string $id)
     {
-        $videos = Video::all();
         $video = Video::where('id', $id)->first();
-        return view('admin.gallery.video.edit', compact('video', 'videos'));
+        return $dataTable->render('admin.gallery.video.edit', compact('video'));
     }
 
     /**

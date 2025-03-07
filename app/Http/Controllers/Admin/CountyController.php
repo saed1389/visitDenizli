@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CountyDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use Illuminate\Http\Request;
@@ -9,10 +10,8 @@ use Illuminate\Support\Str;
 
 class CountyController extends Controller
 {
-    public function index(){
-        $counties = County::orderBy('name', 'asc')->get();
-
-        return view('admin.counties.index',compact('counties'));
+    public function index(CountyDataTable $dataTable){
+        return $dataTable->render('admin.counties.index');
     }
 
     public function store(Request $request){
@@ -49,10 +48,10 @@ class CountyController extends Controller
         return redirect()->route('admin.counties.index');
     }
 
-    public function edit($id){
-        $counties = County::orderBy('name', 'asc')->get();
+    public function edit(CountyDataTable $dataTable, $id){
+
         $county = County::whereId($id)->firstOrFail();
-        return view('admin.counties.edit',compact('county', 'counties'));
+        return $dataTable->render('admin.counties.edit',compact('county'));
     }
 
     public function update(Request $request, $id){

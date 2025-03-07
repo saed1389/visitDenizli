@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\PhotoDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Photo;
 use Illuminate\Http\Request;
@@ -12,10 +13,9 @@ class PhotoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PhotoDataTable $dataTable)
     {
-        $photos = Photo::all();
-        return view('admin.gallery.shoot.index', compact('photos'));
+        return $dataTable->render('admin.gallery.shoot.index');
     }
 
     /**
@@ -58,11 +58,10 @@ class PhotoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(PhotoDataTable $dataTable, string $id)
     {
-        $photos = Photo::all();
         $photo = Photo::where('id', $id)->first();
-        return view('admin.gallery.shoot.edit', compact('photos', 'photo'));
+        return $dataTable->render('admin.gallery.shoot.edit', compact('photo'));
     }
 
     /**

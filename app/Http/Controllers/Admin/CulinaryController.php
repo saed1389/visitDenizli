@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CulinaryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Culinary;
 use Illuminate\Http\Request;
@@ -12,10 +13,9 @@ class CulinaryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CulinaryDataTable $dataTable)
     {
-        $culinary = Culinary::orderBy('name', 'asc')->get();
-        return view('admin.culture.culinary.index', compact('culinary'));
+        return $dataTable->render('admin.culture.culinary.index');
     }
 
     /**

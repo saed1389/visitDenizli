@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\MuseumPlaceDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\MuseumPlace;
@@ -13,10 +14,9 @@ class MuseumPlaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(MuseumPlaceDataTable $dataTable)
     {
-        $places = MuseumPlace::orderBy('county_id', 'asc')->get();
-        return view('admin.visit_places.museum_places.index', compact('places'));
+        return $dataTable->render('admin.visit_places.museum_places.index');
     }
 
     /**

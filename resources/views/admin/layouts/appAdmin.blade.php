@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('panel/assets/images/apple-touch-icon.png') }}">
     <link rel="stylesheet" href="{{ asset('panel/assets/css/style.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('styles')
 </head>
@@ -52,6 +53,7 @@
 <script src="{{ asset('panel/assets/bundles/libscripts.bundle.js') }}"></script>
 <script src="{{ asset('panel/assets/js/main.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js"></script>
+<script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 @stack('scripts')
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\IndustriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Investment;
 use Illuminate\Http\Request;
@@ -12,10 +13,9 @@ class InvestmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(IndustriesDataTable $dataTable)
     {
-        $investments = Investment::orderBy('created_at', 'asc')->get();
-        return view('admin.economy.investment.index', compact('investments'));
+        return $dataTable->render('admin.economy.investment.index');
     }
 
     /**

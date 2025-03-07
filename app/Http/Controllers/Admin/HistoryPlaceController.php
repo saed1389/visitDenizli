@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\HistoryPlaceDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\HistoryPlace;
@@ -13,10 +14,9 @@ class HistoryPlaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(HistoryPlaceDataTable $dataTable)
     {
-        $historyPlaces = HistoryPlace::orderBy('county_id', 'asc')->get();
-        return view('admin.visit_places.history_places.index', compact('historyPlaces'));
+        return $dataTable->render('admin.visit_places.history_places.index');
     }
 
     /**

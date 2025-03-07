@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -12,10 +13,9 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CategoryDataTable $dataTable)
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+        return $dataTable->render('admin.categories.index');
     }
 
     /**
@@ -61,11 +61,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(CategoryDataTable $dataTable, string $id)
     {
-        $categories = Category::orderBy('name', 'asc')->get();
         $category = Category::whereId($id)->firstOrFail();
-        return view('admin.categories.edit',compact('category', 'categories'));
+        return $dataTable->render('admin.categories.edit',compact('category'));
     }
 
     /**

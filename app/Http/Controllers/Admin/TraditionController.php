@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\TraditionDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\Festival;
@@ -14,10 +15,9 @@ class TraditionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(TraditionDataTable $dataTable)
     {
-        $traditions = Tradition::orderBy('county_id', 'asc')->get();
-        return view('admin.culture.traditions.index', compact('traditions'));
+        return $dataTable->render('admin.culture.traditions.index');
     }
 
     /**

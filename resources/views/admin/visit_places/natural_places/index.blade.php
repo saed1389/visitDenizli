@@ -51,7 +51,8 @@
                         </div>
                     </div>
                     <div class="card-body table-main-three">
-                        <table class="myDataTable table table-hover table-bordered align-middle mb-0" style="width:100%">
+                        {{ $dataTable->table() }}
+                        {{--<table class="myDataTable table table-hover table-bordered align-middle mb-0" style="width:100%">
                             <thead class="table-info">
                             <tr class="text-center" style="vertical-align: middle;">
                                 <th>#</th>
@@ -81,7 +82,7 @@
                                 </tr>
                             @endforeach
                             </tbody>
-                        </table>
+                        </table>--}}
                     </div>
                 </div>
             </div>
@@ -93,6 +94,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 @endpush
 @push('scripts')
+    {{ $dataTable->scripts(attributes:['type' => 'module']) }}
     <script src="{{ asset('panel/assets/js/code.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
@@ -100,7 +102,7 @@
             $(document).on('change', '.switch-input.active', function() {
 
                 var check_active = $(this).is(':checked') ? 1 : 0;
-                var check_id = $(this).val();
+                var check_id = $(this).data('id');
 
                 $.ajax({
                     type: "POST",

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\FestivalDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\Festival;
@@ -14,10 +15,9 @@ class FestivalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(FestivalDataTable $dataTable)
     {
-        $festivals = Festival::orderBy('county_id', 'asc')->get();
-        return view('admin.culture.festivals.index', compact('festivals'));
+        return $dataTable->render('admin.culture.festivals.index');
     }
 
     /**

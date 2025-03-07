@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\NaturalPlaceDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\NaturalPlace;
@@ -13,10 +14,9 @@ class NaturalPlaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(NaturalPlaceDataTable $dataTable)
     {
-        $naturalPlaces = NaturalPlace::orderBy('county_id', 'asc')->get();
-        return view('admin.visit_places.natural_places.index', compact('naturalPlaces'));
+        return $dataTable->render('admin.visit_places.natural_places.index');
     }
 
     /**
