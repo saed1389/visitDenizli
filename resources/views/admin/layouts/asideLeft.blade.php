@@ -115,7 +115,7 @@
                 <ul class="list-unstyled mb-4 menu-list">
                     <li><a href="{{ route('admin.counties.index') }}"><span class="mx-2">İlçeler Listesi</span></a></li>
                     <li><a href="{{ route('admin.categories.index') }}"><span class="mx-2">Kategoriler Listesi</span></a></li>
-                    <li><a href="{{ route('admin.categories.index') }}"><span class="mx-2">Menüler</span></a></li>
+                    <li><a href="{{ route('admin.menu.index') }}"><span class="mx-2">Menüler</span></a></li>
                     <li>
                         <a href="#Settings" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Settings">
                             <span class="mx-2">Ayarlar</span>

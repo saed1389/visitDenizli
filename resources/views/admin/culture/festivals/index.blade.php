@@ -51,41 +51,6 @@
                         </div>
                     </div>
                     <div class="card-body table-main-three">
-                        {{--<table class="myDataTable table table-hover table-bordered align-middle mb-0" style="width:100%">
-                            <thead class="table-info">
-                            <tr class="text-center" style="vertical-align: middle;">
-                                <th>#</th>
-                                <th>Resim</th>
-                                <th>Festival adı</th>
-                                <th>İlçe</th>
-                                <th>Oluşturan</th>
-                                <th>Oluşturuldu</th>
-                                <th>Onayla</th>
-                                <th>İşlem</th>
-                            </tr>
-                            </thead>
-                            <tbody class="text-center" style="vertical-align: middle;">
-                            @foreach($festivals as $item)
-                                <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
-                                    <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px;"></td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->county->name }}</td>
-                                    <td>{{ $item->createdBy->name }}</td>
-                                    <td>{{ $item->created_at->diffForHumans() }}</td>
-                                    <td class="text-center">
-                                        <div class="form-check form-switch" style="justify-self: center;">
-                                            <input class="form-check-input switch-input active" type="checkbox" @checked($item->status == 1) role="switch" value="{{ $item->id }}">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.local-festivals.edit', $item->id) }}" class="btn btn-info btn-sm mt-1"><i class="fa fa-edit"></i></a>
-                                        <button type="button" href="{{ route('admin.local-festivals.destroy', $item->id) }}" class="btn btn-danger btn-sm mt-1" id="delete"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>--}}
                         {{ $dataTable->table() }}
                     </div>
                 </div>

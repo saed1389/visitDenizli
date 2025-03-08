@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\HistoryPlaceController;
 use App\Http\Controllers\Admin\HousingController;
 use App\Http\Controllers\Admin\IndustriesController;
 use App\Http\Controllers\Admin\InvestmentController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
 use App\Http\Controllers\Admin\NewsController;
@@ -161,6 +162,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Video Gallery Routes
     Route::resource('video', VideoController::class)->except(['show', 'destroy', 'create']);
     Route::get('video/delete/{id}', [VideoController::class, 'delete'])->name('video.destroy');
+
+    // Menus Routes
+    Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
+    Route::get('menu/create', [MenuController::class, 'create'])->name('menu.create');
+    Route::post('menu/store', [MenuController::class, 'store'])->name('menu.store');
+    Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
+    Route::post('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::get('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
+    Route::post('menu/changeStatus/{id}/{status}', [MenuController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){
