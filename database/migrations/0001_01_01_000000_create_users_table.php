@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->unsignedBigInteger('county_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
+            $table->foreign('county_id')->references('id')->on('counties');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

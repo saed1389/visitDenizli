@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\Admin\TourismOfficeController;
 use App\Http\Controllers\Admin\TraditionController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\ProfileController;
@@ -171,6 +172,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
     Route::get('menu/delete/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
     Route::post('menu/changeStatus/{id}/{status}', [MenuController::class, 'changeStatus']);
+
+    // Users Routes
+    Route::resource('user', UserController::class)->except(['show', 'destroy']);
+    Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.destroy');
+    Route::post('user/changeStatus/{id}/{status}', [UserController::class, 'changeStatus']);
 });
 
 Route::middleware(['auth', 'role:agent'])->group(function(){

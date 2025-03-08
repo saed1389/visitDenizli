@@ -113,15 +113,17 @@
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color2)">Web Sitesi Ayarları </h6>
                 <ul class="list-unstyled mb-4 menu-list">
-                    <li><a href="{{ route('admin.counties.index') }}"><span class="mx-2">İlçeler Listesi</span></a></li>
-                    <li><a href="{{ route('admin.categories.index') }}"><span class="mx-2">Kategoriler Listesi</span></a></li>
-                    <li><a href="{{ route('admin.menu.index') }}"><span class="mx-2">Menüler</span></a></li>
+
                     <li>
                         <a href="#Settings" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Settings">
                             <span class="mx-2">Ayarlar</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Settings">
                             <li><a href="">Ayarlar</a></li>
+                            <li><a href="{{ route('admin.counties.index') }}">İlçeler Listesi</a></li>
+                            <li><a href="{{ route('admin.categories.index') }}">Kategoriler Listesi</a></li>
+                            <li><a href="{{ route('admin.menu.index') }}">Menüler</a></li>
+                            <li><a href="{{ route('admin.user.index') }}">Kullanıcılar</a></li>
                         </ul>
                     </li>
                 </ul>
