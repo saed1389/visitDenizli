@@ -1,5 +1,5 @@
-@extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Turizm Ofisi Güncelle @endsection
+@extends('agent.layouts.appAgent')
+@section('title') Visit Denizli - Konaklama Rehberi Ekle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     @push('styles')
@@ -20,9 +20,9 @@
                 </svg>
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.tourism-office.index') }}" >Turizm Ofisleri Listesi</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Turizm Ofisi Güncelle</li>
+                <li class="breadcrumb-item"><a href="{{ route('agent.dashboard') }}" title="home">Gösterge Paneli</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('agent.housing.index') }}" >Konaklama Rehberi Listesi</a></li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Konaklama Rehberi Ekle</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -50,30 +50,43 @@
         </ul>
     </div>
     <div class="ps-md-4 pe-md-3 px-2 py-3 page-body">
-        <h3 class="title-font mb-3">Turizm Ofisi Güncelle</h3>
+        <h3 class="title-font mb-3">Konaklama Rehberi Ekle</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body card-main-one">
-                        <form action="{{ route('admin.tourism-office.update', $office->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('agent.housing.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="name" class="form-label"><strong>Ofis Adı<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Ofis Adı" value="{{ $office->name }}" required>
+                                <div class="col-sm-3">
+                                    <label for="name" class="form-label"><strong>Konaklama Adı (TR)<span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Konaklama Adı (TR)" value="{{ old('name') }}" required>
                                     @error('name')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                    @error('slug')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="name_en" class="form-label"><strong>Konaklama Adı (EN)</strong></label>
+                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Konaklama Adı (EN)" value="{{ old('name_en') }}">
+                                    @error('name_en')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="county_id" class="form-label"><strong>İlçe Adı <span class="text-danger">*</span></strong></label>
-                                    <select class="form-select" name="county_id" id="county_id" required >
+                                    <label for="county_id" class="form-label"><strong>İlçe Adı</strong></label>
+                                    <select class="form-select" name="" id="county_id" required readonly disabled>
                                         <option value="">-- Lütfen Seçin --</option>
                                         @foreach($counties as $county)
-                                            <option value="{{ $county->id }}" @selected($office->county_id == $county->id)>{{ $county->name }}</option>
+                                            <option value="{{ $county->id }}" @selected(Auth::user()->county_id == $county->id)>{{ $county->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('county_id')
@@ -82,10 +95,16 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4">
-                                    <label for="address" class="form-label"><strong>Ofis Adresi<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="Ofis Adresi" value="{{ $office->address }}" required>
-                                    @error('address')
+                                <input hidden="" name="county_id" value="{{ Auth::user()->county_id }}">
+                                <div class="col-sm-3">
+                                    <label for="category_id" class="form-label"><strong>Kategori Adı <span class="text-danger">*</span></strong></label>
+                                    <select class="form-select" name="category_id" id="category_id" required >
+                                        <option value="">-- Lütfen Seçin --</option>
+                                        @foreach($categories as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
@@ -93,7 +112,7 @@
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="ckeditor_tr" class="form-label"><strong>Açıklama (TR) <span class="text-danger">*</span></strong></label>
-                                    <textarea name="description" class="form-control" id="ckeditor_tr" >{{ $office->description }}</textarea>
+                                    <textarea name="description" class="form-control" id="ckeditor_tr" >{{ old('description') }}</textarea>
                                     @error('description')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -102,36 +121,43 @@
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="ckeditor_en" class="form-label"><strong>Açıklama (EN) </strong></label>
-                                    <textarea name="description_en" class="form-control" id="ckeditor_en" >{{ $office->description_en }}</textarea>
+                                    <textarea name="description_en" class="form-control" id="ckeditor_en" >{{ old('description_en') }}</textarea>
                                     @error('description_en')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                     @enderror
                                 </div>
-
-                                <div class="col-sm-6 mt-3">
-                                    <label for="phone" class="form-label"><strong>Ofis Telefonu</strong></label>
-                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Ofis Telefonu" value="{{ $office->phone }}">
-                                    @error('phone')
+                                <div class="col-sm-4 mt-3">
+                                    <label for="address" class="form-label"><strong>Konaklama Adres</strong></label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="Konaklama Adres" value="{{ old('address') }}">
+                                    @error('address')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mt-3">
+                                    <label for="latitude" class="form-label"><strong>Konaklama Enlem</strong></label>
+                                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Konaklama Enlem" value="{{ old('latitude') }}">
+                                    @error('latitude')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mt-3">
+                                    <label for="longitude" class="form-label"><strong>Konaklama Boylam</strong></label>
+                                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Konaklama Boylam" value="{{ old('longitude') }}">
+                                    @error('longitude')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 mt-3">
-                                    <label for="email" class="form-label"><strong>Ofis E-postası</strong></label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Ofis E-postası" value="{{ $office->email }}">
-                                    @error('email')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-sm-6 mt-3">
-                                    <label for="website" class="form-label"><strong>Ofis Web sitesi</strong></label>
-                                    <input type="text" class="form-control" id="website" name="website" placeholder="KonOfisaklama Web sitesi" value="{{ $office->website }}">
+                                    <label for="website" class="form-label"><strong>Konaklama Web sitesi</strong></label>
+                                    <input type="text" class="form-control" id="website" name="website" placeholder="Konaklama Web sitesi" value="{{ old('website') }}">
                                     @error('website')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -139,8 +165,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-6 mt-3">
-                                    <label for="facebook" class="form-label"><strong>Ofis Facebook</strong></label>
-                                    <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Ofis Facebook" value="{{ $office->facebook }}">
+                                    <label for="facebook" class="form-label"><strong>Konaklama Facebook</strong></label>
+                                    <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Konaklama Facebook" value="{{ old('facebook') }}">
                                     @error('facebook')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -148,35 +174,22 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim</strong></label>
-                                    <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
-                                    @error('image')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
+                                    <label for="images" class="form-label"><strong>Resim</strong></label>
+                                    <input type="file" class="form-control" id="images" name="images[]" multiple>
+                                    @error('images')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
-                                <div class="col-sm-2 mt-3">
-                                    <img src="{{ $office->image ? asset($office->image) : asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
 
-                                <div class="col-sm-3 mt-3">
-                                    <label for="status" class="form-label"><strong>Durum</strong></label>
-                                    <div class="my-3">
-                                        <input id="active" name="status" type="radio" value="1" class="form-check-input" @checked($office->status == 1)>
-                                        <label class="form-check-label" for="active">Acik</label>
-                                        <input id="deactivate" name="status" type="radio" value="0" class="form-check-input" @checked($office->status == 0)>
-                                        <label class="form-check-label" for="deactivate">Kapalı</label>
-                                    </div>
-                                    @error('status')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
+                                <!-- Preview Container -->
+
+                                <div class="col-sm-2 mt-3">
+                                    <div id="preview-container" class="d-flex flex-wrap mt-3"></div>
+                                    <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.tourism-office.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('agent.housing.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -200,7 +213,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.tourism-office.upload') }}", {
+                            fetch("{{ route('agent.housing.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -247,14 +260,39 @@
                     });
             });
 
-            // Image Preview
+        </script>
+        <script>
             $(document).ready(function () {
-                $('#image').change(function (e) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#showImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(e.target.files[0]);
+                let dt = new DataTransfer();
+
+                $('#images').on('change', function (e) {
+                    dt.clearData();
+                    $('#preview-container').html('');
+
+                    let files = Array.from(e.target.files);
+
+                    files.forEach((file, index) => {
+                        let reader = new FileReader();
+                        reader.onload = function (event) {
+                            let img = `<div class="image-preview position-relative m-2" data-index="${index}">
+                                <img src="${event.target.result}" class="img-thumbnail" width="100" alt="">
+                                <button type="button" class="btn btn-danger btn-sm remove-image position-absolute top-0 end-0">X</button>
+                           </div>`;
+                            $('#preview-container').append(img);
+                        };
+                        reader.readAsDataURL(file);
+                        $('#showImage').hide();
+                        dt.items.add(file);
+                    });
+
+                    this.files = dt.files;
+                });
+
+                $(document).on('click', '.remove-image', function () {
+                    let indexToRemove = $(this).parent().data('index');
+                    dt.items.remove(indexToRemove);
+                    document.getElementById('images').files = dt.files;
+                    $(this).parent().remove();
                 });
             });
         </script>

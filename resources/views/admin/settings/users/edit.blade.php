@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-sm-6 mt-3">
                                     <label for="password" class="form-label"><strong>Kullanıcı Şifresi <span class="text-danger">*</span></strong></label>
-                                    <input type="email" class="form-control" id="password" name="password" placeholder="Kullanıcı Şifresi" value="" >
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Kullanıcı Şifresi" value="" >
                                     @error('password')
                                     <span class="text-danger">
                                         {{ $message }}

@@ -19,7 +19,7 @@
 <body data-bvite="theme-CeruleanBlue" class="layout-border svgstroke-a layout-default auth">
 <main class="container-fluid px-0">
     <aside class="px-xl-5 px-4 auth-aside" data-bs-theme="none">
-        <img class="login-img" src="{{ asset('panel/assets/images/logo.png') }}" alt="">
+        <img class="login-img" src="{{ asset('panel/assets/images/visit-logo.png') }}" alt="">
     </aside>
     <div class="px-xl-5 px-4 auth-body">
         <form method="POST" action="{{ route('login') }}">

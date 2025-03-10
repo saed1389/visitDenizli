@@ -92,7 +92,7 @@ class TraditionDataTable extends DataTable
             Column::make('name')->title('Gelenek ve Görenek adı'),
             Column::make('county_id')->title('İlçe'),
             Column::make('status')
-                ->title('Onayla')
+                ->title('Durum')
                 ->exportable(false)
                 ->printable(false)
                 ->addClass('text-center'),

@@ -179,7 +179,7 @@
                                 </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.housing.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('admin.tourism-office.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.housing.upload') }}", {
+                            fetch("{{ route('admin.tourism-office.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

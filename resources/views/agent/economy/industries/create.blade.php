@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Turizm Ofisi Güncelle @endsection
+@section('title') Visit Denizli - Yerel Ekonomi ve Sektör Ekle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     @push('styles')
@@ -21,8 +21,8 @@
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.tourism-office.index') }}" >Turizm Ofisleri Listesi</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Turizm Ofisi Güncelle</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.industries.index') }}" >Yerel Ekonomi ve Sektörler Listesi</a></li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Yerel Ekonomi ve Sektör Ekle</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -50,50 +50,27 @@
         </ul>
     </div>
     <div class="ps-md-4 pe-md-3 px-2 py-3 page-body">
-        <h3 class="title-font mb-3">Turizm Ofisi Güncelle</h3>
+        <h3 class="title-font mb-3">Yerel Ekonomi ve Sektör Ekle</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body card-main-one">
-                        <form action="{{ route('admin.tourism-office.update', $office->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.industries.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="name" class="form-label"><strong>Ofis Adı<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Ofis Adı" value="{{ $office->name }}" required>
+                                <div class="col-sm-12">
+                                    <label for="name" class="form-label"><strong>Sektör Adı <span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Sektör Adı " value="{{ old('name') }}" required>
                                     @error('name')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-4">
-                                    <label for="county_id" class="form-label"><strong>İlçe Adı <span class="text-danger">*</span></strong></label>
-                                    <select class="form-select" name="county_id" id="county_id" required >
-                                        <option value="">-- Lütfen Seçin --</option>
-                                        @foreach($counties as $county)
-                                            <option value="{{ $county->id }}" @selected($office->county_id == $county->id)>{{ $county->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('county_id')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4">
-                                    <label for="address" class="form-label"><strong>Ofis Adresi<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="Ofis Adresi" value="{{ $office->address }}" required>
-                                    @error('address')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
+
                                 <div class="col-sm-12 mt-3">
                                     <label for="ckeditor_tr" class="form-label"><strong>Açıklama (TR) <span class="text-danger">*</span></strong></label>
-                                    <textarea name="description" class="form-control" id="ckeditor_tr" >{{ $office->description }}</textarea>
+                                    <textarea name="description" class="form-control" id="ckeditor_tr" >{{ old('description') }}</textarea>
                                     @error('description')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -102,52 +79,14 @@
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="ckeditor_en" class="form-label"><strong>Açıklama (EN) </strong></label>
-                                    <textarea name="description_en" class="form-control" id="ckeditor_en" >{{ $office->description_en }}</textarea>
+                                    <textarea name="description_en" class="form-control" id="ckeditor_en" >{{ old('description_en') }}</textarea>
                                     @error('description_en')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
                                     @enderror
                                 </div>
-
                                 <div class="col-sm-6 mt-3">
-                                    <label for="phone" class="form-label"><strong>Ofis Telefonu</strong></label>
-                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Ofis Telefonu" value="{{ $office->phone }}">
-                                    @error('phone')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-6 mt-3">
-                                    <label for="email" class="form-label"><strong>Ofis E-postası</strong></label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Ofis E-postası" value="{{ $office->email }}">
-                                    @error('email')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="col-sm-6 mt-3">
-                                    <label for="website" class="form-label"><strong>Ofis Web sitesi</strong></label>
-                                    <input type="text" class="form-control" id="website" name="website" placeholder="KonOfisaklama Web sitesi" value="{{ $office->website }}">
-                                    @error('website')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-6 mt-3">
-                                    <label for="facebook" class="form-label"><strong>Ofis Facebook</strong></label>
-                                    <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Ofis Facebook" value="{{ $office->facebook }}">
-                                    @error('facebook')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mt-3">
                                     <label for="image" class="form-label"><strong>Resim</strong></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
@@ -156,16 +95,15 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-2 mt-3">
-                                    <img src="{{ $office->image ? asset($office->image) : asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
+                                <div class="col-sm-3 mt-3">
+                                    <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
-
                                 <div class="col-sm-3 mt-3">
                                     <label for="status" class="form-label"><strong>Durum</strong></label>
                                     <div class="my-3">
-                                        <input id="active" name="status" type="radio" value="1" class="form-check-input" @checked($office->status == 1)>
+                                        <input id="active" name="status" type="radio" value="1" class="form-check-input" checked="" required="">
                                         <label class="form-check-label" for="active">Acik</label>
-                                        <input id="deactivate" name="status" type="radio" value="0" class="form-check-input" @checked($office->status == 0)>
+                                        <input id="deactivate" name="status" type="radio" value="0" class="form-check-input" required="">
                                         <label class="form-check-label" for="deactivate">Kapalı</label>
                                     </div>
                                     @error('status')
@@ -176,7 +114,7 @@
                                 </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.tourism-office.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('admin.industries.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -200,7 +138,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.tourism-office.upload') }}", {
+                            fetch("{{ route('admin.industries.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

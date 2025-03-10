@@ -55,7 +55,7 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body card-main-one">
-                        <form action="{{ route('admin.tourism-office.update', $office->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('agent.tourism-office.update', $office->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -69,11 +69,11 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="county_id" class="form-label"><strong>İlçe Adı <span class="text-danger">*</span></strong></label>
-                                    <select class="form-select" name="county_id" id="county_id" required >
+                                    <label for="county_id" class="form-label"><strong>İlçe Adı</strong></label>
+                                    <select class="form-select" name="" id="county_id" required readonly disabled>
                                         <option value="">-- Lütfen Seçin --</option>
                                         @foreach($counties as $county)
-                                            <option value="{{ $county->id }}" @selected($office->county_id == $county->id)>{{ $county->name }}</option>
+                                            <option value="{{ $county->id }}" @selected(Auth::user()->county_id == $county->id)>{{ $county->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('county_id')
@@ -82,6 +82,7 @@
                                     </span>
                                     @enderror
                                 </div>
+                                <input hidden="" name="county_id" value="{{ Auth::user()->county_id }}">
                                 <div class="col-sm-4">
                                     <label for="address" class="form-label"><strong>Ofis Adresi<span class="text-danger">*</span></strong></label>
                                     <input type="text" class="form-control" id="address" name="address" placeholder="Ofis Adresi" value="{{ $office->address }}" required>
@@ -160,21 +161,6 @@
                                     <img src="{{ $office->image ? asset($office->image) : asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
 
-                                <div class="col-sm-3 mt-3">
-                                    <label for="status" class="form-label"><strong>Durum</strong></label>
-                                    <div class="my-3">
-                                        <input id="active" name="status" type="radio" value="1" class="form-check-input" @checked($office->status == 1)>
-                                        <label class="form-check-label" for="active">Acik</label>
-                                        <input id="deactivate" name="status" type="radio" value="0" class="form-check-input" @checked($office->status == 0)>
-                                        <label class="form-check-label" for="deactivate">Kapalı</label>
-                                    </div>
-                                    @error('status')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-
                                 <div class="col-12 text-end">
                                     <a href="{{ route('admin.tourism-office.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
@@ -200,7 +186,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.tourism-office.upload') }}", {
+                            fetch("{{ route('admin.housing.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
