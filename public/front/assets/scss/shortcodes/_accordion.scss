@@ -1,0 +1,216 @@
+/*****************************
+  Shortcodes
+*****************************/
+
+/*****************************
+  Accordion
+*****************************/
+.accordion {
+	.card {
+		border: none;
+		padding: 8px 0px;
+		margin-bottom: 14px;
+
+		.card-header {
+			background: none;
+			margin-bottom: 0;
+			border: 0;
+			padding: 0;
+		}
+
+		button {
+			position: relative;
+			color: $gray-8;
+			width: 100%;
+			text-align: left;
+			border: none;
+			font-size: 20px;
+			font-weight: 500;
+			padding: 0;
+
+			span {
+				width: 60px;
+				height: 60px;
+				line-height: 60px;
+				text-align: center;
+				display: inline-block;
+				background: $primary;
+				color: $white;
+				border: 2px solid $primary;
+				border-radius: 50%;
+				box-shadow: 0 2px 6px rgba($black, 0.1);
+				margin-right: 36px;
+				position: relative;
+
+				&:before {
+					position: absolute;
+					content: "";
+					right: -10px;
+					top: 19px;
+					width: 0;
+					height: 0;
+					border-style: solid;
+					border-width: 10px 0 10px 10px;
+					border-color: transparent transparent transparent $primary;
+				}
+
+			}
+
+		}
+
+		button.collapsed {
+			span {
+				background: $white;
+				border: 2px solid $primary;
+				color: $primary;
+				transition: all 0.3 easein-out;
+				position: relative;
+
+				&:before {
+					display: none;
+				}
+
+			}
+
+		}
+
+		.card-body {
+			padding: 10px 0px 0px 100px;
+
+			p {
+				font-size: 18px;
+				font-weight: 300;
+			}
+
+		}
+
+	}
+
+}
+
+.accordion .btn:not(:disabled):not(.disabled):active:focus {
+	color: $gray-8;
+}
+
+// Accordion Style 2
+.accordion-style-2 {
+	.card {
+		border: 1px solid $border-color;
+		margin-bottom: 10px;
+		border-radius: 0;
+
+		&:last-child {
+			margin-bottom: 0px;
+		}
+
+	}
+
+	.card-header {
+		background: transparent;
+		border-bottom: none;
+
+		.accordion-title {
+			display: flex;
+			align-items: center;
+
+			i {
+				font-size: 12px;
+				margin-left: auto;
+			}
+
+		}
+
+	}
+
+	.accordion-content {
+		border-top: 1px solid $border-color;
+	}
+
+	.accordion-title {
+		.btn {
+			display: block;
+			color: $primary;
+			font-size: 18px;
+			padding: 0px;
+			text-decoration: none;
+			width: 100%;
+			text-align: left;
+
+			+ {
+				i {
+					color: $primary;
+				}
+
+			}
+
+		}
+
+		.btn.collapsed {
+			color: $gray-8;
+
+			+ {
+				i {
+					color: $gray-8;
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+.accordion-checkbox {
+	.card {
+		label {
+			display: flex;
+
+			.accordion-title {
+				padding-left: 11px;
+				display: inline-block;
+			}
+
+		}
+
+		.card-body {
+			padding: 10px 0px 0px 36px;
+		}
+
+		.pay-icon {
+			height: 20px;
+			margin-left: auto;
+		}
+
+	}
+
+}
+
+@media (max-width:767px) {
+	.accordion {
+		.card {
+			button {
+				font-size: 18px;
+			}
+
+		}
+
+	}
+
+}
+
+@media (max-width:575px) {
+	.accordion-checkbox {
+		.card {
+			label {
+				display: inherit;
+				.accordion-title {
+				display: block;
+				}
+			}
+			.pay-icon {
+				margin-left: 11px;
+			}
+		}
+	}
+}

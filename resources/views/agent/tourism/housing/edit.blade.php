@@ -1,4 +1,4 @@
-@extends('admin.layouts.appAdmin')
+@extends('agent.layouts.appAgent')
 @section('title') Visit Denizli - Konaklama Rehberi Güncelle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
@@ -20,8 +20,8 @@
                 </svg>
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.housing.index') }}" >Konaklama Rehberi Listesi</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('agent.dashboard') }}" title="home">Gösterge Paneli</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('agent.housing.index') }}" >Konaklama Rehberi Listesi</a></li>
                 <li class="breadcrumb-item active" aria-current="page" title="App">Konaklama Rehberi Güncelle</li>
             </ol>
         </div>
@@ -55,7 +55,7 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body card-main-one">
-                        <form action="{{ route('admin.housing.update', $housing->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('agent.housing.update', $housing->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -169,7 +169,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="images" class="form-label"><strong>Resim</strong></label>
+                                    <label for="images" class="form-label"><strong>Resim <small class="text-danger">Size: 700x420</small></strong></label>
                                     <input type="file" class="form-control" id="images" name="images[]" multiple>
                                     @error('images')
                                     <span class="text-danger">{{ $message }}</span>
@@ -189,24 +189,8 @@
                                     @endforeach
                                 </div>
 
-
-                                <div class="col-sm-3 mt-3">
-                                    <label for="status" class="form-label"><strong>Durum</strong></label>
-                                    <div class="my-3">
-                                        <input id="active" name="status" type="radio" value="1" class="form-check-input" @checked($housing->status == 1)>
-                                        <label class="form-check-label" for="active">Acik</label>
-                                        <input id="deactivate" name="status" type="radio" value="0" class="form-check-input" @checked($housing->status == 0)>
-                                        <label class="form-check-label" for="deactivate">Kapalı</label>
-                                    </div>
-                                    @error('status')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.housing.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('agent.housing.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -230,7 +214,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.housing.upload') }}", {
+                            fetch("{{ route('agent.housing.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -318,7 +302,7 @@
                     let parentDiv = $(this).parent();
 
                     $.ajax({
-                        url: "{{ route('admin.housing.delete-image') }}", // Route for image deletion
+                        url: "{{ route('agent.housing.delete-image') }}", // Route for image deletion
                         type: "POST",
                         data: {
                             _token: "{{ csrf_token() }}",

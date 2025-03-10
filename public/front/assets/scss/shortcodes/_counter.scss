@@ -1,0 +1,59 @@
+/*****************************
+  Counter
+*****************************/
+.counter {
+	display: flex;
+	align-items: center;
+	padding: 20px 0px;
+
+	.counter-icon {
+		i {
+			color: $primary;
+			margin-right: 25px;
+			font-size: 70px;
+			line-height: 70px;
+		}
+
+	}
+
+	.counter-content {
+		align-self: center;
+
+		.timer {
+			position: relative;
+			font-size: 36px;
+			line-height: 36px;
+			font-family: $font-hedding;
+			color: $white;
+			margin-bottom: 10px;
+			display: block;
+		}
+
+		label {
+			display: block;
+			color: $white;
+			margin-bottom: 0;
+		}
+
+	}
+
+}
+
+@media (max-width:767px) {
+	.counter {
+		.counter-icon {
+			i {
+				margin-right: 20px;
+    		font-size: 50px;
+    		line-height: 50px;
+			}
+		}
+		.counter-content {
+			.timer {
+				font-size: 30px;
+    		line-height: 30px;
+		    margin-bottom: 5px;
+			}
+		}
+	}
+}

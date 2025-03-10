@@ -54,7 +54,7 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
-                        <h4 class="card-title m-0">İlçeler Listesi</h4>
+                        <h4 class="card-title m-0">Kategori Listesi</h4>
                     </div>
                     <div class="card-body table-main-three">
                         {{ $dataTable->table() }}
@@ -100,7 +100,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-8 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim</strong></label>
+                                    <label for="image" class="form-label"><strong>Resim <small class="text-danger">Size: 600x565</small></strong></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
                                     <span class="text-danger">

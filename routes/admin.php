@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\MuseumPlaceController;
 use App\Http\Controllers\Admin\NaturalPlaceController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PhotoController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TourismOfficeController;
 use App\Http\Controllers\Admin\TraditionController;
 use App\Http\Controllers\Admin\UserController;
@@ -160,4 +161,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('user', UserController::class)->except(['show', 'destroy']);
     Route::get('user/delete/{id}', [UserController::class, 'delete'])->name('user.destroy');
     Route::post('user/changeStatus/{id}/{status}', [UserController::class, 'changeStatus']);
+
+    Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::post('setting/update', [SettingController::class, 'update'])->name('setting.update');
 });

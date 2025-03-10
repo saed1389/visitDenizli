@@ -10,7 +10,7 @@
                             <path fill="var(--primary-color)" d="M22.9634 11.0029L18.4147 11.8178C18.3784 11.8243 18.3455 11.8417 18.3211 11.8672C18.2967 11.8927 18.2823 11.9248 18.2801 11.9586L18.0003 16.2791C17.9937 16.3808 18.0959 16.4598 18.2046 16.4369L19.471 16.1697C19.5895 16.1447 19.6966 16.2401 19.6722 16.3491L19.2959 18.0335C19.2706 18.1468 19.387 18.2438 19.5081 18.2101L20.2903 17.9929C20.4116 17.9592 20.5281 18.0564 20.5025 18.1699L19.9045 20.8157C19.8671 20.9812 20.1079 21.0715 20.2083 20.9296L20.2754 20.8348L23.9819 14.0722C24.044 13.959 23.937 13.8299 23.8009 13.8539L22.4974 14.0839C22.3749 14.1055 22.2706 14.0012 22.3052 13.8916L23.156 11.1951C23.1906 11.0854 23.086 10.981 22.9634 11.0029Z"/>
                         </svg>
                     </a>
-                    <span class="fs-5">KBB</span>
+                    <span class="fs-5">Visit</span>
                 </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
@@ -31,23 +31,14 @@
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color1)">Web Sitesi</h6>
                 <ul class="list-unstyled mb-4 menu-list">
                     <li>
-                        <a href="#About" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="About">
-                            <span class="mx-2">Hakkımızda </span>
-                        </a>
-                        <ul class="collapse list-unstyled" id="About">
-                            <li><a href="{{ route('admin.about.history') }}">Tarihçe</a></li>
-                            <li><a href="{{ route('admin.about.geographical') }}">Coğrafi Bilgiler</a></li>
-                        </ul>
-                    </li>
-                    <li>
                         <a href="#Government" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Government">
                             @php
                             $governmentStatus = \App\Models\Government::where('status', 0)->count();
                             @endphp
-                            <span class="mx-2">Yerel Yönetim @if($governmentStatus > 0) <span class="bg-danger rounded-5 p-1 text-end">{{ $governmentStatus }}</span> @endif</span>
+                            <span class="mx-2">Yerel Yönetim &nbsp; @if($governmentStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $governmentStatus }}</span> @endif</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Government">
-                            <li><a href="{{ route('admin.government.index') }}">Yerel Yönetim</a></li>
+                            <li><a href="{{ route('admin.government.index') }}">Yerel Yönetim &nbsp;@if($governmentStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $governmentStatus }}</span> @endif</a></li>
                             <li><a href="{{ route('admin.governmentTitles.index') }}">Ünvan Listesi</a></li>
                         </ul>
                     </li>
@@ -62,33 +53,45 @@
                         </ul>
                     </li>
                     <li>
+                        @php
+                            $festivalStatus = \App\Models\Festival::where('status', 0)->count();
+                        @endphp
                         <a href="#Culture" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Culture">
-                            <span class="mx-2">Kültür ve Sanat </span>
+                            <span class="mx-2">Kültür ve Sanat  &nbsp; @if($festivalStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $festivalStatus }}</span> @endif</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Culture">
-                            <li><a href="{{ route('admin.local-festivals.index') }}">Yerel Festivaller</a></li>
+                            <li><a href="{{ route('admin.local-festivals.index') }}">Yerel <br> Festivaller &nbsp; @if($festivalStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $festivalStatus }}</span> @endif</a></li>
                             <li><a href="{{ route('admin.traditions.index') }}">Gelenek ve Görenekler</a></li>
                             <li><a href="{{ route('admin.handicrafts.index') }}">El Sanatları</a></li>
                             <li><a href="{{ route('admin.culinary.index') }}">Mutfak Kültürü</a></li>
                         </ul>
                     </li>
                     <li>
+                        @php
+                            $NewsStatus = \App\Models\News::where('status', 0)->count();
+                            $EventStatus = \App\Models\Event::where('status', 0)->count();
+                            $newsEvent = $NewsStatus + $EventStatus;
+                        @endphp
                         <a href="#News" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="News">
-                            <span class="mx-2">Etkinlikler ve <br> Haberler </span>
+                            <span class="mx-2">Etkinlikler ve <br> Haberler &nbsp; @if($newsEvent > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $newsEvent }}</span> @endif</span>
                         </a>
                         <ul class="collapse list-unstyled" id="News">
-                            <li><a href="{{ route('admin.events.index') }}"> Etkinlikler</a></li>
-                            <li><a href="{{ route('admin.news.index') }}"> Haberler</a></li>
+                            <li><a href="{{ route('admin.events.index') }}"> Etkinlikler &nbsp;@if($EventStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $EventStatus }}</span> @endif</a></li>
+                            <li><a href="{{ route('admin.news.index') }}"> Haberler &nbsp;@if($NewsStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $NewsStatus }}</span> @endif</a></li>
                         </ul>
                     </li>
                     <li>
+                        @php
+                            $housingStatus = \App\Models\Housing::where('status', 0)->count();
+                            $officeStatus = \App\Models\TourismOffice::where('status', 0)->count();
+                            $housingOffice = $housingStatus + $officeStatus;
+                        @endphp
                         <a href="#Tourism" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Tourism">
-                            <span class="mx-2">Turizm </span>
+                            <span class="mx-2">Turizm &nbsp; @if($housingOffice > 0) <span class="bg-danger text-white text-sm rounded-5 p-1 text-end">{{ $housingOffice }}</span> @endif</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Tourism">
-                            <li><a href="{{ route('admin.housing.index') }}"> Konaklama Rehberi </a></li>
-                            {{--<li><a href="{{ route('admin.news.index') }}"> Ulaşım Bilgileri </a></li>--}}
-                            <li><a href="{{ route('admin.tourism-office.index') }}"> Turizm Ofisleri </a></li>
+                            <li><a href="{{ route('admin.housing.index') }}"> Konaklama Rehberi &nbsp; @if($housingStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $housingStatus }}</span> @endif</a></li>
+                            <li><a href="{{ route('admin.tourism-office.index') }}"> Turizm Ofisleri &nbsp; @if($officeStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $officeStatus }}</span> @endif</a></li>
                         </ul>
                     </li>
                     <li>
@@ -119,7 +122,7 @@
                             <span class="mx-2">Ayarlar</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Settings">
-                            <li><a href="">Ayarlar</a></li>
+                            <li><a href="{{ route('admin.setting.index') }}">Ayarlar</a></li>
                             <li><a href="{{ route('admin.counties.index') }}">İlçeler Listesi</a></li>
                             <li><a href="{{ route('admin.categories.index') }}">Kategoriler Listesi</a></li>
                             <li><a href="{{ route('admin.menu.index') }}">Menüler</a></li>

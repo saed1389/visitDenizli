@@ -1,4 +1,4 @@
-@extends('admin.layouts.appAdmin')
+@extends('agent.layouts.appAgent')
 @section('title') Visit Denizli - Turizm Ofisi Güncelle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
@@ -20,8 +20,8 @@
                 </svg>
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.tourism-office.index') }}" >Turizm Ofisleri Listesi</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('agent.dashboard') }}" title="home">Gösterge Paneli</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('agent.tourism-office.index') }}" >Turizm Ofisleri Listesi</a></li>
                 <li class="breadcrumb-item active" aria-current="page" title="App">Turizm Ofisi Güncelle</li>
             </ol>
         </div>
@@ -149,7 +149,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim</strong></label>
+                                    <label for="image" class="form-label"><strong>Resim <small class="text-danger">Size: 700x420</small></strong></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
                                     <span class="text-danger">
@@ -162,7 +162,7 @@
                                 </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.tourism-office.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('agent.tourism-office.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.housing.upload') }}", {
+                            fetch("{{ route('agent.tourism-office.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

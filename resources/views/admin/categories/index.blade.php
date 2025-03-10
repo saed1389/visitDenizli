@@ -99,7 +99,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-8 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim</strong></label>
+                                    <label for="image" class="form-label"><strong>Resim</strong> <small class="text-danger">Size: 600x565</small></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
                                     <span class="text-danger">

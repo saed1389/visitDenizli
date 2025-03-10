@@ -1,0 +1,105 @@
+/*****************************
+    Banner
+*****************************/
+.banner {
+  padding: 340px 0 280px;
+
+  .home-search {
+    .btn {
+      padding: 13px 40px;
+      line-height: 23px;
+    }
+
+  }
+
+  .banner-sub-title {
+    font-size: 16px;
+  }
+
+}
+
+.banner.banner-03 {
+  padding: 220px 0 120px;
+
+  .banner-title {
+    font-size: 42px;
+    font-weight: 500;
+  }
+
+}
+
+.search-big {
+  position: relative;
+
+  input {
+    padding-left: 30px;
+    padding-right: 120px;
+    height: 70px;
+  }
+
+  a {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: $secondary;
+    color: $gray-9;
+    padding: 18px 30px;
+    cursor: pointer;
+    border-radius: $border-radius;
+    margin: 6px;
+  }
+
+  i {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: $primary;
+    padding: 22px 30px;
+    cursor: pointer;
+    margin: 6px;
+  }
+
+}
+
+@media (max-width:1200px) {
+  .banner {
+    padding: 250px 0 180px;
+  }
+
+}
+
+@media (max-width:1024px) {
+  .banner {
+    padding: 230px 0 180px;
+  }
+
+}
+
+@media (max-width:767px) {
+  .banner {
+    padding: 180px 0 110px;
+  }
+
+}
+
+@media (max-width:767px) {
+  .banner {
+    padding: 140px 0 70px;
+  }
+
+  .banner.banner-03 {
+    padding: 160px 0 90px;
+    .banner-title {
+      font-size: 32px;
+    }
+  }
+
+}
+
+@media (max-width:575px) {
+  .banner .home-search .btn {
+    padding: 8px 30px;
+    line-height: 23px;
+  }
+
+}

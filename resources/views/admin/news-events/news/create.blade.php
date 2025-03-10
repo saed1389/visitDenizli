@@ -109,7 +109,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim</strong></label>
+                                    <label for="image" class="form-label"><strong>Resim <small class="text-danger">Size: 700x420</small></strong></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
                                     <span class="text-danger">
@@ -122,7 +122,7 @@
                                 </div>
 
                                 <div class="col-sm-4 mt-3">
-                                    <label for="banner_image" class="form-label"><strong>Banner Resmi</strong></label>
+                                    <label for="banner_image" class="form-label"><strong>Banner Resmi <small class="text-danger">Size: 1950x850</small></strong></label>
                                     <input type="file" class="form-control" id="banner_image" name="banner_image" placeholder="" value="{{ old('banner_image') }}">
                                     @error('banner_image')
                                     <span class="text-danger">
