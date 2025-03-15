@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('longitude')->nullable();
             $table->json('images');
             $table->string('website')->nullable();
+            $table->string('phone')->nullable();
             $table->string('facebook')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('created_by');

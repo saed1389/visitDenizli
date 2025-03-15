@@ -41,7 +41,7 @@ class CountyDataTable extends DataTable
      */
     public function query(County $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->orderBy('name', 'asc')->newQuery();
     }
 
     /**

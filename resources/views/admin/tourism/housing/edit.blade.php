@@ -150,7 +150,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 mt-3">
+                                <div class="col-sm-4 mt-3">
                                     <label for="website" class="form-label"><strong>Konaklama Web sitesi</strong></label>
                                     <input type="text" class="form-control" id="website" name="website" placeholder="Konaklama Web sitesi" value="{{ $housing->website }}">
                                     @error('website')
@@ -159,7 +159,16 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 mt-3">
+                                <div class="col-sm-4 mt-3">
+                                    <label for="phone" class="form-label"><strong>Konaklama Telefoni</strong></label>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Konaklama Telefoni" value="{{ $housing->phone }}">
+                                    @error('phone')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mt-3">
                                     <label for="facebook" class="form-label"><strong>Konaklama Facebook</strong></label>
                                     <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Konaklama Facebook" value="{{ $housing->facebook }}">
                                     @error('facebook')

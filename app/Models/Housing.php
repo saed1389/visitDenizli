@@ -18,4 +18,9 @@ class Housing extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function category() : BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

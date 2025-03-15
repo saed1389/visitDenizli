@@ -50,6 +50,7 @@ class HousingController extends Controller
             'longitude' => 'nullable',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'website' => 'nullable',
+            'phone' => 'nullable',
             'facebook' => 'nullable',
             'created_by' => 'nullable|exists:users,id',
         ]);
@@ -77,6 +78,7 @@ class HousingController extends Controller
             'longitude' => $request->longitude,
             'images' => json_encode($imageUrls),
             'website' => $request->website,
+            'phone' => $request->phone,
             'facebook' => $request->facebook,
             'status' => 0,
             'created_by' => Auth::user()->id,
@@ -121,6 +123,7 @@ class HousingController extends Controller
             'longitude' => 'nullable',
             'images.*' => 'required|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
             'website' => 'nullable',
+            'phone' => 'nullable',
             'facebook' => 'nullable',
             'created_by' => 'nullable|exists:users,id',
         ]);
@@ -152,6 +155,7 @@ class HousingController extends Controller
             'longitude' => $request->longitude,
             'images' => json_encode($existingImages),
             'website' => $request->website,
+            'phone' => $request->phone,
             'facebook' => $request->facebook,
             'status' => 0,
             'updated_by' => Auth::user()->id,

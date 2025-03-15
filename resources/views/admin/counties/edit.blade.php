@@ -121,6 +121,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-end">
+                            <a href="{{ route('admin.counties.index') }}" class="btn btn-outline-secondary">İptal</a>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </div>
                     </form>
