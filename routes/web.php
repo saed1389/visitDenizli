@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\AboutPage;
 use App\Livewire\HomePage;
+use App\Livewire\PlacePage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/change-locale/{locale}', function ($locale) {
@@ -10,7 +12,12 @@ Route::get('/change-locale/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
+
 Route::get('/', HomePage::class);
+
+Route::get('/hakkimiza/{slug}', AboutPage::class);
+
+Route::get('/gezilecek-yerler/{slug} ', PlacePage::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

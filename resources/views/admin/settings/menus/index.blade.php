@@ -47,7 +47,7 @@
                     <div class="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
                         <h4 class="card-title m-0">Menü Yönetim</h4>
                         <div class="form-check form-switch table-toggle-three">
-                            <a href="{{ route('admin.menu.create') }}" class="btn btn-secondary" >Menü Ekle</a>
+                            {{--<a href="{{ route('admin.menu.create') }}" class="btn btn-secondary" >Menü Ekle</a>--}}
                         </div>
                     </div>
                     <div class="card-body table-main-three">

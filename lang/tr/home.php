@@ -34,6 +34,8 @@ return [
     'Real time listing directory' => 'Gerçek zamanlı listeleme dizini',
     'Budget filter for budget' => 'Bütçe için bütçe filtresi',
     'Notification price reduction' => 'Bildirim fiyat indirimi',
+    'app description' => 'Başarı aslında o kadar da zor değil. Kuzey Amerika\'da nüfusun önemli bir kısmı gerçekten başarı istiyor ve buna ihtiyaç duyuyor',
     'Download on the' => 'indirin',
     'Get in on' => 'indirin',
+    'county' => 'İlçe',
 ];

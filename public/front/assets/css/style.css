@@ -3514,9 +3514,13 @@ button {
 
 /* Category */
 .category-item {
-  padding: 22px 30px;
-  display: block;
-  border-radius: 3px; }
+    padding: 22px 30px;
+    display: block;
+    border-radius: 3px;
+    font-size: 14px;
+    align-content: center;
+    vertical-align: -webkit-baseline-middle;
+}
 
 /* location-item  */
 .location-item {

@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="{{ asset('front/assets/css/bootstrap/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('front/assets/css/owl-carousel/owl.carousel.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('front/assets/css/magnific-popup/magnific-popup.css') }}" />
-    <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}" />
     @stack('styles')
+    <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}" />
     @livewireStyles
 </head>
 
@@ -40,8 +40,8 @@ footer-->
 <script src="{{ asset('front/assets/js/bootstrap/bootstrap.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/owl-carousel/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ asset('front/assets/js/custom.js') }}"></script>
 @stack('scripts')
+<script src="{{ asset('front/assets/js/custom.js') }}"></script>
 @livewireScripts
 </body>
 </html>

@@ -94,7 +94,7 @@
                     <div class="owl-carousel" data-nav-dots="false" data-nav-arrow="false" data-items="6" data-md-items="5" data-sm-items="4" data-xs-items="2" data-xx-items="1" data-space="20" data-autoheight="false">
                         @foreach($categories as $category)
                             <div class="item">
-                                <a class="category-item bg-holder bg-overlay-black-50 text-center" style="background-image: url('/{{ $category->image }}');" href="#">
+                                <a class="category-item bg-holder bg-overlay-black-50 text-center" style="background-image: url('/{{ $category->image }}'); height: 75px" href="#">
                                     <span class="mb-0 text-white position-relative">{{ app()->getLocale() == 'tr' ? $category->name : $category->name_en }}</span>
                                 </a>
                             </div>
@@ -287,9 +287,10 @@
                                     <a href="javascript: void (0)">{{ __('home.start on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->start_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->start_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->start_date)->format(' Y') }},</a>
                                 </div>
                                 <div class="blog-post-category">
-                                    <a href="javascript: void (0)">{{ __('home.end on') }}, {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format(' Y') }}</a>
+                                    <a href="javascript: void (0)">{{ __('home.end on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format(' Y') }}</a>
                                 </div>
                                 <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $event->name : $event->name_en }} </a></h5>
+                                <h6 class="blog-post-title" style="font-size: 14px;"><a href="">{{ __('home.county') }}: {{ $event->county->name }}</a> </h6>
                             </div>
                         </div>
                     </div>
@@ -299,6 +300,7 @@
                         <div class="blog-post bg-overlay-half-bottom bg-holder {{ $loop->first ? 'mb-4' : '' }} " style="background-image: url({{ asset($item->image) }});">
                             <div class="blog-post-info">
                                 <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}</a></h5>
+                                <h6 class="blog-post-title" style="font-size: 14px;"><a href="">{{ __('home.county') }}: {{ $item->county->name }}</a> </h6>
                             </div>
                         </div>
                     @endforeach

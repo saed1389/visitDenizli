@@ -34,7 +34,8 @@ return [
     'Real time listing directory' => 'Real time listing directory',
     'Budget filter for budget' => 'Budget filter for budget',
     'Notification price reduction' => 'Notification price reduction',
-    'app description' => 'Başarı aslında o kadar da zor değil. Kuzey Amerika\'da nüfusun önemli bir kısmı gerçekten başarı istiyor ve buna ihtiyaç duyuyor',
+    'app description' => 'Success isn’t really that difficult. There is a significant portion of the population here in North America, that actually want and need success',
     'Download on the' => 'Download on the',
     'Get in on' => 'Get in on',
+    'county' => 'County',
 ];
