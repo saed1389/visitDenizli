@@ -63,13 +63,13 @@
                                 @endforelse
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown {{ Request::segment(1) == 'gezilecek-yerler' ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.place visit') }} <i class="fas fa-chevron-down fa-xs"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 2)
-                                        <li>
+                                        <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
                                             <a class="dropdown-item" href="{{ $item->slug ? '/gezilecek-yerler/' . $item->slug : '#' }}">
                                                 {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
                                             </a>

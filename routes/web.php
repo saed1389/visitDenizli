@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Livewire\AboutPage;
 use App\Livewire\HomePage;
+use App\Livewire\PlaceDetailPage;
 use App\Livewire\PlacePage;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,13 @@ Route::get('/', HomePage::class);
 
 Route::get('/hakkimiza/{slug}', AboutPage::class);
 
-Route::get('/gezilecek-yerler/{slug} ', PlacePage::class);
+Route::prefix('gezilecek-yerler')->group(function () {
+    // Listing page
+    Route::get('/{slug}', PlacePage::class)->name('place.listing');
+
+    // Detail page
+    Route::get('/{categorySlug}/{placeSlug}', PlaceDetailPage::class)->name('place.detail');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

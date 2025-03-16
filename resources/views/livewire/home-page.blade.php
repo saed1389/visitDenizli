@@ -313,7 +313,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-5 mb-4 mb-lg-0 text-center">
-                    <img class="img-fluid" src="{{ asset('front/assets/images/about/02.png') }}" alt="">
+                    <img class="img-fluid" src="{{ asset('front/assets/images/app.png') }}" alt="">
                 </div>
                 <div class="col-lg-6 offset-lg-1">
                     <div class="section-title">

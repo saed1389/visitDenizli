@@ -24,8 +24,8 @@ class HistoryPlaceDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addIndexColumn()
             ->addColumn('action', function ($query) {
-                $edit = "<a href='".route('admin.local-festivals.edit', $query->id)."' class='btn btn-sm btn-primary me-1 '><i class='fa fa-edit'></i></a>";
-                $delete = "<a href='".route('admin.local-festivals.destroy', $query->id)."' class='btn btn-sm btn-danger delete-item' id='delete'><i class='fa fa-trash'></i></a>";
+                $edit = "<a href='".route('admin.history-places.edit', $query->id)."' class='btn btn-sm btn-primary me-1 '><i class='fa fa-edit'></i></a>";
+                $delete = "<a href='".route('admin.history-places.destroy', $query->id)."' class='btn btn-sm btn-danger delete-item' id='delete'><i class='fa fa-trash'></i></a>";
 
                 return $edit.$delete;
             })->addColumn('image', function ($query) {

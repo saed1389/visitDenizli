@@ -8,4 +8,10 @@ return [
     'Alphabetic' => 'Alfabetik',
     'Reset' => 'Sıfırla',
     'Sort' => 'Sırala',
+    'historical' => 'Tarihi Mekanlar',
+    'natural' => 'Doğal Güzellikler',
+    'museum' => 'Müzeler ve Sanat Galerileri',
+    'Location data is missing.' => 'Konum verisi eksik.',
+    'Location' => 'Konum',
+    'Related places' => 'Benzer Yerler'
 ];

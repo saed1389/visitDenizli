@@ -8,4 +8,10 @@ return [
     'Alphabetic' => 'Alphabetic',
     'Reset' => 'Reset',
     'Sort' => 'Sort by',
+    'historical' => 'Historical Places',
+    'natural' => 'Natural Beauties',
+    'museum' => 'Museums and Art Galleries',
+    'Location data is missing.' => 'Location data is missing.',
+    'Location' => 'Location',
+    'Related places' => 'Related places',
 ];

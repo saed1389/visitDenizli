@@ -23,19 +23,19 @@ class AboutPage extends Component
 
     protected $listeners = ['resetFilters'];
 
-    public function resetFilters()
+    public function resetFilters(): void
     {
         $this->reset(['searchKeyword', 'selectedCounty']);
     }
 
-    public function mount($slug)
+    public function mount($slug): void
     {
         $this->slug = $slug;
         $this->menu = Menu::where('parent_id', 1)->where('slug', $this->slug)->first();
         $this->sortMembers();
     }
 
-    public function sortMembers()
+    public function sortMembers(): void
     {
         $this->members = Government::where('status', 1)
             ->when($this->sortBy == 'name_asc', function ($query) {
@@ -53,12 +53,12 @@ class AboutPage extends Component
             ->get();
     }
 
-    public function updatedSearchKeyword()
+    public function updatedSearchKeyword(): void
     {
         $this->sortMembers();
     }
 
-    public function updatedSelectedCounty()
+    public function updatedSelectedCounty(): void
     {
         $this->sortMembers();
     }

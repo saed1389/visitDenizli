@@ -95,7 +95,7 @@ class MenuController extends Controller
         }
 
         if ($request->hasFile('image_banner')) {
-            $bannerName = Str::slug($request->input('title')) . '-' . time() . '.' . $request->image_banner->extension();
+            $bannerName = Str::slug($request->input('title')) .'-banner' . time() . '.' . $request->image_banner->extension();
             $request->file('image_banner')->move('uploads/menu/', $bannerName);
             @unlink($menu->image_banner);
             $bannerUrl = 'uploads/menu/' . $bannerName;
