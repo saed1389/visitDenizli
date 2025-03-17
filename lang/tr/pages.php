@@ -13,5 +13,9 @@ return [
     'museum' => 'Müzeler ve Sanat Galerileri',
     'Location data is missing.' => 'Konum verisi eksik.',
     'Location' => 'Konum',
-    'Related places' => 'Benzer Yerler'
+    'Related places' => 'Benzer Yerler',
+    'festival' => 'Yerel Festivaller',
+    'tradition' => 'Gelenek ve Görenekler',
+    'handicraft' => 'El Sanatları',
+    'culinary' => 'Mutfak Kültürü',
 ];

@@ -14,4 +14,8 @@ return [
     'Location data is missing.' => 'Location data is missing.',
     'Location' => 'Location',
     'Related places' => 'Related places',
+    'festival' => 'Local Festivals',
+    'tradition' => 'Customs and Traditions',
+    'handicraft' => 'Handicrafts',
+    'culinary' => 'Culinary Culture',
 ];

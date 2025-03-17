@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Livewire\AboutPage;
+use App\Livewire\CultureDetailPage;
+use App\Livewire\CulturePage;
 use App\Livewire\HomePage;
 use App\Livewire\PlaceDetailPage;
 use App\Livewire\PlacePage;
@@ -19,11 +21,17 @@ Route::get('/', HomePage::class);
 Route::get('/hakkimiza/{slug}', AboutPage::class);
 
 Route::prefix('gezilecek-yerler')->group(function () {
-    // Listing page
+
     Route::get('/{slug}', PlacePage::class)->name('place.listing');
 
-    // Detail page
     Route::get('/{categorySlug}/{placeSlug}', PlaceDetailPage::class)->name('place.detail');
+});
+
+Route::prefix('kultur-ve-sanat')->group(function () {
+
+    Route::get('/{slug}', CulturePage::class)->name('culture.listing');
+
+    Route::get('/{categorySlug}/{placeSlug}', CultureDetailPage::class)->name('culture.detail');
 });
 
 Route::get('/dashboard', function () {
