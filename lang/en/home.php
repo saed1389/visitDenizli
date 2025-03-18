@@ -8,7 +8,7 @@ return [
     'where ex' => 'Ex: Choose your city or location',
     'search' => 'Search',
     'Or browse the highlights' => 'Accommodation and Dining Spots.',
-    'Fine location in these cities' => 'Denizli’s 19 Districts:',
+    'Fine location in these cities' => 'Denizli’s 19 Districts',
     'Remind yourself the only thing stopping you is yourself.' => 'Every Corner Tells a Story: A Journey Through Hidden Gems and Historical Heritage!',
     'Most visited places' => 'Most visited places',
     'Make a list of your achievements toward your long-term goal' => 'Routes waiting to be discovered with their natural beauty, historical texture, and stunning views await you.',

@@ -18,4 +18,10 @@ return [
     'tradition' => 'Customs and Traditions',
     'handicraft' => 'Handicrafts',
     'culinary' => 'Culinary Culture',
+    'About the Event' => 'About the Event',
+    'Recent Events' => 'Recent Events',
+    'Subscribe & Follow' => 'Subscribe & Follow',
+    'Like' => 'Like',
+    'followers' => 'followers',
+    'Subscribers' => 'Subscribers',
 ];

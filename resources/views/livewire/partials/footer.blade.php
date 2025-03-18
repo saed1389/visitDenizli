@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
                     <div class="footer-contact-info">
-                        <a href="/"><img class="img-fluid footer-logo" src="{{ asset($setting->logo) }}" alt="logo"></a>
+                        <a href="/"><img class="img-fluid footer-logo" src="{{ asset('front/assets/images/footer-logo.png') }}" alt="logo"></a>
                         <div class="contact-address mt-5 me-5 pe-5">
                             @if($setting->site_address)
                                 <div class="contact-item">
@@ -21,7 +21,6 @@
                                         <a class="text-dark" href="mailto:{{ $setting->site_email }}">{{ $setting->site_email }}</a>
                                     </div>
                                 @endif
-
                         </div>
                     </div>
                 </div>

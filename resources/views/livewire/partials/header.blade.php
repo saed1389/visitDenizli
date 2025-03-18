@@ -104,9 +104,11 @@
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 4)
                                         <li>
-                                            <a class="dropdown-item" href="">
+                                        <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
+                                            <a class="dropdown-item" href="{{ $item->slug ? '/etkinlikler-ve-haberler/' . $item->slug : '#' }}">
                                                 {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
                                             </a>
+                                        </li>
                                         </li>
                                     @endif
                                 @empty

@@ -8,7 +8,7 @@ return [
     'where ex' => 'Örn: Şehrinizi veya konumunuzu seçin',
     'search' => 'Ara',
     'Or browse the highlights' => 'Konaklama ve Lezzet Durakları',
-    'Fine location in these cities' => 'Denizli’nin 19 İlçesi:',
+    'Fine location in these cities' => 'Denizli’nin 19 İlçesi',
     'Remind yourself the only thing stopping you is yourself.' => 'Her Köşesinde Ayrı Bir Hikâye: Saklı Güzelliklerden Tarihi Miraslara Yolculuk!',
     'Most visited places' => 'Gidilecek Yerler',
     'Make a list of your achievements toward your long-term goal' => 'Doğal güzellikleri, tarihi dokusu ve eşsiz manzaralarıyla keşfedilmeyi bekleyen rotalar sizi bekliyor.',

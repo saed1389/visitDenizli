@@ -18,4 +18,10 @@ return [
     'tradition' => 'Gelenek ve Görenekler',
     'handicraft' => 'El Sanatları',
     'culinary' => 'Mutfak Kültürü',
+    'About the Event' => 'Etkinlik Hakkında',
+    'Recent Events' => 'Güncel Etkinlikler',
+    'Subscribe & Follow' => 'Abone Olun ve Takip Edin',
+    'Like' => 'Beğen',
+    'followers' => 'takip edin',
+    'Subscribers' => 'Abone Olun',
 ];
