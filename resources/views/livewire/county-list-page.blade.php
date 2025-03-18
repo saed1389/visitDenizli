@@ -1,13 +1,13 @@
 <div>
-    <section class="page-title bg-holder bg-overlay-black-50" style="background: url({{ asset($menu->image_banner) }});">
+    <section class="page-title bg-holder bg-overlay-black-50" style="background: url({{ asset('front/assets/images/bg/ilceler-slider.jpg') }});">
         <div class="container">
             <div class="row justify-content-center position-relative">
                 <div class="col-lg-6 text-center">
-                    <h1 class="text-white">{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}</h1>
+                    <h1 class="text-white">{{ __('home.Counties List') }}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">{{ __('header.home') }}</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ __('home.Counties List') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -15,19 +15,6 @@
         </div>
     </section>
 
-    <section class="space-ptb">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <h2>{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}</h2>
-                    {!! app()->getLocale() == 'tr' ? $menu->description : $menu->description_en !!}
-                </div>
-                <div class="col-md-5 mt-4 mt-md-0">
-                    <img class="img-fluid border-radius" src="{{ asset($menu->image) }}" alt="{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}">
-                </div>
-            </div>
-        </div>
-    </section>
     <section class="space-ptb bg-light">
         <div class="container">
             <div class="row">
@@ -43,14 +30,6 @@
                                     <div class="collapse show" id="filters">
                                         <div class="form-group mb-3">
                                             <input type="text" class="form-control" placeholder="{{ __('pages.Who are you looking for?') }}" wire:model.live="searchKeyword">
-                                        </div>
-                                        <div class="form-group mb-3 select-border">
-                                            <select class="form-control" wire:model.live="selectedCounty">
-                                                <option value="">{{ __('pages.All Counties') }}</option>
-                                                @foreach($counties as $county)
-                                                    <option value="{{ $county->id }}">{{ $county->name }}</option>
-                                                @endforeach
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +53,7 @@
                                     <div class="form-group d-sm-flex d-block">
                                         <label class="justify-content-start form-label d-flex align-items-center mb-0">{{ __('pages.Sort') }}: &nbsp;</label>
                                         <div class="short-by">
-                                            <select class="form-select" wire:model="sortBy" wire:change="$refresh" style="border: 1px solid #ffffff;">
+                                            <select class="form-select" wire:model="sortBy" wire:change="sortMembers" style="border: 1px solid #ffffff;">
                                                 <option value="name_asc">{{ __('pages.Alphabetic') }} A-Z</option>
                                                 <option value="name_desc">{{ __('pages.Alphabetic') }} Z-A</option>
                                             </select>
@@ -86,34 +65,27 @@
                     </div>
 
                     <div class="row">
-                        @foreach($places as $place)
+                        @foreach($counties as $county)
                             <div class="col-lg-3 mb-4">
                                 <div class="listing-item">
                                     <div class="listing-image bg-overlay-half-bottom">
-                                        <img class="img-fluid" src="{{ asset($place->image) }}" alt="{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}">
+                                        <img class="img-fluid" src="{{ asset($county->image) }}" alt="{{  $county->name }}">
                                         <div class="listing-quick-box">
-                                            <a class="popup popup-single" href="{{ asset($place->image) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zoom">
+                                            <a class="popup popup-single" href="{{ asset($county->image) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zoom">
                                                 <i class="fas fa-search-plus"></i>
                                             </a>
                                         </div>
                                     </div>
                                     <div class="listing-details">
                                         <div class="listing-details-inner">
-                                            <div class="listing-title">
+                                            <div class="listing-title" style="place-content: center">
                                                 <h6>
-                                                    <a href="{{ route('culture.detail', ['categorySlug' => $slug, 'placeSlug' => $place->slug]) }}">
-                                                        {{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}
+                                                    <a href="{{ route('counties.detail', ['placeSlug' => $county->slug]) }}">
+                                                        {{ $county->name}}
                                                     </a>
                                                 </h6>
                                             </div>
                                         </div>
-                                        @if($place->county_id)
-                                            <div class="listing-bottom">
-                                                <a class="listing-loaction" href="{{ route('counties.detail', ['placeSlug' => $place->county->slug]) }}">
-                                                    <i class="fas fa-map-marker-alt"></i> {{ $place->county->name }}
-                                                </a>
-                                            </div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>

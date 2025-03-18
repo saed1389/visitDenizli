@@ -104,13 +104,12 @@
             </div>
         </div>
     </section>
-
     <section class="space-ptb">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>{{ __('home.Fine location in these cities') }}</h2>
+                        <h2><a href="{{ route('counties.listing') }}">{{ __('home.Fine location in these cities') }}</a></h2>
                         <div class="sub-title text-end"> <span> {{ __('home.Remind yourself the only thing stopping you is yourself.') }}</span></div>
                     </div>
                 </div>
@@ -140,14 +139,18 @@
                     @endphp
                     <div class="{{ $columnClass }} {{ $marginClass }} mt-4">
                         <div class="location-item bg-holder bg-overlay-black-50 text-center" style="background-image: url({{ $city->image }});">
-                            <a class="position-relative" href="#">{{ $city->name }}</a>
+                            <a class="position-relative" href="{{ route('counties.detail', ['placeSlug' => $city->slug]) }}">{{ $city->name }}</a>
                         </div>
                     </div>
                 @endforeach
             </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a href="{{ route('counties.listing') }}" class="w-50 btn btn-secondary mt-3"> {{ __('home.Counties List') }} </a>
+                </div>
+            </div>
         </div>
     </section>
-
     <section class="space-pb popup-gallery">
         <div class="container">
             <div class="row">
@@ -177,7 +180,6 @@
                                 <div class="listing-details-inner">
                                     <div class="listing-title">
                                         <h6><a href="#">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</a></h6>
-
                                     </div>
                                     <div class="listing-rating-call">
                                         @if($place->website)
@@ -290,7 +292,7 @@
                                     <a href="javascript: void (0)">{{ __('home.end on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format(' Y') }}</a>
                                 </div>
                                 <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $event->name : $event->name_en }} </a></h5>
-                                <h6 class="blog-post-title" style="font-size: 14px;"><a href="">{{ __('home.county') }}: {{ $event->county->name }}</a> </h6>
+                                <h6 class="blog-post-title" style="font-size: 14px;"><a href="{{ route('counties.detail', ['placeSlug' => $event->county->slug]) }}">{{ __('home.county') }}: {{ $event->county->name }}</a> </h6>
                             </div>
                         </div>
                     </div>
@@ -300,7 +302,7 @@
                         <div class="blog-post bg-overlay-half-bottom bg-holder {{ $loop->first ? 'mb-4' : '' }} " style="background-image: url({{ asset($item->image) }});">
                             <div class="blog-post-info">
                                 <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}</a></h5>
-                                <h6 class="blog-post-title" style="font-size: 14px;"><a href="">{{ __('home.county') }}: {{ $item->county->name }}</a> </h6>
+                                <h6 class="blog-post-title" style="font-size: 14px;"><a href="{{ route('counties.detail', ['placeSlug' => $item->county->slug]) }}">{{ __('home.county') }}: {{ $item->county->name }}</a> </h6>
                             </div>
                         </div>
                     @endforeach

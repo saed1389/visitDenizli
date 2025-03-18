@@ -60,7 +60,7 @@
                                     <div class="form-group d-sm-flex d-block">
                                         <label class="justify-content-start form-label d-flex align-items-center mb-0">{{ __('pages.Sort') }}: &nbsp;</label>
                                         <div class="short-by">
-                                            <select class="form-select" wire:model="sortBy" wire:change="sortMembers" style="border: 1px solid #ffffff;">
+                                            <select class="form-select" wire:model="sortBy" wire:change="$refresh" style="border: 1px solid #ffffff;">
                                                 <option value="name_asc">{{ __('pages.Alphabetic') }} A-Z</option>
                                                 <option value="name_desc">{{ __('pages.Alphabetic') }} Z-A</option>
                                             </select>

@@ -30,4 +30,13 @@ return [
     'Latest News' => 'Latest News',
     'Related Events' => 'Related Events',
     'Related News' => 'Related News',
+    'History Places' => 'History Places',
+    'Natural Place' => 'Natural Place',
+    'Festivals' => 'Festivals',
+    'Museums' => 'Museums',
+    'News' => 'News',
+    'Events' => 'Events',
+    'Tourism Office' => 'Tourism Office',
+    'Traditions' => 'Traditions',
+    'Housings' => 'Housings'
 ];

@@ -38,4 +38,5 @@ return [
     'Download on the' => 'indirin',
     'Get in on' => 'indirin',
     'county' => 'İlçe',
+    'Counties List' => 'İlçeler Listesi',
 ];

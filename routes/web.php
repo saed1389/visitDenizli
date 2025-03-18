@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Livewire\AboutPage;
+use App\Livewire\CountyDetailPage;
+use App\Livewire\CountyListPage;
 use App\Livewire\CultureDetailPage;
 use App\Livewire\CulturePage;
 use App\Livewire\EventDetailPage;
@@ -43,9 +45,19 @@ Route::prefix('etkinlikler-ve-haberler')->group(function () {
     Route::get('/{categorySlug}/{placeSlug}', EventDetailPage::class)->name('news.detail');
 });
 
-Route::get('/dashboard', function () {
+Route::prefix('ilceler-listesi')->group(function () {
+
+    Route::get('/', CountyListPage::class)->name('counties.listing');
+
+    Route::get('/{placeSlug}', CountyDetailPage::class)->name('counties.detail');
+});
+
+
+
+
+/*Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

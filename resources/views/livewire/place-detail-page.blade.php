@@ -21,7 +21,7 @@
             <div class="row mb-4">
                 <div class="col-md-9">
                     <h2>{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }} </h2>
-                    <a class="listing-loaction text-dark mb-3 d-block" href="#"> <i class="fas fa-map-marker-alt pe-2 text-primary"></i> {{ $place->county->name }}</a>
+                    <a class="listing-loaction text-dark mb-3 d-block" href="{{ route('counties.detail', ['placeSlug' => $place->county->slug]) }}"> <i class="fas fa-map-marker-alt pe-2 text-primary"></i> {{ $place->county->name }}</a>
                 </div>
             </div>
             <div class="row">

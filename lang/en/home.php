@@ -38,4 +38,5 @@ return [
     'Download on the' => 'Download on the',
     'Get in on' => 'Get in on',
     'county' => 'County',
+    'Counties List' => 'Counties List',
 ];

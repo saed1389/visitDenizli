@@ -105,7 +105,7 @@
                                             </div>
                                         </div>
                                         <div class="listing-bottom">
-                                            <a class="listing-loaction" href="#">
+                                            <a class="listing-loaction" href="{{ route('counties.detail', ['placeSlug' => $member->county->slug]) }}">
                                                 <i class="fas fa-map-marker-alt"></i> {{ $member->county->name }}
                                             </a>
                                         </div>

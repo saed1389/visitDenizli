@@ -30,4 +30,13 @@ return [
     'Latest News' => 'Güncel Haberler',
     'Related Events' => 'Benzer Etkinlikler',
     'Related News' => 'Benzer Haberler',
+    'History Places' => 'Tarih Mekanları',
+    'Natural Place' => 'Doğal Mekan',
+    'Festivals' => 'Festivaller',
+    'Museums' => 'Müzeler',
+    'News' => 'Haberler',
+    'Events' => 'Etkinlikler',
+    'Tourism Office' => 'Turizm Ofisi',
+    'Traditions' => 'Gelenekler',
+    'Housings' => 'Konaklama'
 ];

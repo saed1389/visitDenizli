@@ -111,7 +111,7 @@
                                      <i class="far fa-clock"></i>{{ date('d/m/Y', strtotime($place->created_at)) }}
                                 </div>
                                 <div class="blog-post-author">
-                                    <span><a href="#"> <i class="fa fa-location-arrow"></i> {{ $place->county->name }}</a> </span>
+                                    <span><a href="{{ route('counties.detail', ['placeSlug' => $place->county->slug]) }}"> <i class="fa fa-location-arrow"></i> {{ $place->county->name }}</a> </span>
                                 </div>
 
                             </div>
