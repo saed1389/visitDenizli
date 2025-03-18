@@ -48,7 +48,11 @@
                         </div>
                         <div class="widget">
                             <div class="widget-title bg-primary">
-                                <h6 class="mb-0 text-white"><i class="far fa-address-card"></i> {{ __('pages.About the Event') }}</h6>
+                                @if($types == 'event')
+                                    <h6 class="mb-0 text-white"><i class="far fa-address-card"></i> {{ __('pages.About the Event') }}</h6>
+                                @else
+                                    <h6 class="mb-0 text-white"><i class="far fa-address-card"></i> {{ __('pages.About the News') }}</h6>
+                                @endif
                             </div>
                             <div class="widget-content">
                                 <p>The first thing to remember about success is that it is a process – nothing more, nothing less.</p>
@@ -61,16 +65,20 @@
                         </div>
                         <div class="widget">
                             <div class="widget-title bg-primary">
-                                <h6 class="mb-0 text-white"><i class="fab fa-blogger-b"></i> {{ __('pages.Recent Events') }}</h6>
+                                @if($types == 'event')
+                                    <h6 class="mb-0 text-white"><i class="fab fa-blogger-b"></i> {{ __('pages.Recent Events') }}</h6>
+                                @else
+                                    <h6 class="mb-0 text-white"><i class="fab fa-blogger-b"></i> {{ __('pages.Recent News') }}</h6>
+                                @endif
                             </div>
                             <div class="widget-content">
-                                @foreach($recent as $item)
+                                @foreach($recentEvents as $item)
                                     <div class="d-flex mb-3 align-items-top">
                                         <div class="avatar avatar-xl h-auto">
                                             <img class="img-fluid" src="{{ asset($item->image) }}" alt="{{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}">
                                         </div>
                                         <div class="ms-3">
-                                            <a class="text-dark" href="blog-single.html"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }} </a>
+                                            <a class="text-dark" href="{{ route('news.detail', ['categorySlug' => $slug, 'placeSlug' => $item->slug]) }}"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }} </a>
                                             <a class="d-flex font-sm text-dark" href="javascript: void (0)">{{ date('d/m/Y', strtotime($item->created_at)) }}</a>
                                         </div>
                                     </div>
@@ -94,7 +102,7 @@
                                         @if($setting->site_twitter)
                                                 <li class="twitter">
                                                     <a href="{{ $setting->site_twitter }}" target="_blank"> <i class="fab fa-twitter me-3"></i>twitter</a>
-                                                    <a class="follow ms-auto" href="#">{{ __('pages.followers') }} </a>
+                                                    <a class="follow ms-auto" href="{{ $setting->site_twitter }}">{{ __('pages.followers') }} </a>
                                                 </li>
                                         @endif
                                         @if($setting->site_instagram)
@@ -121,13 +129,15 @@
                         <div class="blog-post-02">
                             <img class="img-fluid" src="{{ asset($item->image) }}" alt="{{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}">
                             <div class="blog-post-info">
-                                <div class="blog-post-category">
-                                    <span class="text-white">{{ __('home.start on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->start_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->start_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->start_date)->format(' Y') }},</span>
-                                </div>
-                                <div class="blog-post-category">
-                                    <span class="text-white" >{{ __('home.end on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->end_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->end_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->end_date)->format(' Y') }}</span>
-                                </div>
-                                <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }} </a></h5>
+                                @if($types == 'event')
+                                    <div class="blog-post-category">
+                                        <span class="text-white">{{ __('home.start on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->start_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->start_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->start_date)->format(' Y') }},</span>
+                                    </div>
+                                    <div class="blog-post-category bg-danger">
+                                        <span class="text-white" >{{ __('home.end on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->end_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->end_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $item->end_date)->format(' Y') }}</span>
+                                    </div>
+                                @endif
+                                <h5 class="blog-post-title"><a href="{{ route('news.detail', ['categorySlug' => $slug, 'placeSlug' => $item->slug]) }}"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }} </a></h5>
                                 {!! app()->getLocale() == 'tr' ? Str::limit($item->description, 100, '...') : Str::limit($item->description_en, 100, '...') !!}
                             </div>
                             <div class="blog-post-footer">

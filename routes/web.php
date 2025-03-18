@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Livewire\AboutPage;
 use App\Livewire\CultureDetailPage;
 use App\Livewire\CulturePage;
+use App\Livewire\EventDetailPage;
 use App\Livewire\EventPage;
 use App\Livewire\HomePage;
 use App\Livewire\PlaceDetailPage;
@@ -39,7 +40,7 @@ Route::prefix('etkinlikler-ve-haberler')->group(function () {
 
     Route::get('/{slug}', EventPage::class)->name('news.listing');
 
-    Route::get('/{categorySlug}/{placeSlug}', EventPage::class)->name('news.detail');
+    Route::get('/{categorySlug}/{placeSlug}', EventDetailPage::class)->name('news.detail');
 });
 
 Route::get('/dashboard', function () {

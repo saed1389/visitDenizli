@@ -43,8 +43,19 @@ class EventPage extends Component
 
         if ($this->menu && $this->menu->id == 12) {
             $query = Event::where('status', 1)->orderBy('created_at', 'desc');
+            $type = 'event';
+            $recentEvents = Event::where('status', 1)
+                ->whereRaw("STR_TO_DATE(end_date, '%d.%m.%Y %H:%i') > NOW()")
+                ->orderBy('created_at', 'desc')
+                ->take(3)
+                ->get();
         } elseif ($this->menu && $this->menu->id == 13) {
             $query = News::where('status', 1);
+            $type = 'news';
+            $recentEvents = News::where('status', 1)
+                ->orderBy('created_at', 'desc')
+                ->take(3)
+                ->get();
         }
 
         if ($query) {
@@ -61,24 +72,20 @@ class EventPage extends Component
                     return $query->where('county_id', $this->selectedCounty);
                 });
 
-            $news = $query->whereRaw("STR_TO_DATE(end_date, '%d.%m.%Y %H:%i') > NOW()")->orderBy('created_at', 'desc')->paginate(6);
+            $news = $query->orderBy('created_at', 'desc')->paginate(6);
         } else {
             $news = collect();
         }
         $setting = getSetting();
         $counties = County::where('status', 1)->get();
-        $recent = Event::where('status', 1)
-            ->whereRaw("STR_TO_DATE(end_date, '%d.%m.%Y %H:%i') > NOW()")
-            ->orderBy('created_at', 'desc')
-            ->take(3)
-            ->get();
 
         return view('livewire.event-page', [
             'menu' => $this->menu,
             'news' => $news,
             'counties' => $counties,
-            'recent' => $recent,
+            'recentEvents' => $recentEvents,
             'setting' => $setting,
+            'types' => $type,
         ]);
     }
 }

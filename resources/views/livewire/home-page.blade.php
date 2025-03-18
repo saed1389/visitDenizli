@@ -286,7 +286,7 @@
                                 <div class="blog-post-category">
                                     <a href="javascript: void (0)">{{ __('home.start on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->start_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->start_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->start_date)->format(' Y') }},</a>
                                 </div>
-                                <div class="blog-post-category">
+                                <div class="blog-post-category bg-danger">
                                     <a href="javascript: void (0)">{{ __('home.end on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format(' Y') }}</a>
                                 </div>
                                 <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $event->name : $event->name_en }} </a></h5>
