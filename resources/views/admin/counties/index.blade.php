@@ -103,6 +103,18 @@
                                 <div class="col-sm-4 mt-3">
                                     <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
+                                <div class="col-sm-8 mt-3">
+                                    <label for="banner_image" class="form-label"><strong>Banner Resmi <small class="text-danger">Size: 1950x850</small></strong></label>
+                                    <input type="file" class="form-control" id="banner_image" name="banner_image" placeholder="" value="{{ old('banner_image') }}">
+                                    @error('banner_image')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mt-3">
+                                    <img src="{{ asset('panel/assets/images/def.png') }}" id="showBannerImage" class="img-thumbnail" alt="" >
+                                </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="status" class="form-label"><strong>Durum</strong></label>
                                     <div class="my-3">
@@ -198,6 +210,14 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            });
+
+            $('#banner_image').change(function (e) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#showBannerImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files[0]);
             });

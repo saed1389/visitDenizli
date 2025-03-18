@@ -18,6 +18,7 @@ class CountyController extends Controller
         $request->validate([
             'name' => 'required|unique:counties',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable',
             'description_en' => 'nullable',
             'status' => 'required',
@@ -32,6 +33,15 @@ class CountyController extends Controller
             $imageUrl = '';
         }
 
+        if ($request->hasFile('banner_image')) {
+
+            $bannerName = Str::slug($request->input('name')) . '-banner-' . time() . '.' . $request->banner_image->extension();
+            $request->file('banner_image')->move('uploads/county/', $bannerName);
+            $bannerUrl = 'uploads/county/' . $bannerName;
+        } else {
+            $bannerUrl = '';
+        }
+
         $data = [
             'name' => $request->input('name'),
             'slug' => Str::slug($request->input('name')),
@@ -39,6 +49,7 @@ class CountyController extends Controller
             'description_en' => $request->input('description_en'),
             'status' => $request->input('status'),
             'image' => $imageUrl,
+            'banner_image' => $bannerUrl,
         ];
 
         County::create($data);
@@ -62,6 +73,7 @@ class CountyController extends Controller
             'description_en' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'banner_image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
@@ -73,6 +85,15 @@ class CountyController extends Controller
             $imageUrl = $county->image;
         }
 
+        if ($request->hasFile('banner_image')) {
+            $bannerName = Str::slug($request->input('name')) . '-banner-' . time() . '.' . $request->banner_image->extension();
+            $request->file('banner_image')->move('uploads/county/', $bannerName);
+            @unlink($county->banner_image);
+            $bannerUrl = 'uploads/county/' . $bannerName;
+        } else {
+            $bannerUrl = $county->image;
+        }
+
         $data = [
             'name' => $request->input('name'),
             'slug' => Str::slug($request->input('name')),
@@ -80,6 +101,7 @@ class CountyController extends Controller
             'description_en' => $request->input('description_en'),
             'status' => $request->input('status'),
             'image' => $imageUrl,
+            'banner_image' => $bannerUrl,
         ];
 
         County::where('id', $id)->update($data);
@@ -92,6 +114,7 @@ class CountyController extends Controller
     public function delete($id) {
         $county = County::where('id', $id)->firstOrFail();
         @unlink($county->image);
+        @unlink($county->banner_image);
         $county->delete();
 
         toastr()->success('İlçe Başarıyla Silindi');
