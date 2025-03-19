@@ -9,6 +9,7 @@ use App\Livewire\CulturePage;
 use App\Livewire\EventDetailPage;
 use App\Livewire\EventPage;
 use App\Livewire\HomePage;
+use App\Livewire\CategoryPage;
 use App\Livewire\PlaceDetailPage;
 use App\Livewire\PlacePage;
 use App\Livewire\TourismDetailPage;
@@ -60,6 +61,8 @@ Route::prefix('turizm')->group(function () {
 
     Route::get('/{categorySlug}/{placeSlug}', TourismDetailPage::class)->name('tourism.detail');
 });
+
+Route::get('/category/{slug?}', CategoryPage::class)->name('housing.by.category');
 
 
 

@@ -94,8 +94,12 @@
                     <div class="owl-carousel" data-nav-dots="false" data-nav-arrow="false" data-items="6" data-md-items="5" data-sm-items="4" data-xs-items="2" data-xx-items="1" data-space="20" data-autoheight="false">
                         @foreach($categories as $category)
                             <div class="item">
-                                <a class="category-item bg-holder bg-overlay-black-50 text-center" style="background-image: url('/{{ $category->image }}'); height: 75px" href="#">
-                                    <span class="mb-0 text-white position-relative">{{ app()->getLocale() == 'tr' ? $category->name : $category->name_en }}</span>
+                                <a class="category-item bg-holder bg-overlay-black-50 text-center"
+                                   style="background-image: url('/{{ $category->image }}'); height: 75px"
+                                   href="{{ route('housing.by.category', $category->slug) }}">
+                                    <span class="mb-0 text-white position-relative">
+                                        {{ app()->getLocale() == 'tr' ? $category->name : $category->name_en }}
+                                    </span>
                                 </a>
                             </div>
                         @endforeach
