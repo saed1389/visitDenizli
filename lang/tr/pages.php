@@ -38,5 +38,29 @@ return [
     'Events' => 'Etkinlikler',
     'Tourism Office' => 'Turizm Ofisi',
     'Traditions' => 'Gelenekler',
-    'Housings' => 'Konaklama'
+    'Housings' => 'Konaklama',
+    'all categories' => 'Tüm Kategoriler',
+    'housing' => 'Konaklama Rehberi',
+    'transport' => 'Ulaşım Bilgileri',
+    'office' => 'Turizm Ofisleri',
+    'call to action title' => 'Visit Denizli ile Markanızı Zirveye Taşıyın!',
+    'call to action description' => 'Denizli’nin en prestijli reklam ve sponsorluk ağıyla hedef kitlenize doğrudan ulaşın, fark yaratın ve büyüyün. Bizimle iletişime geçin!',
+    'Welcome to Visit Denizli!' => 'Visit Denizli’ye Hoş Geldiniz!',
+    'Your ultimate city guide to tourism, history, and events in Denizli.' => 'Denizli’de turizm, tarih ve etkinlikler için en kapsamlı şehir rehberiniz.',
+    'Discover Denizli' => 'Denizli\'yi Keşfet',
+    'Explore Denizli’s natural wonders, tourist routes, events, and unique experiences.' => 'Denizli’nin doğal güzelliklerini, turistik rotalarını, etkinliklerini ve eşsiz deneyimlerini keşfedin.',
+    'Tracing History and Culture' => 'Tarihin ve Kültürün İzinde',
+    'Journey through time with ancient cities, historical sites, and cultural events.' => 'Binlerce yıllık geçmişe sahip antik kentler, tarihi mekanlar ve kültürel etkinliklerle zamanda yolculuğa çıkın.',
+    'Life in the City' => 'Şehirde Hayat',
+    'Enjoy Denizli’s cultural events, festivals, shopping spots, and culinary delights to the fullest.' => 'Kültürel etkinlikler, festivaller, alışveriş noktaları ve yeme-içme duraklarıyla Denizli’yi doyasıya yaşayın.',
+    'about events description' => 'Denizli, yıl boyunca düzenlenen kültürel ve sanatsal etkinlikleriyle ziyaretçilerine benzersiz deneyimler sunuyor. İşte şehirde kaçırmamanız gereken üç etkinlik kategorisi:
+                        <br><br><strong>Festivaller ve Şenlikler </strong>– Uluslararası Tiyatro Festivali, Kaklık Mağarası Festivali gibi renkli etkinliklerle eğlenceye doyun.
+                        <br><br><strong>Sanat ve Kültür</strong> – Konserler, sergiler ve tiyatro gösterileriyle Denizli’nin kültürel dokusunu keşfedin.
+                        <br><br><strong>Spor ve Doğa Etkinlikleri</strong> – Yamaç paraşütü, doğa yürüyüşleri ve bisiklet turlarıyla şehri farklı bir açıdan deneyimleyin.',
+    'about news description' => 'Denizli’de turizm, kültür ve etkinlikler alanında yaşanan en son gelişmeleri takip edin. İşte şehirden en güncel başlıklar:
+                        <br><br><strong>Son Haberler</strong> – Denizli’deki önemli duyurular, etkinlikler ve şehirle ilgili en yeni gelişmeler.
+                        <br><br><strong>Güncel Haberler</strong> – Turizm, kültür ve spor alanlarında öne çıkan yenilikler ve projeler.
+                        <br><br><strong>Şehir Gündemi</strong> – Denizli’de düzenlenen etkinlikler, festivaller ve toplumsal organizasyonlarla ilgili sıcak haberler.',
+    'website' => 'Web sitesi',
+    'call now' => 'Şimdi ara',
 ];

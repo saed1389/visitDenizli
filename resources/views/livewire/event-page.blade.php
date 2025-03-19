@@ -55,12 +55,11 @@
                                 @endif
                             </div>
                             <div class="widget-content">
-                                <p>The first thing to remember about success is that it is a process – nothing more, nothing less.</p>
-                                <ul class="ps-3">
-                                    <li class="mb-2">Making the decision</li>
-                                    <li class="mb-2">Clarity – developing the Vision</li>
-                                    <li class="mb-2">Taking action – practice Ready, Fire, Aim.</li>
-                                </ul>
+                                @if($types == 'event')
+                                    <p>{!! __('pages.about events description') !!}</p>
+                                @else
+                                    <p>{!! __('pages.about news description') !!}</p>
+                                @endif
                             </div>
                         </div>
                         <div class="widget">

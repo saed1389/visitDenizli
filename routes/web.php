@@ -11,6 +11,8 @@ use App\Livewire\EventPage;
 use App\Livewire\HomePage;
 use App\Livewire\PlaceDetailPage;
 use App\Livewire\PlacePage;
+use App\Livewire\TourismDetailPage;
+use App\Livewire\TourismPage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/change-locale/{locale}', function ($locale) {
@@ -52,6 +54,12 @@ Route::prefix('ilceler-listesi')->group(function () {
     Route::get('/{placeSlug}', CountyDetailPage::class)->name('counties.detail');
 });
 
+Route::prefix('turizm')->group(function () {
+
+    Route::get('/{slug}', TourismPage::class)->name('tourism.listing');
+
+    Route::get('/{categorySlug}/{placeSlug}', TourismDetailPage::class)->name('tourism.detail');
+});
 
 
 

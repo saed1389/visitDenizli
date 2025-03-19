@@ -38,5 +38,29 @@ return [
     'Events' => 'Events',
     'Tourism Office' => 'Tourism Office',
     'Traditions' => 'Traditions',
-    'Housings' => 'Housings'
+    'Housings' => 'Housings',
+    'all categories' => 'All Categories',
+    'housing' => 'Accommodation Guide',
+    'transport' => 'Transportation Information',
+    'office' => 'Tourism Offices',
+    'call to action title' => 'Elevate Your Brand with Visit Denizli!',
+    'call to action description' => 'Reach your target audience directly through Denizli’s premier advertising and sponsorship network. Stand out and grow with us. Contact us today!',
+    'Welcome to Visit Denizli!' => 'Welcome to Visit Denizli!',
+    'Your ultimate city guide to tourism, history, and events in Denizli.' => 'Your ultimate city guide to tourism, history, and events in Denizli.',
+    'Discover Denizli' => 'Discover Denizli',
+    'Explore Denizli’s natural wonders, tourist routes, events, and unique experiences.' => 'Explore Denizli’s natural wonders, tourist routes, events, and unique experiences.',
+    'Tracing History and Culture' => 'Tracing History and Culture',
+    'Journey through time with ancient cities, historical sites, and cultural events.' => 'Journey through time with ancient cities, historical sites, and cultural events.',
+    'Life in the City' => 'Life in the City',
+    'Enjoy Denizli’s cultural events, festivals, shopping spots, and culinary delights to the fullest.' => 'Enjoy Denizli’s cultural events, festivals, shopping spots, and culinary delights to the fullest.',
+    'about events description' => 'Denizli offers visitors unique experiences with cultural and artistic events held throughout the year. Here are three event categories you shouldn\'t miss:
+                                <br><br><strong>Festivals and Celebrations</strong> – Enjoy vibrant events like the International Theater Festival and Kaklık Cave Festival.
+                                <br><br><strong>Art and Culture</strong> – Discover Denizli’s cultural essence through concerts, exhibitions, and theater performances.
+                                <br><br><strong>Sports and Nature Activities</strong> – Experience the city from a different perspective with paragliding, hiking, and cycling tours.',
+    'about news description' => 'Stay updated on the latest developments in tourism, culture, and events in Denizli. Here are the top news highlights:
+                                <br><br><strong>Breaking News</strong> – Important announcements, events, and the newest updates from the city.
+                                <br><br><strong>Current News</strong> – Highlights and innovations in tourism, culture, and sports.
+                                <br><br><strong>City Agenda</strong> – The latest updates on festivals, events, and community gatherings in Denizli.',
+    'website' => 'Website',
+    'call now' => 'Call now',
 ];

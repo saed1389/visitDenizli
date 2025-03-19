@@ -105,7 +105,6 @@ class MenuController extends Controller
 
         $data = [
             'title' => $request->title,
-            'slug' => Str::slug($request->title, '-'),
             'title_en' => $request->title_en,
             'parent_id' => $request->parent_id,
             'description' => $request->description,

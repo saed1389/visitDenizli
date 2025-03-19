@@ -291,7 +291,7 @@
                                 <div class="blog-post-category bg-danger">
                                     <a href="javascript: void (0)">{{ __('home.end on') }}: {{ \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('d ') . trans('date.months.' . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format('F')) . \Carbon\Carbon::createFromFormat('d.m.Y H:i', $event->end_date)->format(' Y') }}</a>
                                 </div>
-                                <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $event->name : $event->name_en }} </a></h5>
+                                <h5 class="blog-post-title"><a href="{{ route('news.detail', ['categorySlug' => 'yaklasan-etkinlikler', 'placeSlug' => $event->slug]) }}"> {{ app()->getLocale() == 'tr' ? $event->name : $event->name_en }} </a></h5>
                                 <h6 class="blog-post-title" style="font-size: 14px;"><a href="{{ route('counties.detail', ['placeSlug' => $event->county->slug]) }}">{{ __('home.county') }}: {{ $event->county->name }}</a> </h6>
                             </div>
                         </div>
@@ -301,7 +301,7 @@
                     @foreach($news as $item)
                         <div class="blog-post bg-overlay-half-bottom bg-holder {{ $loop->first ? 'mb-4' : '' }} " style="background-image: url({{ asset($item->image) }});">
                             <div class="blog-post-info">
-                                <h5 class="blog-post-title"><a href="#"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}</a></h5>
+                                <h5 class="blog-post-title"><a href="{{ route('news.detail', ['categorySlug' => 'guncel-haberler', 'placeSlug' => $event->slug]) }}"> {{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}</a></h5>
                                 <h6 class="blog-post-title" style="font-size: 14px;"><a href="{{ route('counties.detail', ['placeSlug' => $item->county->slug]) }}">{{ __('home.county') }}: {{ $item->county->name }}</a> </h6>
                             </div>
                         </div>
@@ -322,33 +322,8 @@
                         <h2>{{ __('home.Download the app') }}</h2>
                         <div class="sub-title text-end"> <span> {{ __('home.One of the main areas that I work on with my clients.') }}</span></div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4 mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="flaticon-photo font-xxl"></i>
-                                </div>
-                                <h6 class="text-primary font-md">{{ __('home.Real time listing directory') }} </h6>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="flaticon-house-2 font-xxl"></i>
-                                </div>
-                                <h6 class="text-primary font-md">{{ __('home.Budget filter for budget') }}</h6>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="flaticon-business font-xxl"></i>
-                                </div>
-                                <h6 class="text-primary font-md">{{ __('home.Notification price reduction') }}</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="font-sm">{{ __('home.app description') }}</p>
+
+                    <p class="font-sm">{!! __('home.app description') !!}</p>
                     <div class="d-block d-sm-flex mt-md-5 mt-4">
                         <a class="btn btn-dark btn-sm btn-app me-0 me-sm-2 mb-2 mb-sm-0" href="#">
                             <i class="fab fa-apple"></i>

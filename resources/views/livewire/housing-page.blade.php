@@ -14,6 +14,7 @@
             </div>
         </div>
     </section>
+
     <section class="space-ptb bg-light">
         <div class="container">
             <div class="row">
@@ -35,6 +36,14 @@
                                                 <option value="">{{ __('pages.All Counties') }}</option>
                                                 @foreach($counties as $county)
                                                     <option value="{{ $county->id }}">{{ $county->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-3 select-border">
+                                            <select class="form-control" wire:model.live="selectedCategory">
+                                                <option value="">{{ __('pages.all categories') }}</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ app()->getLocale() == 'tr' ? $category->name : $category->name_en }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -73,12 +82,17 @@
 
                     <div class="row">
                         @foreach($places as $place)
-                            <div class="col-lg-3 mb-4">
+                            @php
+                                $images = json_decode($place->images, true);
+                                $firstImage = $images[0];
+                            @endphp
+                            <div class="col-lg-4 mb-4">
                                 <div class="listing-item">
                                     <div class="listing-image bg-overlay-half-bottom">
-                                        <img class="img-fluid" src="{{ asset($place->image) }}" alt="{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}">
+                                        <img class="img-fluid" src="{{ asset($firstImage) }}" alt="{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}">
                                         <div class="listing-quick-box">
-                                            <a class="popup popup-single" href="{{ asset($place->image) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zoom">
+                                            <a class="category" href="#"> <i class="flaticon-article"></i> {{ app()->getLocale() == 'tr' ? $place->category->name : $place->category->name_en }}</a>
+                                            <a class="popup popup-single" href="{{ asset($firstImage) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zoom">
                                                 <i class="fas fa-search-plus"></i>
                                             </a>
                                         </div>
@@ -87,7 +101,7 @@
                                         <div class="listing-details-inner">
                                             <div class="listing-title">
                                                 <h6>
-                                                    <a href="{{ route('place.detail', ['categorySlug' => $slug, 'placeSlug' => $place->slug]) }}">
+                                                    <a href="{{ route('tourism.detail', ['categorySlug' => $slug, 'placeSlug' => $place->slug]) }}">
                                                         {{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}
                                                     </a>
                                                 </h6>
@@ -103,36 +117,8 @@
                             </div>
                         @endforeach
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-    <section class="space-ptb">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-7">
-                    <h2>{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}</h2>
-                    {!! app()->getLocale() == 'tr' ? $menu->description : $menu->description_en !!}
-                </div>
-                <div class="col-md-5 mt-4 mt-md-0">
-                    <img class="img-fluid border-radius" src="{{ asset($menu->image) }}" alt="{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}">
-                </div>
-            </div>
-        </div>
-    </section>
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.getElementById('resetButton').addEventListener('click', function () {
-                    clearURL();
-                });
-            });
-            function clearURL() {
-                let baseUrl = window.location.href.split('?')[0];
-                window.history.pushState({}, document.title, baseUrl);
-                location.reload();
-            }
-        </script>
-    @endpush
 </div>

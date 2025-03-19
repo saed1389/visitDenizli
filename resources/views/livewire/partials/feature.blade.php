@@ -4,31 +4,31 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-title">
-                        <h2>Plenty Of Reasons To Choose Us</h2>
-                        <div class="sub-title text-end"> <span> Our agency has many specialized areas</span></div>
+                        <h2>{{ __('pages.Welcome to Visit Denizli!') }}</h2>
+                        <div class="sub-title text-end"> <span> {{ __('pages.Your ultimate city guide to tourism, history, and events in Denizli.') }}</span></div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-4 mb-lg-0">
                     <div class="border shadow-sm p-4 py-5 text-center h-100 border-radius">
-                        <i class="flaticon-business fa-4x text-primary mb-4"></i>
-                        <h5 class="mb-3">A shopper reaches out</h5>
-                        <p class="mb-0">The price is something not necessarily defined as financial. It could be time.</p>
+                        <i class="flaticon-travel fa-4x text-primary mb-4"></i>
+                        <h5 class="mb-3">{{ __('pages.Discover Denizli') }}</h5>
+                        <p class="mb-0">{{ __('pages.Explore Denizli’s natural wonders, tourist routes, events, and unique experiences.') }}</p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4 mb-lg-0">
                     <div class="border shadow-sm p-4 py-5 text-center h-100 border-radius">
-                        <i class="flaticon-like fa-4x text-primary mb-4"></i>
-                        <h5 class="mb-3">We verify the lead</h5>
-                        <p class="mb-0">This is perhaps the single biggest obstacle that all of us must overcome.</p>
+                        <i class="flaticon-map fa-4x text-primary mb-4"></i>
+                        <h5 class="mb-3">{{ __('pages.Tracing History and Culture') }}</h5>
+                        <p class="mb-0">{{ __('pages.Journey through time with ancient cities, historical sites, and cultural events.') }}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="border shadow-sm p-4 py-5 text-center h-100 border-radius">
-                        <i class="flaticon-hotel-key fa-4x text-primary mb-4"></i>
-                        <h5 class="mb-3">You connect live</h5>
-                        <p class="mb-0">One of the main areas that I work on with my clients is shedding these.</p>
+                        <i class="flaticon-hotel fa-4x text-primary mb-4"></i>
+                        <h5 class="mb-3">{{ __('pages.Life in the City') }}</h5>
+                        <p class="mb-0">{{ __('pages.Enjoy Denizli’s cultural events, festivals, shopping spots, and culinary delights to the fullest.') }}</p>
                     </div>
                 </div>
             </div>
