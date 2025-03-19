@@ -6,7 +6,7 @@
     <meta name="description" content="" />
     <meta name="author" content="Gis Soft Technology" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Directro - Directory and Listing Template</title>
+    <title>Visit Denizli</title>
     <link rel="shortcut icon" href="{{ asset('front/assets/images/favicon.ico') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{{ asset('front/assets/css/font-awesome/all.min.css') }}" />
