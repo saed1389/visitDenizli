@@ -1,7 +1,7 @@
 <?php
 return [
     'slider title' => 'The Meeting Point of History, Nature, and Flavor',
-    'slider description' => 'With Visit Denizli, discover the city\'s nature, history, unique attractions, accommodation options, culinary delights, and much more.',
+    'slider description' => 'Discover the city\'s mesmerizing nature, rich history, hidden gems, comfortable accommodations, and delightful culinary spots with VisitDenizli!',
     'where' => 'where',
     'what' => 'What',
     'what ex' => 'Ex: restaurants, hotels, cares, bars',
@@ -9,22 +9,22 @@ return [
     'search' => 'Search',
     'Or browse the highlights' => 'Accommodation and Dining Spots.',
     'Fine location in these cities' => 'Denizli’s 19 Districts',
-    'Remind yourself the only thing stopping you is yourself.' => 'Every Corner Tells a Story: A Journey Through Hidden Gems and Historical Heritage!',
+    'Remind yourself the only thing stopping you is yourself.' => 'With its natural beauty, historical charm, and breathtaking views, hidden gems await your discovery.',
     'Most visited places' => 'Most visited places',
-    'Make a list of your achievements toward your long-term goal' => 'Routes waiting to be discovered with their natural beauty, historical texture, and stunning views await you.',
+    'Make a list of your achievements toward your long-term goal' => 'Comfortable accommodation, delicious cuisine, and unique places to explore await you in Denizli!',
     'News & Events' => 'News and Events Here!',
     'Reflect and experiment until you find the right combination' => 'Stay updated with the latest happenings and events in the city.',
     'What is VisitDenizli?' => 'What is VisitDenizli?',
     'what is VisitDenizli description' => '<strong>VisitDenizli</strong> is the official city guide platform created by Denizli Metropolitan Municipality. Our goal is to introduce the historical, cultural, natural, and touristic attractions of Denizli to both visitors and residents in the best possible way.',
     'What Can You Find on VisitDenizli?' => 'What Can You Find on VisitDenizli?',
-    'What Can You Find on description' => '✔ <strong>Tourist Attractions</strong> – Detailed information about Pamukkale, Hierapolis, Laodikeia, and other natural & historical sites.
+    'What Can You Find on description' => '✔ <strong>Tourist Attractions</strong> – Detailed information about Pamukkale, Hierapolis, Laodikeia, and other natural and historical sites.
 <br><br>✔ <strong>Events & Culture Guide</strong> – Festivals, concerts, exhibitions, and event calendars in the city.
 <br><br>✔ <strong>Food & Beverage Recommendations</strong> – The best restaurants and cafés to explore Denizli’s unique cuisine.
 <br><br>✔ <strong>Accommodation Guide</strong> – Hotels, guesthouses, and holiday stays in Denizli.
 <br><br>✔ <strong>City Transportation</strong> – Up-to-date information on public transport, bus routes, and taxi options.
 <br><br>✔ <strong>Municipal Services</strong> – Tourism and cultural services provided by Denizli Metropolitan Municipality.',
     'Why is VisitDenizli Important?' => 'Why is VisitDenizli Important?',
-    'why is visitDenizli important description' => 'Denizli is one of Turkey’s most unique cities, known for its <strong>Pamukkale Travertines, ancient cities, thermal springs, breathtaking nature, and rich gastronomy</strong>. As Denizli Metropolitan Municipality, we aim to promote our city in the most accurate and comprehensive way. <strong>With VisitDenizli, you can access the most up-to-date and reliable information and start exploring Denizli today!</strong>',
+    'why is visitDenizli important description' => 'Denizli is one of Turkey’s unique cities, known for its <strong>Pamukkale Travertines, ancient cities, thermal springs, breathtaking nature, and rich gastronomy</strong>. As Denizli Metropolitan Municipality, we aim to promote our city in the most accurate and comprehensive way. <strong>With VisitDenizli, you can access the most up-to-date and reliable information and start exploring Denizli today!</strong>',
     'start on' => 'Start on',
     'end on' => 'End on',
     'about us' => 'Visit Denizli Guide',

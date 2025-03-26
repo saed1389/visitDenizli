@@ -137,8 +137,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="start_date" class="form-label"><strong>Etkinlik Başlangıç Tarihi</strong></label>
-                                    <input type="text" class="form-control" id="start_date" name="start_date" placeholder="Etkinlik Başlangıç Tarihi " value="{{ $event->start_date }}" >
+                                    <label for="start_date" class="form-label"><strong>Etkinlik Başlangıç Tarihi <span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="start_date" name="start_date" placeholder="Etkinlik Başlangıç Tarihi " value="{{ $event->start_date }}" required>
                                     @error('start_date')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -146,8 +146,8 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="end_date" class="form-label"><strong>Etkinlik Bitiş Tarihi</strong></label>
-                                    <input type="text" class="form-control" id="end_date" name="end_date" placeholder="Etkinlik Bitiş Tarihi " value="{{ $event->end_date }}" >
+                                    <label for="end_date" class="form-label"><strong>Etkinlik Bitiş Tarihi <span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="end_date" name="end_date" placeholder="Etkinlik Bitiş Tarihi " value="{{ $event->end_date }}" required>
                                     @error('end_date')
                                     <span class="text-danger">
                                         {{ $message }}

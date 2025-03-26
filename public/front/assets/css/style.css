@@ -53,7 +53,7 @@ NOTE: This is main stylesheet of template, This file contains the styling for th
     Typography
 *****************************/
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Helvetica", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
@@ -2994,8 +2994,8 @@ button {
 
 /* topbar */
 .header .topbar {
-  background: #18191c;
-  padding: 10px 0; }
+  background: #ffffff;
+  padding: 0 0; }
 
 .header .topbar {
   font-size: 13px; }
@@ -3056,8 +3056,8 @@ button {
   padding: 0; }
 
 .navbar .navbar-nav .nav-link {
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 17px;
   padding: 10px 12px;
   color: #ffffff;
   text-transform: capitalize; }
@@ -3505,7 +3505,7 @@ button {
 
 /* Page title */
 .page-title {
-  padding: 140px 0 100px; }
+  padding: 200px 0 60px; }
   .page-title h1 {
     font-size: 48px; }
 

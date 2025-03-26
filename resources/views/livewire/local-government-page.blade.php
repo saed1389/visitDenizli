@@ -114,27 +114,6 @@
                             </div>
                         @endforeach
                     </div>
-                    {{--<div class="row">
-                        <div class="col-12">
-                            <ul class="pagination mt-5">
-                                <li class="page-item disabled me-auto">
-                                    <span class="page-link b-radius-none">Prev</span>
-                                </li>
-                                <li class="page-item active" aria-current="page">
-                                    <span class="page-link">1</span>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item ms-auto">
-                                    <a class="page-link b-radius-none" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>--}}
                 </div>
             </div>
         </div>

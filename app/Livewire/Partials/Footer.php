@@ -15,7 +15,6 @@ class Footer extends Component
         $popularCounties = County::withCount(['news', 'events'])
         ->orderByDesc('news_count')
         ->orderByDesc('events_count')
-        ->take(10)
         ->get();
 
         $categories = Category::where('status', 1)->get();

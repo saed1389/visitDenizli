@@ -2,14 +2,19 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Livewire\AboutPage;
+use App\Livewire\ContactPage;
 use App\Livewire\CountyDetailPage;
 use App\Livewire\CountyListPage;
 use App\Livewire\CultureDetailPage;
 use App\Livewire\CulturePage;
+use App\Livewire\EconomyDetailPage;
+use App\Livewire\EconomyPage;
 use App\Livewire\EventDetailPage;
 use App\Livewire\EventPage;
+use App\Livewire\GalleryPage;
 use App\Livewire\HomePage;
 use App\Livewire\CategoryPage;
+use App\Livewire\MapPage;
 use App\Livewire\PlaceDetailPage;
 use App\Livewire\PlacePage;
 use App\Livewire\TourismDetailPage;
@@ -62,7 +67,22 @@ Route::prefix('turizm')->group(function () {
     Route::get('/{categorySlug}/{placeSlug}', TourismDetailPage::class)->name('tourism.detail');
 });
 
-Route::get('/category/{slug?}', CategoryPage::class)->name('housing.by.category');
+Route::prefix('ekonomi')->group(function () {
+    Route::get('/{slug}', EconomyPage::class)->name('economy.listing');
+    Route::get('/{categorySlug}/{placeSlug}', EconomyDetailPage::class)->name('economy.detail');
+});
+
+Route::prefix('galeri')->group(function () {
+    Route::get('/{slug}', GalleryPage::class)->name('gallery.listing');
+});
+
+Route::prefix('harita')->group(function () {
+    Route::get('/{slug}', MapPage::class)->name('map.listing');
+});
+
+Route::get('iletisim', ContactPage::class)->name('contact.page');
+
+Route::get('/kategori/{slug?}', CategoryPage::class)->name('housing.by.category');
 
 
 

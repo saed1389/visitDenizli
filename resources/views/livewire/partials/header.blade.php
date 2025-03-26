@@ -1,36 +1,11 @@
 <div>
     <header class="header">
-        <div class="topbar">
+        <div class="topbar" style="height: 100px">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="d-block d-md-flex align-items-center text-center">
-                            <div class="me-3 d-inline-block">
-                                @if($setting->site_phone)
-                                    <a href="tel:{{ $setting->site_phone }}"><i class="fa fa-phone me-2 fa fa-flip-horizontal"></i>{{ $setting->site_phone }}</a>
-                                @endif
-                            </div>
-                            <div class="me-auto d-inline-block">
-                                {{--<span class="me-2 text-white">Get App:</span>
-                                <a class="pe-1" href="#"><i class="fab fa-android"></i></a>
-                                <a href="#"><i class="fab fa-apple"></i></a>--}}
-                            </div>
-                            <div class="social d-inline-block">
-                                <ul class="list-unstyled">
-                                    @if($setting->site_fb)
-                                        <li><a href="{{ $setting->site_fb }}" target="_blank"> <i class="fab fa-facebook-f"></i> </a></li>
-                                    @endif
-                                    @if($setting->site_instagram)
-                                            <li><a href="{{ $setting->site_instagram }}" target="_blank"> <i class="fab fa-instagram"></i> </a></li>
-                                        @endif
-                                        @if($setting->site_twitter)
-                                            <li><a href="{{ $setting->site_twitter }}" target="_blank"> <i class="fab fa-twitter"></i> </a></li>
-                                        @endif
-                                        @if($setting->site_youtube)
-                                            <li><a href="{{ $setting->site_youtube }}" target="_blank"> <i class="fab fa-youtube"></i> </a></li>
-                                        @endif
-                                </ul>
-                            </div>
+                        <div class="d-block d-md-flex align-items-center text-center" style="justify-content: center;">
+                            <img src="{{ asset($setting->logo) }}" style="height: 100px" alt="{{ $setting->site_name }}">
                         </div>
                     </div>
                 </div>
@@ -39,9 +14,9 @@
         <nav class="navbar navbar-static-top navbar-expand-lg header-sticky">
             <div class="container-fluid">
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"><i class="fas fa-align-left"></i></button>
-                <a class="navbar-brand" href="/">
+                {{--<a class="navbar-brand" href="/">
                     <img class="img-fluid" src="{{ asset($setting->logo) }}" alt="{{ $setting->site_name }}">
-                </a>
+                </a>--}}
                 <div class="navbar-collapse collapse justify-content-center">
                     <ul class="nav navbar-nav">
                         <li class="nav-item {{ Request::segment(1) == '' ? 'active' : '' }}">
@@ -131,14 +106,14 @@
                                 @endforelse
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown {{ Request::segment(1) == 'ekonomi' ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.business and economy') }} <i class="fas fa-chevron-down fa-xs"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 6)
-                                        <li>
-                                            <a class="dropdown-item" href="">
+                                        <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
+                                            <a class="dropdown-item" href="{{ $item->slug ? '/ekonomi/' . $item->slug : '#' }}">
                                                 {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
                                             </a>
                                         </li>
@@ -151,11 +126,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.gallery') }} <i class="fas fa-chevron-down fa-xs"></i>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu {{ Request::segment(1) == 'galeri' ? 'active' : '' }}">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 7)
-                                        <li>
-                                            <a class="dropdown-item" href="">
+                                        <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
+                                            <a class="dropdown-item" href="{{ $item->slug ? '/galeri/' . $item->slug : '#' }}">
                                                 {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
                                             </a>
                                         </li>
@@ -168,11 +143,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.map and transportation') }} <i class="fas fa-chevron-down fa-xs"></i>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu {{ Request::segment(1) == 'harita' ? 'active' : '' }}">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 8)
-                                        <li>
-                                            <a class="dropdown-item" href="">
+                                        <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
+                                            <a class="dropdown-item" href="{{ $item->slug ? '/harita/' . $item->slug : '#' }}">
                                                 {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
                                             </a>
                                         </li>
@@ -182,31 +157,23 @@
                                 @endforelse
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.contact') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                @forelse($menus as $item)
-                                    @if($item->parent_id == 9)
-                                        <li>
-                                            <a class="dropdown-item" href="">
-                                                {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
-                                            </a>
-                                        </li>
-                                    @endif
-                                @empty
-                                    <li><a class="dropdown-item" href="#">No items found</a></li>
-                                @endforelse
-                            </ul>
-                        </li>
+                        @forelse($menus as $item)
+                            @if($item->parent_id == 9)
+                                <li class="nav-item {{ Request::segment(1) == 'iletisim' ? 'active' : '' }}" >
+                                    <a class="nav-link" href="{{ route('contact.page') }}">{{ __('header.contact') }}</a>
+                                </li>
+                            @endif
+                        @empty
+                            ''
+                        @endforelse
                     </ul>
                 </div>
                 <div class="d-block d-md-flex align-items-center">
                     <div class="add-listing d-none d-sm-block">
                         <div class="d-block d-md-flex align-items-center">
                             <div class="add-listing d-none d-sm-block">
-                                <a class="btn btn-sm btn-primary" style="display: {{ app()->getLocale() == 'tr' ? 'none' : 'block' }}"  href="{{ url('/change-locale/tr') }}"> <img style="width: 32px;" src="{{ asset('front/assets/images/tr-flag.png') }}" alt=""> </a>
-                                <a class="btn btn-sm btn-primary" style="display: {{ app()->getLocale() == 'en' ? 'none' : 'block' }}"  href="{{ url('/change-locale/en') }}"> <img style="width: 32px;" src="{{ asset('front/assets/images/uk-flag.png') }}" alt=""> </a>
+                                <a class="btn btn-sm" style="display: {{ app()->getLocale() == 'tr' ? 'none' : 'block' }}"  href="{{ url('/change-locale/tr') }}"> <img style="width: 32px;" src="{{ asset('front/assets/images/tr-flag.png') }}" alt=""> </a>
+                                <a class="btn btn-sm" style="display: {{ app()->getLocale() == 'en' ? 'none' : 'block' }}"  href="{{ url('/change-locale/en') }}"> <img style="width: 32px;" src="{{ asset('front/assets/images/uk-flag.png') }}" alt=""> </a>
                             </div>
                         </div>
                     </div>

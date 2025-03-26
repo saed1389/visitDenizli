@@ -176,14 +176,13 @@
                             <div class="listing-image bg-overlay-half-bottom">
                                 <img class="img-fluid" src="{{ asset($firstImage) }}" alt="">
                                 <div class="listing-quick-box">
-                                    <a class="category" href="#"> <i class="flaticon-article"></i> {{ app()->getLocale() == 'tr' ? $place->category->name : $place->category->name_en }}</a>
-                                    <a class="popup popup-single" href="{{ asset($firstImage) }}" data-bs-toggle="tooltip" data-placement="top" title="Zoom"> <i class="fas fa-search-plus"></i> </a>
+                                    <a class="category" href="{{ route('housing.by.category', $place->category->slug) }}"> <i class="flaticon-article"></i> {{ app()->getLocale() == 'tr' ? $place->category->name : $place->category->name_en }}</a>
                                 </div>
                             </div>
                             <div class="listing-details">
                                 <div class="listing-details-inner">
                                     <div class="listing-title">
-                                        <h6><a href="#">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</a></h6>
+                                        <h6><a href="{{ route('tourism.detail', ['categorySlug' => 'konaklama-rehberi', 'placeSlug' => $place->slug]) }}">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</a></h6>
                                     </div>
                                     <div class="listing-rating-call">
                                         @if($place->website)
@@ -198,7 +197,7 @@
                                     </div>
                                 </div>
                                 <div class="listing-bottom">
-                                    <a class="listing-loaction" href="javascript:void (0)"> <i class="fas fa-map-marker-alt"></i> {{ $place->address }}</a>
+                                    <a class="listing-loaction" href="{{ route('counties.detail', ['placeSlug' => $place->county->slug]) }}"> <i class="fas fa-map-marker-alt"></i> {{ $place->county->name }}</a>
                                 </div>
                             </div>
                         </div>
