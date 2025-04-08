@@ -76,4 +76,18 @@ return [
     'Email' => 'Email',
     'Phone Number' => 'Phone Number',
     'Social Media' => 'Social Media',
+    'photos' => 'Photos',
+    'videos' => 'Videos',
+    'Buy Ticket Link' => 'Buy Ticket Link',
+    'search results' => 'Search Results',
+    'Error' => 'Error',
+    'Oops - no one seems to be home.' => 'Oops - no one seems to be home.',
+    'The page you are looking for might have been removed had its name changed or is temporarily unavailable.' => 'The page you are looking for might have been removed had its name changed or is temporarily unavailable.',
+    'News Results' => 'News Results',
+    'Event Results' => 'Event Results',
+    'Category Results' => 'Category Results',
+    'Housing Results' => 'Housing Results',
+    'recent blogs' => 'Recent Blogs',
+    'Related Blogs' => 'Related Blogs',
+
 ];

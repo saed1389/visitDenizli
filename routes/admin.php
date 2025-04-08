@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CountyController;
 use App\Http\Controllers\Admin\CulinaryController;
@@ -114,6 +115,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('news/delete/{id}', [NewsController::class, 'delete'])->name('news.destroy');
     Route::post('news/upload', [NewsController::class, 'upload'])->name('news.upload');
     Route::post('news/changeStatus/{id}/{status}', [NewsController::class, 'changeStatus']);
+
+    // Blog Routes
+    Route::resource('blog', BlogController::class)->except(['show', 'destroy']);
+    Route::get('blog/delete/{id}', [BlogController::class, 'delete'])->name('blog.destroy');
+    Route::post('blog/upload', [BlogController::class, 'upload'])->name('blog.upload');
+    Route::post('blog/changeStatus/{id}/{status}', [BlogController::class, 'changeStatus']);
 
     // Housing Routes
     Route::resource('housing', HousingController::class)->except(['show', 'destroy']);

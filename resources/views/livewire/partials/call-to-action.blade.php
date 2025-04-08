@@ -10,7 +10,7 @@
                                 <p class="text-white mb-0">{{ __('pages.call to action description') }}</p>
                             </div>
                             <div class="col-md-4 text-md-end mt-4 mt-md-0">
-                                <a class="btn btn-white" href="#">{{ __('header.contact') }}!</a>
+                                <a class="btn btn-white" href="{{ route('contact.page') }}">{{ __('header.contact') }}!</a>
                             </div>
                         </div>
                     </div>

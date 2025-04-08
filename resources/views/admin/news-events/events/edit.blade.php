@@ -109,7 +109,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 mt-3">
+                                <div class="col-sm-4 mt-3">
                                     <label for="latitude" class="form-label"><strong>Etkinlik Enlem</strong></label>
                                     <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Etkinlik Enlem " value="{{ $event->latitude }}" >
                                     @error('latitude')
@@ -118,10 +118,19 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-6 mt-3">
+                                <div class="col-sm-4 mt-3">
                                     <label for="longitude" class="form-label"><strong>Etkinlik Boylam</strong></label>
                                     <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Etkinlik Boylam " value="{{ $event->longitude }}">
                                     @error('longitude')
+                                    <span class="text-danger">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mt-3">
+                                    <label for="ticket_link" class="form-label"><strong>Bilet Satın Alma Linki</strong></label>
+                                    <input type="url" class="form-control" id="ticket_link" name="ticket_link" placeholder="Bilet Satın Alma Linki" value="{{ $event->ticket_link }}">
+                                    @error('ticket_link')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>

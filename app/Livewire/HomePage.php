@@ -2,12 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\County;
 use App\Models\Housing;
 use App\Models\Event; // Assuming you have an Event model
 use App\Models\News; // Assuming you have a News model
-use Illuminate\Support\Carbon;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -26,18 +26,16 @@ class HomePage extends Component
             ->inRandomOrder()
             ->take(6)
             ->get();
-        $places = Housing::where('status', 1)
-            ->orderBy('hit', 'desc')
-            ->take(6)
+        $blogs = Blog::where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
             ->get();
 
-        // Fetch 1 event
         $event = Event::where('status', 1)
             ->whereRaw("STR_TO_DATE(start_date, '%d.%m.%Y %H:%i') > NOW()")
             ->orderBy('created_at', 'desc')
             ->first();
 
-        // Fetch 2 news items
         $news = News::where('status', 1)
             ->orderBy('created_at', 'desc')
             ->take(2)
@@ -47,7 +45,7 @@ class HomePage extends Component
             'setting' => $setting,
             'categories' => $categories,
             'cities' => $cities,
-            'places' => $places,
+            'blogs' => $blogs,
             'event' => $event,
             'news' => $news,
         ]);

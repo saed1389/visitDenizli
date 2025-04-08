@@ -5,7 +5,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="d-block d-md-flex align-items-center text-center" style="justify-content: center;">
-                            <img src="{{ asset($setting->logo) }}" style="height: 100px" alt="{{ $setting->site_name }}">
+                            <a href="/">
+                                <img src="{{ asset($setting->logo) }}" style="height: 100px" alt="{{ $setting->site_name }}">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -27,20 +29,30 @@
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 1)
-                                        <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
-                                            <a class="dropdown-item" href="{{ $item->slug ? '/hakkimiza/' . $item->slug : '#' }}">
-                                                {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
-                                            </a>
-                                        </li>
+                                        @if($item->id == 4)
+                                            <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
+                                                <a class="dropdown-item" href="https://www.denizli.bel.tr/" target="_blank">
+                                                    {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
+                                                <a class="dropdown-item" href="{{ $item->slug ? '/hakkimiza/' . $item->slug : '#' }}">
+                                                    {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
+                                                </a>
+                                            </li>
+                                        @endif
                                     @endif
                                 @empty
                                     <li><a class="dropdown-item" href="#">No items found</a></li>
                                 @endforelse
                             </ul>
                         </li>
+                        <li class="nav-item {{ Request::segment(1) == 'ilceler-listesi' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('counties.listing') }}">{{ __('header.counties') }}</a>
+                        </li>
                         <li class="nav-item dropdown {{ Request::segment(1) == 'gezilecek-yerler' ? 'active' : '' }}">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.place visit') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.place visit') }} <i class="fas fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 2)
@@ -56,8 +68,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown {{ Request::segment(1) == 'kultur-ve-sanat' ? 'active' : '' }}">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.culture and art') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.culture and art') }} <i class="fas fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 3)
@@ -73,8 +84,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown {{ Request::segment(1) == 'etkinlikler-ve-haberler' ? 'active' : '' }}">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.news and events') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.news and events') }} <i class="fas fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 4)
@@ -90,8 +100,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown {{ Request::segment(1) == 'turizm' ? 'active' : '' }}">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.tourism') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.tourism') }} <i class="fas fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 5)
@@ -107,8 +116,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown {{ Request::segment(1) == 'ekonomi' ? 'active' : '' }}">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.business and economy') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.business and economy') }} <i class="fas fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 6)
@@ -124,25 +132,7 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.gallery') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
-                            <ul class="dropdown-menu {{ Request::segment(1) == 'galeri' ? 'active' : '' }}">
-                                @forelse($menus as $item)
-                                    @if($item->parent_id == 7)
-                                        <li {!! Request::segment(2) == $item->slug ? 'class="active"' : '' !!}>
-                                            <a class="dropdown-item" href="{{ $item->slug ? '/galeri/' . $item->slug : '#' }}">
-                                                {{ app()->getLocale() == 'tr' ? $item->title : $item->title_en }}
-                                            </a>
-                                        </li>
-                                    @endif
-                                @empty
-                                    <li><a class="dropdown-item" href="#">No items found</a></li>
-                                @endforelse
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.map and transportation') }} <i class="fas fa-chevron-down fa-xs"></i>
-                            </a>
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('header.map and transportation') }} <i class="fas fa-chevron-down fa-xs"></i></a>
                             <ul class="dropdown-menu {{ Request::segment(1) == 'harita' ? 'active' : '' }}">
                                 @forelse($menus as $item)
                                     @if($item->parent_id == 8)

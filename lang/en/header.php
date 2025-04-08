@@ -10,4 +10,5 @@ return [
     'gallery' => 'Gallery',
     'map and transportation' => 'Map',
     'contact' => 'Contact',
+    'counties' => 'Our Counties',
 ];

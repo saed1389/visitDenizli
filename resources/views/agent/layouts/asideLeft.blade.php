@@ -30,14 +30,14 @@
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color1)">Web Sitesi</h6>
                 <ul class="list-unstyled mb-4 menu-list">
-                    <li>
+                    {{--<li>
                         <a href="#Government" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Government">
                             <span class="mx-2">Yerel Yönetim</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Government">
                             <li><a href="{{ route('agent.government.index') }}">Yerel Yönetim</a></li>
                         </ul>
-                    </li>
+                    </li>--}}
                     <li>
                         <a href="#Culture" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Culture">
                             <span class="mx-2">Kültür ve Sanat </span>

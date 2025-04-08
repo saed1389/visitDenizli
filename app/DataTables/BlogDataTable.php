@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Photo;
+use App\Models\Blog;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class PhotoDataTable extends DataTable
+class BlogDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -24,22 +24,31 @@ class PhotoDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addIndexColumn()
             ->addColumn('action', function ($query) {
-                $edit = "<a href='".route('admin.photo.edit', $query->id)."' class='btn btn-sm btn-primary me-1 '><i class='fa fa-edit'></i></a>";
-                $delete = "<a href='".route('admin.photo.destroy', $query->id)."' class='btn btn-sm btn-danger delete-item' id='delete'><i class='fa fa-trash'></i></a>";
+                $edit = "<a href='".route('admin.blog.edit', $query->id)."' class='btn btn-sm btn-primary me-1 '><i class='fa fa-edit'></i></a>";
+                $delete = "<a href='".route('admin.blog.destroy', $query->id)."' class='btn btn-sm btn-danger delete-item' id='delete'><i class='fa fa-trash'></i></a>";
 
                 return $edit.$delete;
             })->addColumn('image', function ($query) {
-                $image = $query->image ? asset($query->image) : asset('panel/assets/images/def.png');
-                return '<img src="'.$image.'" width="50" height="50" />';
+                return '<img src="'.asset($query->image).'" width="50" height="50" />';
+            })->addColumn('status', function (Blog $news) {
+                $status = $news->status == 1 ? 'checked' : '';
+                return "
+                <div class='form-check form-switch' style='justify-self: center;'>
+                    <input class='form-check-input switch-input active' type='checkbox' data-id='{$news->id}' role='switch' {$status}>
+                </div>";
             })
-            ->rawColumns(['image', 'action'])
+            ->addColumn('created_at', function (Blog $news) {
+                return $news->created_at->diffForHumans();
+            })
+
+            ->rawColumns(['image', 'action', 'status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Photo $model): QueryBuilder
+    public function query(Blog $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -79,8 +88,8 @@ class PhotoDataTable extends DataTable
                 ->width(150)
                 ->orderable(false)
                 ->searchable(false),
-            Column::make('name')->title('Eser Adı'),
-            Column::make('shooter')->title('Fotoğrafçı'),
+            Column::make('name')->title('Blog Başlığı'),
+            Column::make('created_at')->title('Oluşturuldu'),
             Column::computed('action')
                 ->title('İşlem')
                 ->exportable(false)
@@ -95,6 +104,6 @@ class PhotoDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Photo_' . date('YmdHis');
+        return 'News_' . date('YmdHis');
     }
 }

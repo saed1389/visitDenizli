@@ -28,6 +28,7 @@ class PhotoController extends Controller
             'name_en' => 'nullable',
             'shooter' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'link' => 'nullable|url',
             'status' => 'required',
         ]);
 
@@ -46,12 +47,13 @@ class PhotoController extends Controller
             'name_en' => $request->name_en,
             'shooter' => $request->shooter,
             'image' => $imageUrl,
+            'link' => $request->link,
             'status' => $request->status,
         ];
 
         Photo::create($data);
 
-        toastr()->success('Resim Başarıyla Eklendi.');
+        toastr()->success('Galeri Başarıyla Eklendi.');
         return redirect()->route('admin.photo.index');
     }
 
@@ -75,6 +77,7 @@ class PhotoController extends Controller
             'name_en' => 'nullable',
             'shooter' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'link' => 'nullable|url',
             'status' => 'required',
         ]);
 
@@ -92,12 +95,13 @@ class PhotoController extends Controller
             'name_en' => $request->name_en,
             'shooter' => $request->shooter,
             'image' => $imageUrl,
+            'link' => $request->link,
             'status' => $request->status,
         ];
 
         Photo::where('id', $id)->update($data);
 
-        toastr()->success('Resim Başarıyla Güncellendi.');
+        toastr()->success('Galeri Başarıyla Güncellendi.');
         return redirect()->route('admin.photo.index');
     }
 
@@ -110,7 +114,7 @@ class PhotoController extends Controller
         @unlink($photo->image);
         $photo->delete();
 
-        toastr()->success('Resim Başarıyla Silindi.');
+        toastr()->success('Galeri Başarıyla Silindi.');
         return redirect()->route('admin.photo.index');
     }
 }

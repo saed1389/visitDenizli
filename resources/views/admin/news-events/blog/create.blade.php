@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Etkinlik Ekle @endsection
+@section('title') Visit Denizli - Blog Ekle @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     @push('styles')
@@ -21,8 +21,8 @@
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.events.index') }}" >Etkinlikler Listesi</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Etkinlik Ekle</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.blog.index') }}" >Blog Listesi</a></li>
+                <li class="breadcrumb-item active" aria-current="page" title="App">Blog Ekle</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -50,17 +50,17 @@
         </ul>
     </div>
     <div class="ps-md-4 pe-md-3 px-2 py-3 page-body">
-        <h3 class="title-font mb-3">Etkinlik Ekle</h3>
+        <h3 class="title-font mb-3">Blog Ekle</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-body card-main-one">
-                        <form action="{{ route('admin.events.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.blog.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="name" class="form-label"><strong>Etkinlik Adı (TR)<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Etkinlik Adı (TR)" value="{{ old('name') }}" required>
+                                    <label for="name" class="form-label"><strong>Blog Başlığı (TR)<span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Blog Başlığı (TR)" value="{{ old('name') }}" required>
                                     @error('name')
                                     <span class="text-danger">
                                         {{ $message }}
@@ -68,23 +68,9 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="name_en" class="form-label"><strong>Etkinlik Adı (EN)</strong></label>
-                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Etkinlik Adı (EN)" value="{{ old('name_en') }}">
+                                    <label for="name_en" class="form-label"><strong>Blog Başlığı (EN)</strong></label>
+                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Blog Başlığı (EN)" value="{{ old('name_en') }}">
                                     @error('name_en')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4">
-                                    <label for="county_id" class="form-label"><strong>İlçe Adı <span class="text-danger">*</span></strong></label>
-                                    <select class="form-select" name="county_id" id="county_id" required >
-                                        <option value="">-- Lütfen Seçin --</option>
-                                        @foreach($counties as $county)
-                                            <option value="{{ $county->id }}">{{ $county->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('county_id')
                                     <span class="text-danger">
                                         {{ $message }}
                                     </span>
@@ -109,60 +95,6 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="latitude" class="form-label"><strong>Etkinlik Enlem</strong></label>
-                                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Etkinlik Enlem" value="{{ old('latitude') }}" >
-                                    @error('latitude')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mt-3">
-                                    <label for="longitude" class="form-label"><strong>Etkinlik Boylam</strong></label>
-                                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Etkinlik Boylam" value="{{ old('longitude') }}">
-                                    @error('longitude')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mt-3">
-                                    <label for="ticket_link" class="form-label"><strong>Bilet Satın Alma Linki</strong></label>
-                                    <input type="url" class="form-control" id="ticket_link" name="ticket_link" placeholder="Bilet Satın Alma Linki" value="{{ old('ticket_link') }}">
-                                    @error('ticket_link')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mt-3">
-                                    <label for="address" class="form-label"><strong>Etkinlik Adresi</strong></label>
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="Etkinlik adresi" value="{{ old('address') }}" >
-                                    @error('address')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mt-3">
-                                    <label for="start_date" class="form-label"><strong>Etkinlik Başlangıç Tarihi<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="start_date" name="start_date" placeholder="Etkinlik Başlangıç Tarihi " value="{{ old('start_date') }}" required >
-                                    @error('start_date')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mt-3">
-                                    <label for="end_date" class="form-label"><strong>Etkinlik Bitiş Tarihi<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="end_date" name="end_date" placeholder="Etkinlik Bitiş Tarihi " value="{{ old('end_date') }}" required>
-                                    @error('end_date')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mt-3">
                                     <label for="image" class="form-label"><strong>Resim <small class="text-danger">Size: 700x420</small></strong></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
@@ -173,19 +105,6 @@
                                 </div>
                                 <div class="col-sm-2 mt-3">
                                     <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
-                                </div>
-
-                                <div class="col-sm-4 mt-3">
-                                    <label for="banner_image" class="form-label"><strong>Banner Resmi <small class="text-danger">Size: 1950x850</small></strong></label>
-                                    <input type="file" class="form-control" id="banner_image" name="banner_image" placeholder="" value="{{ old('banner_image') }}">
-                                    @error('banner_image')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-2 mt-3">
-                                    <img src="{{ asset('panel/assets/images/def.png') }}" id="showBannerImage" class="img-thumbnail" alt="" >
                                 </div>
 
                                 <div class="col-sm-3 mt-3">
@@ -204,7 +123,7 @@
                                 </div>
 
                                 <div class="col-12 text-end">
-                                    <a href="{{ route('admin.events.index') }}" class="btn btn-outline-secondary">İptal</a>
+                                    <a href="{{ route('admin.blog.index') }}" class="btn btn-outline-secondary">İptal</a>
                                     <button type="submit" class="btn btn-primary">Kaydet</button>
                                 </div>
                             </div>
@@ -215,37 +134,7 @@
         </div>
     </div>
     @push('scripts')
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.0.0/dist/css/tempus-dominus.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.0.0/dist/js/tempus-dominus.min.js"></script>
         <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const ids = ['start_date', 'end_date'];
-                const options = {
-                    display: {
-                        components: {
-                            useTwentyfourHour: true,
-                            hours: true,
-                            minutes: true,
-                        },
-                    },
-                    localization: {
-                        locale: 'tr',
-                        format: 'HH:mm',
-                    },
-                };
-
-                ids.forEach(id => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        new tempusDominus.TempusDominus(element, options);
-                    }
-                });
-            });
-
-        </script>
         <script>
             class MyUploadAdapter {
                 constructor(loader) {
@@ -258,7 +147,7 @@
                             const data = new FormData();
                             data.append('upload', file);
 
-                            fetch("{{ route('admin.events.upload') }}", {
+                            fetch("{{ route('admin.blog.upload') }}", {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -303,27 +192,17 @@
                     .catch(error => {
                         console.error(error);
                     });
-            });
 
-            // Image Preview
-            $(document).ready(function () {
-                $('#image').change(function (e) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#showImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(e.target.files[0]);
-                });
-
-                $('#banner_image').change(function (e) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#showBannerImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(e.target.files['0']);
+                $(document).ready(function () {
+                    $('#image').change(function (e) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#showImage').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(e.target.files[0]);
+                    });
                 });
             });
         </script>
-
     @endpush
 @endsection

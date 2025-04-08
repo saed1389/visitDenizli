@@ -29,53 +29,13 @@
         <div class="container">
             <div class="row justify-content-center position-relative">
                 <div class="col-lg-10 text-center">
-                    <h1 class="text-white">{{ __('home.slider title') }}</h1>
-                    <p class="text-white banner-sub-title">{{ __('home.slider description') }}</p>
+                    <h1 class="text-white text-shadow">{{ __('home.slider title') }}</h1>
+                    <p class="text-white banner-sub-title text-shadow">{{ __('home.slider description') }}</p>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <form class="home-search">
-                        <div class="row mt-3 mt-lg-5">
-                            <div class="col-sm-6 col-lg-5 col-xl-5">
-                                <div class="form-group mb-3 mb-lg-0">
-                                    <span>{{ __('home.what') }}?</span>
-                                    <input type="text" name="what" class="form-control" placeholder="{{ __('home.what ex') }}">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 col-xl-5">
-                                <div class="form-group mb-3 mb-lg-0 form-location">
-                                    <span>{{ __('home.where') }}?</span>
-                                    <input
-                                        type="text"
-                                        name="where"
-                                        class="form-control"
-                                        placeholder="{{ __('home.where ex') }}"
-                                        wire:model="countyQuery"
-                                        wire:keyup.debounce.100ms="searchCounties"
-                                        onfocus="showDropdown()"
-                                        onblur="hideDropdown()"
-                                    >
-                                    <a class="location-icon" href="#"> <i class="far fa-compass"></i> </a>
-
-                                    @if($showDropdown && $countyQuery)
-                                        <div class="autocomplete-dropdown">
-                                            <ul>
-                                                @forelse($counties as $county)
-                                                    <li wire:click="selectCounty('{{ $county->name }}')">{{ $county->name }}</li>
-                                                @empty
-                                                    <li>No results found</li>
-                                                @endforelse
-                                            </ul>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-xl-2">
-                                <a class="btn btn-secondary" href="#"> <i class="fas fa-search-location"></i> {{ __('home.search') }} </a>
-                            </div>
-                        </div>
-                    </form>
+                    @livewire('partials.search')
                 </div>
             </div>
         </div>
@@ -94,10 +54,8 @@
                     <div class="owl-carousel" data-nav-dots="false" data-nav-arrow="false" data-items="6" data-md-items="5" data-sm-items="4" data-xs-items="2" data-xx-items="1" data-space="20" data-autoheight="false">
                         @foreach($categories as $category)
                             <div class="item">
-                                <a class="category-item bg-holder bg-overlay-black-50 text-center"
-                                   style="background-image: url('/{{ $category->image }}'); height: 75px"
-                                   href="{{ route('housing.by.category', $category->slug) }}">
-                                    <span class="mb-0 text-white position-relative">
+                                <a class="category-item bg-holder bg-overlay-black-50 text-center" style="background-image: url('/{{ $category->image }}'); height: 75px" href="{{ route('housing.by.category', $category->slug) }}">
+                                    <span class="mb-0 text-white position-relative text-shadow">
                                         {{ app()->getLocale() == 'tr' ? $category->name : $category->name_en }}
                                     </span>
                                 </a>
@@ -142,15 +100,16 @@
                         }
                     @endphp
                     <div class="{{ $columnClass }} {{ $marginClass }} mt-4">
-                        <div class="location-item bg-holder bg-overlay-black-50 text-center" style="background-image: url({{ $city->image }});">
-                            <a class="position-relative" href="{{ route('counties.detail', ['placeSlug' => $city->slug]) }}">{{ $city->name }}</a>
-                        </div>
+                        <a href="{{ route('counties.detail', ['placeSlug' => $city->slug]) }}">
+                            <div class="location-item bg-holder bg-overlay-black-50 text-center" style="background-image: url({{ $city->image }});"></div>
+                        </a>
+                        <a class="text-center" href="{{ route('counties.detail', ['placeSlug' => $city->slug]) }}"><h6 class="mt-2">{{ $city->name }}</h6></a>
                     </div>
                 @endforeach
             </div>
             <div class="row">
                 <div class="col-12 text-center">
-                    <a href="{{ route('counties.listing') }}" class="w-50 btn btn-secondary mt-3"> {{ __('home.Counties List') }} </a>
+                    <a href="{{ route('counties.listing') }}" class="w-50 btn btn-secondary mt-3"><h6 class="mt-2"> {{ __('home.Counties List') }} </h6></a>
                 </div>
             </div>
         </div>
@@ -160,44 +119,26 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2>{{ __('home.Most visited places') }}</h2>
+                        <h2>Blog</h2>
                         <div class="sub-title text-end"> <span> {{ __('home.Make a list of your achievements toward your long-term goal') }}</span></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @foreach($places as $place)
-                    @php
-                        $images = json_decode($place->images, true);
-                        $firstImage = $images[0];
-                    @endphp
+                @foreach($blogs as $blog)
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="listing-item">
                             <div class="listing-image bg-overlay-half-bottom">
-                                <img class="img-fluid" src="{{ asset($firstImage) }}" alt="">
-                                <div class="listing-quick-box">
-                                    <a class="category" href="{{ route('housing.by.category', $place->category->slug) }}"> <i class="flaticon-article"></i> {{ app()->getLocale() == 'tr' ? $place->category->name : $place->category->name_en }}</a>
-                                </div>
+                                <img class="img-fluid" src="{{ $blog->image }}" alt="">
                             </div>
                             <div class="listing-details">
                                 <div class="listing-details-inner">
                                     <div class="listing-title">
-                                        <h6><a href="{{ route('tourism.detail', ['categorySlug' => 'konaklama-rehberi', 'placeSlug' => $place->slug]) }}">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</a></h6>
-                                    </div>
-                                    <div class="listing-rating-call">
-                                        @if($place->website)
-                                            <a class="listing-rating" href="{{ $place->website }}" target="_blank"> {{ $place->website }}</a>
-                                        @endif
-                                        @if($place->phone)
-                                            <a class="listing-call" href="tel:{{ $place->phone }}"><i class="fas fa-phone-volume"></i> {{ $place->phone }}</a>
-                                        @endif
+                                        <h6><a href="{{ route('blog.detail', $blog->slug) }}">{{ app()->getLocale() == 'tr' ? $blog->name : $blog->name_en }}</a></h6>
                                     </div>
                                     <div class="listing-info">
-                                        <p class="mb-0">{!! app()->getLocale() == 'tr' ? \Illuminate\Support\Str::limit($place->description, 50, '...') : \Illuminate\Support\Str::limit($place->description_en, 50, '...') !!}</p>
+                                        <p class="mb-0">{!! app()->getLocale() == 'tr' ? \Illuminate\Support\Str::limit($blog->description, 50, '...') : \Illuminate\Support\Str::limit($blog->description_en, 50, '...') !!}</p>
                                     </div>
-                                </div>
-                                <div class="listing-bottom">
-                                    <a class="listing-loaction" href="{{ route('counties.detail', ['placeSlug' => $place->county->slug]) }}"> <i class="fas fa-map-marker-alt"></i> {{ $place->county->name }}</a>
                                 </div>
                             </div>
                         </div>
@@ -352,14 +293,20 @@
 </div>
 @push('scripts')
     <script>
-        function showDropdown() {
-            Livewire.emit('showDropdown');
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            function showDropdown() {
+                if (window.Livewire) {
+                    Livewire.emit('showDropdown');
+                }
+            }
 
-        function hideDropdown() {
-            setTimeout(() => {
-                Livewire.emit('hideDropdown');
-            }, 100);
-        }
+            function hideDropdown() {
+                setTimeout(() => {
+                    if (window.Livewire) {
+                        Livewire.emit('hideDropdown');
+                    }
+                }, 100);
+            }
+        });
     </script>
 @endpush

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\County;
 use App\Models\Government;
 use App\Models\Menu;
+use App\Models\Photo;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -86,6 +87,12 @@ class AboutPage extends Component
                 'menu' => $this->menu,
                 'members' => $members,
                 'counties' => $counties,
+            ]);
+        } elseif ($this->menu && $this->menu->id == 28) {
+            $galleries = Photo::where('status', 1)->orderBy('created_at', 'desc')->get();
+            return view('livewire.gallery-page', [
+                'galleries' => $galleries,
+                'menu' => $this->menu,
             ]);
         }
 

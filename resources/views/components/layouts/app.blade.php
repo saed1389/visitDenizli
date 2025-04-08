@@ -20,21 +20,16 @@
 </head>
 
 <body>
-
-<!--=================================
-header -->
 @livewire('partials.header')
-<!--=================================
- header -->
 
 {{ $slot }}
 
-<!--=================================
-footer-->
 @livewire('partials.footer')
+
 <div id="back-to-top" class="back-to-top">
-    <a href="#"> <i class="fas fa-angle-up"></i></a>
+    <a href="#"><i class="fas fa-angle-up"></i></a>
 </div>
+
 <script src="{{ asset('front/assets/js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/popper/popper.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/bootstrap/bootstrap.min.js') }}"></script>

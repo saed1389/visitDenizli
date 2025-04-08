@@ -8,7 +8,7 @@ return [
     'where ex' => 'Ex: Choose your city or location',
     'search' => 'Search',
     'Or browse the highlights' => 'Accommodation and Dining Spots.',
-    'Fine location in these cities' => 'Denizli’s 19 Districts',
+    'Fine location in these cities' => 'Districts of Denizli',
     'Remind yourself the only thing stopping you is yourself.' => 'With its natural beauty, historical charm, and breathtaking views, hidden gems await your discovery.',
     'Most visited places' => 'Most visited places',
     'Make a list of your achievements toward your long-term goal' => 'Comfortable accommodation, delicious cuisine, and unique places to explore await you in Denizli!',
@@ -39,4 +39,5 @@ return [
     'Get in on' => 'Get in on',
     'county' => 'County',
     'Counties List' => 'Counties List',
+    'No results found' => 'No results found',
 ];

@@ -8,7 +8,7 @@ return [
     'where ex' => 'Örn: Şehrinizi veya konumunuzu seçin',
     'search' => 'Ara',
     'Or browse the highlights' => 'Konaklama ve Lezzet Durakları',
-    'Fine location in these cities' => 'Denizli’nin 19 İlçesi',
+    'Fine location in these cities' => 'Denizli’nin İlçeleri',
     'Remind yourself the only thing stopping you is yourself.' => 'Doğal güzellikleri, tarihi dokusu ve eşsiz manzaralarıyla keşfedilmeyi bekleyen rotalar sizi bekliyor.',
     'Most visited places' => 'Gidilecek Yerler',
     'Make a list of your achievements toward your long-term goal' => 'Denizli’de konforlu konaklama, lezzetli mutfak ve keşfedilecek benzersiz yerler sizi bekliyor!',
@@ -40,4 +40,5 @@ return [
     'Get in on' => 'indirin',
     'county' => 'İlçe',
     'Counties List' => 'İlçeler Listesi',
+    'No results found' => 'Hiçbir sonuç bulunamadı'
 ];

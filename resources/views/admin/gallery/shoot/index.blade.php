@@ -1,5 +1,5 @@
 @extends('admin.layouts.appAdmin')
-@section('title') Visit Denizli - Fotoğraf Galerisi @endsection
+@section('title') Visit Denizli - Galeri @endsection
 @section('right') rightbar-hide @endsection
 @section('content')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
             </button>
             <ol class="breadcrumb mb-0 bg-transparent">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" title="home">Gösterge Paneli</a></li>
-                <li class="breadcrumb-item active" aria-current="page" title="App">Fotoğraf Galerisi</li>
+                <li class="breadcrumb-item active" aria-current="page" title="App"> Galeri</li>
             </ol>
         </div>
         <ul class="list-unstyled action d-flex align-items-center mb-0">
@@ -54,7 +54,7 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
-                        <h4 class="card-title m-0">Fotoğraf Galerisi</h4>
+                        <h4 class="card-title m-0"> Galeri</h4>
                     </div>
                     <div class="card-body table-main-three">
                         {{ $dataTable->table() }}
@@ -64,22 +64,22 @@
             <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-header py-3 d-flex flex-wrap justify-content-between align-items-center bg-transparent border-bottom-0">
-                        <h4 class="card-title m-0">Resim Ekle</h4>
+                        <h4 class="card-title m-0">Eser Ekle</h4>
                     </div>
                     <form action="{{ route('admin.photo.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="name" class="form-label"><strong>Fotoğraf Adı (TR)<span class="text-danger">*</span></strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Fotoğraf Adı (TR)" value="{{ old('name') }}" required>
+                                    <label for="name" class="form-label"><strong>Eser Adı (TR)<span class="text-danger">*</span></strong></label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Eser Adı (TR)" value="{{ old('name') }}" required>
                                     @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-12 mt-3">
-                                    <label for="name_en" class="form-label"><strong>Fotoğraf Adı (EN)</strong></label>
-                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Fotoğraf Adı (EN)" value="{{ old('name_en') }}" >
+                                    <label for="name_en" class="form-label"><strong>Eser Adı (EN)</strong></label>
+                                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="Eser Adı (EN)" value="{{ old('name_en') }}" >
                                     @error('name_en')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -88,6 +88,13 @@
                                     <label for="shooter" class="form-label"><strong>Fotoğrafçı Adı</strong></label>
                                     <input type="text" class="form-control" id="shooter" name="shooter" placeholder="Fotoğrafçı Adı" value="{{ old('shooter') }}" >
                                     @error('shooter')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-12 mt-3">
+                                    <label for="link" class="form-label"><strong>Link</strong></label>
+                                    <input type="text" class="form-control" id="link" name="link" placeholder="Link" value="{{ old('link') }}" >
+                                    @error('link')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

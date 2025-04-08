@@ -30,7 +30,7 @@
                 </ul>
                 <h6 class="fl-title title-font ps-2 small text-uppercase text-muted" style="--text-color: var(--theme-color1)">Web Sitesi</h6>
                 <ul class="list-unstyled mb-4 menu-list">
-                    <li>
+                    {{--<li>
                         <a href="#Government" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Government">
                             @php
                             $governmentStatus = \App\Models\Government::where('status', 0)->count();
@@ -41,7 +41,7 @@
                             <li><a href="{{ route('admin.government.index') }}">Yerel Yönetim &nbsp;@if($governmentStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $governmentStatus }}</span> @endif</a></li>
                             <li><a href="{{ route('admin.governmentTitles.index') }}">Ünvan Listesi</a></li>
                         </ul>
-                    </li>
+                    </li>--}}
                     <li>
                         <a href="#Places" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Places">
                             <span class="mx-2">Gezilecek Yerler </span>
@@ -78,6 +78,7 @@
                         <ul class="collapse list-unstyled" id="News">
                             <li><a href="{{ route('admin.events.index') }}"> Etkinlikler &nbsp;@if($EventStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $EventStatus }}</span> @endif</a></li>
                             <li><a href="{{ route('admin.news.index') }}"> Haberler &nbsp;@if($NewsStatus > 0) <span class="bg-danger text-white rounded-5 p-1 text-end">{{ $NewsStatus }}</span> @endif</a></li>
+                            <li><a href="{{ route('admin.blog.index') }}"> Blog  </a></li>
                         </ul>
                     </li>
                     <li>
@@ -106,11 +107,10 @@
 
                     <li>
                         <a href="#Photo" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-label="Photo">
-                            <span class="mx-2">Fotoğraf ve <br> Video Galeri</span>
+                            <span class="mx-2"> Galeri</span>
                         </a>
                         <ul class="collapse list-unstyled" id="Photo">
-                            <li><a href="{{ route('admin.video.index') }}"> Video Galerisi </a></li>
-                            <li><a href="{{ route('admin.photo.index') }}"> Fotoğraf Galerisi</a></li>
+                            <li><a href="{{ route('admin.photo.index') }}"> Galerisi</a></li>
                         </ul>
                     </li>
                 </ul>

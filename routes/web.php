@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Livewire\AboutPage;
+use App\Livewire\BlogDetailPage;
+use App\Livewire\BlogPage;
 use App\Livewire\ContactPage;
 use App\Livewire\CountyDetailPage;
 use App\Livewire\CountyListPage;
@@ -80,15 +82,17 @@ Route::prefix('harita')->group(function () {
     Route::get('/{slug}', MapPage::class)->name('map.listing');
 });
 
+Route::get('/blog', BlogPage::class)->name('blog.listing');
+
+Route::get('blog/{slug}', BlogDetailPage::class)->name('blog.detail');
+
 Route::get('iletisim', ContactPage::class)->name('contact.page');
 
 Route::get('/kategori/{slug?}', CategoryPage::class)->name('housing.by.category');
 
-
-
-/*Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
+Route::get('/search', function () {
+    return view('search-results');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

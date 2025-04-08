@@ -10,4 +10,5 @@ return [
     'gallery' => 'Galeri',
     'map and transportation' => 'Harita',
     'contact' => 'İletişim',
+    'counties' => 'İlçelerimiz',
 ];
