@@ -89,5 +89,12 @@ return [
     'Housing Results' => 'Housing Results',
     'recent blogs' => 'Recent Blogs',
     'Related Blogs' => 'Related Blogs',
-
+    'Please Select' => 'Please Select',
+    'Complaint' => 'Complaint',
+    'Suggestion' => 'Suggestion',
+    'Request' => 'Request',
+    'Help' => 'Help',
+    'Other' => 'Other',
+    'Get Directions from Google Maps.' => 'Get Directions from Google Maps.',
+    'Click for details' => 'Click for details'
 ];

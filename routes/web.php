@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\AboutPage;
 use App\Livewire\BlogDetailPage;
@@ -21,6 +22,7 @@ use App\Livewire\PlaceDetailPage;
 use App\Livewire\PlacePage;
 use App\Livewire\TourismDetailPage;
 use App\Livewire\TourismPage;
+use App\Models\Housing;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/change-locale/{locale}', function ($locale) {
@@ -93,6 +95,8 @@ Route::get('/kategori/{slug?}', CategoryPage::class)->name('housing.by.category'
 Route::get('/search', function () {
     return view('search-results');
 });
+
+Route::get('/api/location-image', [LocationController::class, 'image'])->name('api.location.image');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

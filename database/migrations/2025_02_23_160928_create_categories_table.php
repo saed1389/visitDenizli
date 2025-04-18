@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->longText('description_en')->nullable();
             $table->string('image')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('color')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->string('hit')->default(0);
             $table->timestamps();

@@ -89,4 +89,12 @@ return [
     'Housing Results' => 'Konaklama Sonuçları',
     'recent blogs' => 'Son Bloglar',
     'Related Blogs' => 'Benzer Bloglar',
+    'Please Select' => 'Lütfen Seçin',
+    'Complaint' => 'Şikayet',
+    'Suggestion' => 'Öneri',
+    'Request' => 'Talep',
+    'Help' => 'Yardım',
+    'Other' => 'Diğer',
+    'Get Directions from Google Maps.' => 'Google Haritalar\'dan Yol Tarifi Alın.',
+    'Click for details' => 'Detaylar için tıklayın'
 ];

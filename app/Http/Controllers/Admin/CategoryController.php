@@ -29,6 +29,8 @@ class CategoryController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable',
             'description_en' => 'nullable',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'color' => 'nullable|string',
             'status' => 'required',
         ]);
 
@@ -40,12 +42,22 @@ class CategoryController extends Controller
             $imageUrl = '';
         }
 
+        if ($request->hasFile('icon')) {
+            $iconName = Str::slug($request->input('name')) . '-icon-' . time() . '.' . $request->icon->extension();
+            $request->file('icon')->move('uploads/categories/icon/', $iconName);
+            $iconUrl = 'uploads/categories/icon/' . $iconName;
+        } else {
+            $iconUrl = '';
+        }
+
         $data = [
             'name' => $request->input('name'),
             'name_en' => $request->input('name_en'),
             'slug' => Str::slug($request->input('name')),
             'description' => $request->input('description'),
             'description_en' => $request->input('description_en'),
+            'icon' => $iconUrl,
+            'color' => $request->input('color'),
             'status' => $request->input('status'),
             'image' => $imageUrl,
         ];
@@ -71,7 +83,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $county = Category::where('id', $id)->firstOrFail();
+        $category = Category::where('id', $id)->firstOrFail();
         $request->validate([
             'name' => 'required|unique:categories,name,'.$id,
             'name_en' => 'nullable',
@@ -79,15 +91,26 @@ class CategoryController extends Controller
             'description_en' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'color' => 'nullable|string',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         if ($request->hasFile('image')) {
             $imageName = Str::slug($request->input('name')) . '-' . time() . '.' . $request->image->extension();
             $request->file('image')->move('uploads/categories/', $imageName);
-            @unlink($county->image);
+            @unlink($category->image);
             $imageUrl = 'uploads/categories/' . $imageName;
         } else {
-            $imageUrl = $county->image;
+            $imageUrl = $category->image;
+        }
+
+        if ($request->hasFile('icon')) {
+            $iconName = Str::slug($request->input('name')) . '-icon-' . time() . '.' . $request->icon->extension();
+            $request->file('icon')->move('uploads/categories/icon/', $iconName);
+            @unlink($category->icon);
+            $iconUrl = 'uploads/categories/icon/' . $iconName;
+        } else {
+            $iconUrl = $category->image;
         }
 
         $data = [
@@ -98,6 +121,8 @@ class CategoryController extends Controller
             'description_en' => $request->input('description_en'),
             'status' => $request->input('status'),
             'image' => $imageUrl,
+            'color' => $request->input('color'),
+            'icon' => $iconUrl,
         ];
 
         Category::where('id', $id)->update($data);
@@ -111,9 +136,9 @@ class CategoryController extends Controller
      */
     public function delete(string $id)
     {
-        $county = Category::where('id', $id)->firstOrFail();
-        @unlink($county->image);
-        $county->delete();
+        $category = Category::where('id', $id)->firstOrFail();
+        @unlink($category->image);
+        $category->delete();
 
         toastr()->success('Kategori Başarıyla Silindi');
         return redirect()->route('admin.categories.index');

@@ -6,7 +6,7 @@
                     <div class="col-12">
                         <div class="d-block d-md-flex align-items-center text-center" style="justify-content: center;">
                             <a href="/">
-                                <img src="{{ asset($setting->logo) }}" style="height: 100px" alt="{{ $setting->site_name }}">
+                                <img class="logo" src="{{ asset($setting->logo) }}" style="height: 100px" alt="{{ $setting->site_name }}">
                             </a>
                         </div>
                     </div>
@@ -15,7 +15,16 @@
         </div>
         <nav class="navbar navbar-static-top navbar-expand-lg header-sticky">
             <div class="container-fluid">
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"><i class="fas fa-align-left"></i></button>
+                <div class="navbar-sticky">
+                    <button type="button" class="navbar-toggler navbar-sticky" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <div class="add-listing navbar-lang">
+                        <a class="btn btn-sm" style="display: {{ app()->getLocale() == 'tr' ? 'none' : 'block' }}"  href="{{ url('/change-locale/tr') }}"> <img style="width: 32px;" src="{{ asset('front/assets/images/tr-flag.png') }}" alt=""> </a>
+                        <a class="btn btn-sm" style="display: {{ app()->getLocale() == 'en' ? 'none' : 'block' }}"  href="{{ url('/change-locale/en') }}"> <img style="width: 32px;" src="{{ asset('front/assets/images/uk-flag.png') }}" alt=""> </a>
+                    </div>
+                </div>
+
                 {{--<a class="navbar-brand" href="/">
                     <img class="img-fluid" src="{{ asset($setting->logo) }}" alt="{{ $setting->site_name }}">
                 </a>--}}

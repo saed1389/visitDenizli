@@ -51,7 +51,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="">{{ app()->getLocale() == 'tr' ? $historyPlace->name : $historyPlace->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('place.detail', [ 'categorySlug' => 'tarihi-mekanlar', 'placeSlug' => $historyPlace->slug ]) }}">{{ app()->getLocale() == 'tr' ? $historyPlace->name : $historyPlace->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -60,7 +60,6 @@
                                 @endforeach
                             </div>
                         @endif
-                        <!-- Natural Place -->
                         @if($naturalPlaces->isNotEmpty())
                             <div class="row">
                                 <div class="col-12">
@@ -78,7 +77,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="">{{ app()->getLocale() == 'tr' ? $naturalPlace->name : $naturalPlace->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('place.detail', [ 'categorySlug' => 'dogal-guzellikler', 'placeSlug' => $naturalPlace->slug ]) }}">{{ app()->getLocale() == 'tr' ? $naturalPlace->name : $naturalPlace->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +104,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="#">{{ app()->getLocale() == 'tr' ? $festival->name : $festival->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('culture.detail', ['categorySlug' => 'yerel-festivaller', 'placeSlug' => $festival->slug ]) }}">{{ app()->getLocale() == 'tr' ? $festival->name : $festival->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +131,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="#">{{ app()->getLocale() == 'tr' ? $museumPlace->name : $museumPlace->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('place.detail', [ 'categorySlug' => 'muzeler-ve-sanat-galerileri', 'placeSlug' => $museumPlace->slug ]) }}">{{ app()->getLocale() == 'tr' ? $museumPlace->name : $museumPlace->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +158,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="#">{{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('news.detail', ['categorySlug' => 'guncel-haberler', 'placeSlug' => $item->slug ]) }}">{{ app()->getLocale() == 'tr' ? $item->name : $item->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -186,7 +185,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="#">{{ app()->getLocale() == 'tr' ? $event->name : $event->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('news.detail', ['categorySlug' => 'yaklasan-etkinlikler', 'placeSlug' => $event->slug]) }}">{{ app()->getLocale() == 'tr' ? $event->name : $event->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,7 +212,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="#">{{ $tourismOffice->name }}</a></h6>
+                                                        <h6><a href="{{ route('tourism.detail', ['categorySlug' => 'turizm-ofisleri', 'placeSlug' => $tourismOffice->slug ]) }}">{{ $tourismOffice->name }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,7 +239,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="#">{{ app()->getLocale() == 'tr' ? $tradition->name : $tradition->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('culture.detail', ['categorySlug' => 'gelenek-ve-gorenekler', 'placeSlug' => $tradition->slug]) }}">{{ app()->getLocale() == 'tr' ? $tradition->name : $tradition->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,7 +266,7 @@
                                             <div class="listing-details">
                                                 <div class="listing-details-inner">
                                                     <div class="listing-title">
-                                                        <h6><a href="#">{{ app()->getLocale() == 'tr' ? $housing->name : $housing->name_en }}</a></h6>
+                                                        <h6><a href="{{ route('tourism.detail', ['categorySlug' => $housing->category->slug, 'placeSlug' => $housing->slug ]) }}">{{ app()->getLocale() == 'tr' ? $housing->name : $housing->name_en }}</a></h6>
                                                     </div>
                                                 </div>
                                             </div>

@@ -54,7 +54,7 @@ class SearchResultPage extends Component
                 $county_id = $county->id;
 
                 $news->where($column, 'like', "%{$this->query}%")->where('county_id', $county_id);
-                $categories->where($column, 'like', "%{$this->query}%")->where('county_id', $county_id);
+                $categories->where($column, 'like', "%{$this->query}%");
                 $places->where($column, 'like', "%{$this->query}%")->where('county_id', $county_id);
                 $events->where($column, 'like', "%{$this->query}%")->where('county_id', $county_id);
             } else {

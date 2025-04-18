@@ -23,24 +23,31 @@
                         <form class="pt-3">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">{{ __('pages.Your Name') }}</label>
-                                    <input type="text" class="form-control" id="name" placeholder="{{ __('pages.Your Name') }}">
+                                    <label class="form-label">{{ __('pages.Your Name') }} <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="name" placeholder="{{ __('pages.Your Name') }}" required>
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">{{ __('pages.Your Email') }}</label>
-                                    <input type="email" class="form-control" id="inputEmail4" placeholder="{{ __('pages.Your Email') }}">
+                                    <label class="form-label">{{ __('pages.Your Email') }} <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="inputEmail4" placeholder="{{ __('pages.Your Email') }}" required>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">{{ __('pages.Your Phone') }}</label>
                                     <input type="text" class="form-control" id="phone" placeholder="{{ __('pages.Your Phone') }}">
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label">{{ __('pages.Subject') }}</label>
-                                    <input type="text" class="form-control" id="subject" placeholder="{{ __('pages.Subject') }}">
+                                    <label class="form-label">{{ __('pages.Subject') }} <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="subject" required>
+                                        <option value="">{{ __('pages.Please Select') }}</option>
+                                        <option value="1">{{ __('pages.Complaint') }}</option>
+                                        <option value="2">{{ __('pages.Suggestion') }}</option>
+                                        <option value="3">{{ __('pages.Request') }}</option>
+                                        <option value="4">{{ __('pages.Help') }}</option>
+                                        <option value="5">{{ __('pages.Other') }}</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-md-12">
-                                    <label class="form-label">{{ __('pages.Your Message') }}</label>
-                                    <textarea class="form-control" rows="4" placeholder="{{ __('pages.Your Message') }}"></textarea>
+                                    <label class="form-label">{{ __('pages.Your Message') }} <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" rows="4" placeholder="{{ __('pages.Your Message') }}" required></textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <a class="btn btn-primary" href="#">{{ __('pages.Send Message') }}</a>

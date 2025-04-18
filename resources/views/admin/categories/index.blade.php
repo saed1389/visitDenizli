@@ -99,6 +99,15 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-8 mt-3">
+                                    <label for="color" class="form-label"><strong>Renk</strong> </label>
+                                    <input type="color" class="form-control-color" id="color" name="color" placeholder="" value="#ffffff">
+                                    @error('color')
+                                    <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-8 mt-3">
                                     <label for="image" class="form-label"><strong>Resim</strong> <small class="text-danger">Size: 600x565</small></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
@@ -109,6 +118,18 @@
                                 </div>
                                 <div class="col-sm-4 mt-3">
                                     <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
+                                </div>
+                                <div class="col-sm-8 mt-3">
+                                    <label for="icon" class="form-label"><strong>Icon</strong> <small class="text-danger">Size: 45x65</small></label>
+                                    <input type="file" class="form-control" id="icon" name="icon" placeholder="" value="{{ old('icon') }}">
+                                    @error('icon')
+                                    <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mt-3">
+                                    <img src="{{ asset('front/assets/images/def-loc.png') }}" id="showIcon" class="img-thumbnail" alt="" >
                                 </div>
                                 <div class="col-sm-12 mt-3">
                                     <label for="status" class="form-label"><strong>Durum</strong></label>
@@ -180,7 +201,6 @@
             };
         }
 
-        // Apply CKEditor to both textareas
         document.addEventListener("DOMContentLoaded", function () {
             ClassicEditor
                 .create(document.querySelector('#ckeditor_tr'), {
@@ -199,12 +219,19 @@
                 });
         });
 
-        // Image Preview
         $(document).ready(function () {
             $('#image').change(function (e) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            });
+
+            $('#icon').change(function (e) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#showIcon').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files[0]);
             });

@@ -77,7 +77,7 @@ POTENZA.isSticky = function () {
     if ($(this).scrollTop() > 150) {
        $('.header-sticky').addClass('is-sticky');
     } else {
-       $('.header-sticky').removeClass('is-sticky');
+        $('.header-sticky').removeClass('is-sticky');
     }
   });
 };
