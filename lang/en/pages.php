@@ -96,5 +96,7 @@ return [
     'Help' => 'Help',
     'Other' => 'Other',
     'Get Directions from Google Maps.' => 'Get Directions from Google Maps.',
-    'Click for details' => 'Click for details'
+    'Click for details' => 'Click for details',
+    'Local Economy and Industries' => 'Local Economy and Industries',
+    'Investment Opportunities' => 'Investment Opportunities',
 ];

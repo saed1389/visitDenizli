@@ -66,7 +66,7 @@
                                         <div class="recent-list-item d-flex mb-3">
                                             <img class="img-fluid w-25" src="{{ asset($relatedPlace->image) }}" alt="{{ $relatedPlace->name }}">
                                             <div class="recent-list-item-info ms-3">
-                                                <a class="address text-dark mb-2 d-block" href="{{ route('place.detail', ['categorySlug' => $categorySlug, 'placeSlug' => $relatedPlace->slug]) }}">
+                                                <a class="address text-dark mb-2 d-block" href="{{ route('culture.detail', ['categorySlug' => $categorySlug, 'placeSlug' => $relatedPlace->slug]) }}">
                                                     {{ app()->getLocale() == 'tr' ? $relatedPlace->name : $relatedPlace->name_en }}
                                                 </a>
                                             </div>
@@ -75,7 +75,6 @@
                                 </div>
                             </div>
                         @endif
-
                     </div>
                 </div>
             </div>

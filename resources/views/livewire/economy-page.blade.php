@@ -95,7 +95,7 @@
                                                 <div class="listing-title">
                                                     <h6>
                                                         <a href="{{ route('economy.detail', ['categorySlug' => $slug, 'placeSlug' => $place->slug]) }}">
-                                                            {{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}
+                                                            {{ $place->name_en ? app()->getLocale() == 'tr' ? $place->name : $place->name_en : $place->name }}
                                                         </a>
                                                     </h6>
                                                 </div>

@@ -96,5 +96,7 @@ return [
     'Help' => 'Yardım',
     'Other' => 'Diğer',
     'Get Directions from Google Maps.' => 'Google Haritalar\'dan Yol Tarifi Alın.',
-    'Click for details' => 'Detaylar için tıklayın'
+    'Click for details' => 'Detaylar için tıklayın',
+    'Local Economy and Industries' => 'Yerel Ekonomi ve Endüstriler',
+    'Investment Opportunities' => 'Yatırım Fırsatları',
 ];

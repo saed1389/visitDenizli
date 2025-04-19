@@ -60,10 +60,8 @@ class EconomyPage extends Component
             $places = collect();
         }
 
-        $counties = County::where('status', 1)->get();
         return view('livewire.economy-page', [
             'places' => $places,
-            'counties' => $counties,
             'menu' => $this->menu,
         ]);
     }

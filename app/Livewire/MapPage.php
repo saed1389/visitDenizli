@@ -18,8 +18,17 @@ class MapPage extends Component
 
     public function render()
     {
+        if ($this->menu && $this->menu->id == 22 ) {
+            $type = 'map';
+        } elseif ($this->menu  && $this->menu->id == 23 ) {
+            $type = 'transportation ';
+        } elseif ($this->menu  && $this->menu->id == 24 ) {
+            $type = 'routes';
+        }
+
         return view('livewire.map-page', [
             'menu' => $this->menu,
+            'type' => $type,
         ]);
     }
 }

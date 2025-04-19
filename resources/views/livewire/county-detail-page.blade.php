@@ -255,10 +255,14 @@
                                     <h2>{{ __('pages.Housings') }}</h2>
                                 </div>
                                 @foreach($housings as $housing)
+                                    @php
+                                        $images = json_decode($housing->images, true);
+                                        $firstImage = $images[0];
+                                    @endphp
                                     <div class="col-lg-3 mb-4">
                                         <div class="listing-item">
                                             <div class="listing-image bg-overlay-half-bottom">
-                                                <img class="img-fluid" src="{{ asset($housing->image) }}" alt="{{ app()->getLocale() == 'tr' ? $housing->name : $housing->name_en }}">
+                                                <img class="img-fluid" src="{{ asset($firstImage) }}" alt="{{ app()->getLocale() == 'tr' ? $housing->name : $housing->name_en }}">
                                                 <div class="listing-quick-box">
                                                     <a class="popup popup-single" href="{{ asset($housing->image) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zoom"> <i class="fas fa-search-plus"></i> </a>
                                                 </div>

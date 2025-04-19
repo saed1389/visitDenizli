@@ -24,10 +24,6 @@
                         <a class="btn btn-sm" style="display: {{ app()->getLocale() == 'en' ? 'none' : 'block' }}"  href="{{ url('/change-locale/en') }}"> <img style="width: 32px;" src="{{ asset('front/assets/images/uk-flag.png') }}" alt=""> </a>
                     </div>
                 </div>
-
-                {{--<a class="navbar-brand" href="/">
-                    <img class="img-fluid" src="{{ asset($setting->logo) }}" alt="{{ $setting->site_name }}">
-                </a>--}}
                 <div class="navbar-collapse collapse justify-content-center">
                     <ul class="nav navbar-nav">
                         <li class="nav-item {{ Request::segment(1) == '' ? 'active' : '' }}">
