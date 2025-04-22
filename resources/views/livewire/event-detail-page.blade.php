@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center position-relative">
                 <div class="col-lg-6 text-center">
-                    <h1 class="text-white">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</h1>
+                    <h1 class="text-white banner-shadow">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">{{ __('header.home') }}</a></li>
