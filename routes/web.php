@@ -22,7 +22,6 @@ use App\Livewire\PlaceDetailPage;
 use App\Livewire\PlacePage;
 use App\Livewire\TourismDetailPage;
 use App\Livewire\TourismPage;
-use App\Models\Housing;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/change-locale/{locale}', function ($locale) {

@@ -67,18 +67,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('history-places/delete/{id}', [HistoryPlaceController::class, 'delete'])->name('history-places.destroy');
     Route::post('history-places/upload', [HistoryPlaceController::class, 'upload'])->name('history-places.upload');
     Route::post('history-places/changeStatus/{id}/{status}', [HistoryPlaceController::class, 'changeStatus']);
+    Route::post('history-places/delete-image', [HistoryPlaceController::class, 'deleteImage'])->name('history-places.delete-image');
 
     // Natural Place Routes
     Route::resource('natural-places', NaturalPlaceController::class)->except(['show', 'destroy']);
     Route::get('natural-places/delete/{id}', [NaturalPlaceController::class, 'delete'])->name('natural-places.destroy');
     Route::post('natural-places/upload', [NaturalPlaceController::class, 'upload'])->name('natural-places.upload');
     Route::post('natural-places/changeStatus/{id}/{status}', [NaturalPlaceController::class, 'changeStatus']);
+    Route::post('natural-places/delete-image', [NaturalPlaceController::class, 'deleteImage'])->name('natural-places.delete-image');
 
     // Museums and Art Galleries Routes
     Route::resource('museum-places', MuseumPlaceController::class)->except(['show', 'destroy']);
     Route::get('museum-places/delete/{id}', [MuseumPlaceController::class, 'delete'])->name('museum-places.destroy');
     Route::post('museum-places/upload', [MuseumPlaceController::class, 'upload'])->name('museum-places.upload');
     Route::post('museum-places/changeStatus/{id}/{status}', [MuseumPlaceController::class, 'changeStatus']);
+    Route::post('museum-places/delete-image', [MuseumPlaceController::class, 'deleteImage'])->name('museum-places.delete-image');
 
     // Local Festivals Routes
     Route::resource('local-festivals', FestivalController::class)->except(['show', 'destroy']);

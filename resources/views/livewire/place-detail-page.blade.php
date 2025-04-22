@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center position-relative">
                 <div class="col-lg-6 text-center">
-                    <h1 class="text-white">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</h1>
+                    <h1 class="text-white banner-shadow">{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">{{ __('header.home') }}</a></li>
@@ -28,9 +28,19 @@
                 <div class="col-lg-8">
                     <div class="listing-detail-page">
                         <div class="listing-detail-box mb-3">
-                            <div class="listing-detail-page text-center">
-                                <div class="listing-detail-box mb-3">
-                                    <img class="img-fluid w-50" src="{{ asset($place->image) }}" alt="">
+                            <div class="slider-slick">
+                                <div class="slider slider-for">
+                                    @php
+                                        $images = json_decode($place->images, true);
+                                    @endphp
+                                    @foreach($images  as $image)
+                                        <img class="img-fluid" src="{{ asset($image) }}" alt="">
+                                    @endforeach
+                                </div>
+                                <div class="slider slider-nav d-none d-sm-block">
+                                    @foreach($images  as $image)
+                                        <img class="img-fluid" src="{{ asset($image) }}" alt="">
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="mt-sm-4 mt-0">
@@ -79,4 +89,12 @@
             </div>
         </div>
     </section>
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('front/assets/css/slick/slick-theme.css') }}" />
+        <link rel="stylesheet" href="{{ asset('front/assets/css/range-slider/ion.rangeSlider.css') }}" />
+    @endpush
+    @push('scripts')
+        <script src="{{ asset('front/assets/js/range-slider/ion.rangeSlider.min.js') }}"></script>
+        <script src="{{ asset('front/assets/js/slick/slick.min.js') }}"></script>
+    @endpush
 </div>

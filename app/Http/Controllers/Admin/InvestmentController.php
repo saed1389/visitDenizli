@@ -6,6 +6,7 @@ use App\DataTables\IndustriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Investment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class InvestmentController extends Controller
@@ -51,7 +52,7 @@ class InvestmentController extends Controller
 
         $data = [
             'name' => $request->name,
-            'slug' => Str::slug($request->name, '-'),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
@@ -100,7 +101,7 @@ class InvestmentController extends Controller
 
         $data = [
             'name' => $request->name,
-            'slug' => Str::slug($request->name, '-'),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
@@ -148,5 +149,34 @@ class InvestmentController extends Controller
     public function changeStatus($id, $status)
     {
         Investment::where('id', $id)->update(['status' => $status]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'investments' || $currentId === null) {
+                $conflict |= DB::table('investments')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('investments')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'industries' || $currentId === null) {
+                $conflict |= DB::table('industries')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('industries')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

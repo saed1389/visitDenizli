@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row justify-content-center position-relative">
                 <div class="col-lg-6 text-center">
-                    <h1 class="text-white">{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}</h1>
+                    <h1 class="text-white banner-shadow">{{ app()->getLocale() == 'tr' ? $menu->title : $menu->title_en }}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/">{{ __('header.home') }}</a></li>
@@ -27,9 +27,6 @@
                                 <div class="pb-3">
                                     <a class="collapse-title" data-bs-toggle="collapse" href="#filters">{{ __('pages.Advanced Filters') }} <i class="fas fa-minus-circle"></i></a>
                                     <div class="collapse show" id="filters">
-                                        <div class="form-group mb-3">
-                                            <input type="text" class="form-control" placeholder="{{ __('pages.Who are you looking for?') }}" wire:model.live="searchKeyword">
-                                        </div>
                                         <div class="form-group mb-3 select-border">
                                             <select class="form-control" wire:model.live="selectedCounty">
                                                 <option value="">{{ __('pages.All Counties') }}</option>
@@ -37,6 +34,9 @@
                                                     <option value="{{ $county->id }}">{{ $county->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <input type="text" class="form-control" placeholder="{{ __('pages.Who are you looking for?') }}" wire:model.live="searchKeyword">
                                         </div>
                                     </div>
                                 </div>
@@ -73,12 +73,16 @@
 
                     <div class="row">
                         @foreach($places as $place)
+                            @php
+                                $images = json_decode($place->images, true);
+                                $firstImage = $images[0];
+                            @endphp
                             <div class="col-lg-3 mb-4">
                                 <div class="listing-item">
                                     <div class="listing-image bg-overlay-half-bottom">
-                                        <img class="img-fluid" src="{{ asset($place->image) }}" alt="{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}">
+                                        <img class="img-fluid" src="{{ asset($firstImage) }}" alt="{{ app()->getLocale() == 'tr' ? $place->name : $place->name_en }}">
                                         <div class="listing-quick-box">
-                                            <a class="popup popup-single" href="{{ asset($place->image) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zoom">
+                                            <a class="popup popup-single" href="{{ asset($firstImage) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zoom">
                                                 <i class="fas fa-search-plus"></i>
                                             </a>
                                         </div>

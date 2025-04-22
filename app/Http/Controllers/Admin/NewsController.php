@@ -8,6 +8,7 @@ use App\Models\County;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class NewsController extends Controller
@@ -37,7 +38,6 @@ class NewsController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:news,slug',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
@@ -66,7 +66,7 @@ class NewsController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
@@ -103,7 +103,6 @@ class NewsController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:news,slug,' . $news->id,
             'name_en' => 'nullable',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
@@ -133,7 +132,7 @@ class NewsController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
@@ -186,5 +185,34 @@ class NewsController extends Controller
     public function changeStatus($id, $status)
     {
         News::where('id', $id)->update(['status' => $status]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'events' || $currentId === null) {
+                $conflict |= DB::table('events')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('events')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'news' || $currentId === null) {
+                $conflict |= DB::table('news')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('news')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

@@ -8,6 +8,7 @@ use App\Models\County;
 use App\Models\TourismOffice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class TourismOfficeController extends Controller
@@ -36,7 +37,6 @@ class TourismOfficeController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:tourism_offices,slug',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
@@ -61,7 +61,7 @@ class TourismOfficeController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'description' => $request->description,
             'description_en' => $request->description_en,
             'address' => $request->address,
@@ -100,7 +100,6 @@ class TourismOfficeController extends Controller
         $office = TourismOffice::where('id', $id)->first();
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:tourism_offices,slug,' . $office->id,
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
@@ -126,7 +125,7 @@ class TourismOfficeController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'description' => $request->description,
             'description_en' => $request->description_en,
             'address' => $request->address,
@@ -181,5 +180,34 @@ class TourismOfficeController extends Controller
     public function changeStatus($id, $status)
     {
         TourismOffice::where('id', $id)->update(['status' => $status]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'tourism_offices' || $currentId === null) {
+                $conflict |= DB::table('tourism_offices')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('tourism_offices')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'housings' || $currentId === null) {
+                $conflict |= DB::table('housings')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('housings')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

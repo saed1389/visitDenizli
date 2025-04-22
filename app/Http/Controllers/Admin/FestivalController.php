@@ -8,6 +8,7 @@ use App\Models\County;
 use App\Models\Festival;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class FestivalController extends Controller
@@ -37,12 +38,11 @@ class FestivalController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:festivals,slug',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
@@ -68,12 +68,12 @@ class FestivalController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
@@ -107,13 +107,12 @@ class FestivalController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:festivals,slug,' . $festival->id,
             'name_en' => 'nullable',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
@@ -139,12 +138,12 @@ class FestivalController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
             'image' => $imageUrl,
             'banner_image' => $bannerUrl,
             'status' => $request->status,
@@ -194,5 +193,46 @@ class FestivalController extends Controller
     public function changeStatus($id, $status)
     {
         Festival::where('id', $id)->update(['status' => $status]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'festivals' || $currentId === null) {
+                $conflict |= DB::table('festivals')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('festivals')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'traditions' || $currentId === null) {
+                $conflict |= DB::table('traditions')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('traditions')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'handicrafts' || $currentId === null) {
+                $conflict |= DB::table('handicrafts')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('handicrafts')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'culinaries' || $currentId === null) {
+                $conflict |= DB::table('culinaries')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('culinaries')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

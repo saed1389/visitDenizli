@@ -8,6 +8,7 @@ use App\Models\County;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class EventController extends Controller
@@ -37,12 +38,11 @@ class EventController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:events,slug',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'address' => 'nullable',
             'start_date' => 'nullable',
             'end_date' => 'nullable',
@@ -72,12 +72,12 @@ class EventController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => $request->latitude ? (float) $request->latitude : null,
+            'longitude' => $request->longitude ? (float) $request->longitude : null,
             'address' => $request->address,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
@@ -115,13 +115,12 @@ class EventController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:events,slug,' . $event->id,
             'name_en' => 'nullable',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'address' => 'nullable',
             'start_date' => 'nullable',
             'end_date' => 'nullable',
@@ -151,12 +150,12 @@ class EventController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
             'address' => $request->address,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
@@ -210,5 +209,34 @@ class EventController extends Controller
     public function changeStatus($id, $status)
     {
         Event::where('id', $id)->update(['status' => $status]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'events' || $currentId === null) {
+                $conflict |= DB::table('events')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('events')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'news' || $currentId === null) {
+                $conflict |= DB::table('news')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('news')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

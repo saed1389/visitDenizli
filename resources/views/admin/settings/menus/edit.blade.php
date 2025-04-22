@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="parent_id" class="form-label"><strong>Ana Menü <span class="text-danger">*</span></strong></label>
-                                    <select class="form-select" name="parent_id" id="parent_id" required>
+                                    <select class="form-select" name="parent_id" id="parent_id"  required>
                                         <option value="">-- Lütfen Seçin --</option>
                                         <option value="1" @selected($menu->parent_id == 1)>Hakkımızda</option>
                                         <option value="2" @selected($menu->parent_id == 2)>Gezilecek Yerler</option>
@@ -116,7 +116,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim</strong></label>
+                                    <label for="image" class="form-label"><strong>Resim</strong> <small class="text-danger">Size: 700x420</small></label>
                                     <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
                                     @error('image')
                                     <span class="text-danger">
@@ -128,7 +128,7 @@
                                     <img src="{{ $menu->image ? asset($menu->image) : asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="image_banner" class="form-label"><strong>Banner Resmi</strong></label>
+                                    <label for="image_banner" class="form-label"><strong>Banner Resmi</strong> <small class="text-danger">Size: 1950x850</small><</label>
                                     <input type="file" class="form-control" id="image_banner" name="image_banner" placeholder="" value="{{ old('image_banner') }}">
                                     @error('image_banner')
                                     <span class="text-danger">

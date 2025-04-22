@@ -9,6 +9,7 @@ use App\Models\County;
 use App\Models\Housing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -40,14 +41,13 @@ class HousingController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:housings,slug',
             'county_id' => 'required|exists:counties,id',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required',
             'description_en' => 'nullable',
             'address' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'website' => 'nullable',
             'phone' => 'nullable',
@@ -70,13 +70,13 @@ class HousingController extends Controller
             'county_id' => $request->county_id,
             'category_id' => $request->category_id,
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
             'address' => $request->address,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
             'images' => json_encode($imageUrls),
             'website' => $request->website,
             'phone' => $request->phone,
@@ -114,14 +114,13 @@ class HousingController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:housings,slug,'.$housing->id,
             'county_id' => 'required|exists:counties,id',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required',
             'description_en' => 'nullable',
             'address' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'images.*' => 'required|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
             'website' => 'nullable',
             'phone' => 'nullable',
@@ -148,13 +147,13 @@ class HousingController extends Controller
             'county_id' => $request->county_id,
             'category_id' => $request->category_id,
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
             'address' => $request->address,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
             'images' => json_encode($existingImages),
             'website' => $request->website,
             'phone' => $request->phone,
@@ -231,5 +230,34 @@ class HousingController extends Controller
         }
 
         return response()->json(['success' => false]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'tourism_offices' || $currentId === null) {
+                $conflict |= DB::table('tourism_offices')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('tourism_offices')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'housings' || $currentId === null) {
+                $conflict |= DB::table('housings')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('housings')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

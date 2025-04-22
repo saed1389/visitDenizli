@@ -1,7 +1,7 @@
 <?php
 return [
-    'slider title' => 'Tarih, Doğa ve Lezzetin Buluşma Noktası',
-    'slider description' => 'VisitDenizli ile şehrin büyüleyici doğasını, köklü tarihini, keşfedilmeyi bekleyen eşsiz noktalarını, konforlu konaklama seçeneklerini ve lezzet dolu duraklarını keşfedin!',
+    'slider title' => 'Ege Denizli’den Başlar…',
+    'slider description' => 'Tarih, Doğa ve Lezzetin Buluşma Noktası',
     'where' => 'Nerede',
     'what' => 'Bul',
     'what ex' => 'Örn: restoranlar, oteller, barlar',

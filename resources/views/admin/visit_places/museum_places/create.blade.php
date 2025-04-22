@@ -140,18 +140,16 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim <small class="text-danger">Size: 700x420</small></strong></label>
-                                    <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
-                                    @error('image')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
+                                    <label for="images" class="form-label"><strong>Resim <small class="text-danger">Size: 700x420</small></strong></label>
+                                    <input type="file" class="form-control" id="images" name="images[]" multiple>
+                                    @error('images')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-sm-2 mt-3">
+                                    <div id="preview-container" class="d-flex flex-wrap mt-3"></div>
                                     <img src="{{ asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
                                 </div>
-
                                 <div class="col-sm-4 mt-3">
                                     <label for="banner_image" class="form-label"><strong>Banner Resmi <small class="text-danger">Size: 1950x850</small></strong></label>
                                     <input type="file" class="form-control" id="banner_image" name="banner_image" placeholder="" value="{{ old('banner_image') }}">
@@ -271,6 +269,51 @@
                 });
             });
         </script>
+        <script>
+            $(document).ready(function () {
+                let dt = new DataTransfer();
 
+                $('#images').on('change', function (e) {
+                    dt.clearData();
+                    $('#preview-container').html('');
+
+                    let files = Array.from(e.target.files);
+
+                    files.forEach((file, index) => {
+                        let reader = new FileReader();
+                        reader.onload = function (event) {
+                            let img = `<div class="image-preview position-relative m-2" data-index="${index}">
+                                <img src="${event.target.result}" class="img-thumbnail" width="100" alt="">
+                                <button type="button" class="btn btn-danger btn-sm remove-image position-absolute top-0 end-0">X</button>
+                           </div>`;
+                            $('#preview-container').append(img);
+                        };
+                        reader.readAsDataURL(file);
+                        $('#showImage').hide();
+                        dt.items.add(file);
+                    });
+
+                    this.files = dt.files;
+                });
+
+                $(document).on('click', '.remove-image', function () {
+                    let indexToRemove = $(this).parent().data('index');
+                    dt.items.remove(indexToRemove);
+                    document.getElementById('images').files = dt.files;
+                    $(this).parent().remove();
+                });
+            });
+
+            // Image Preview
+            $(document).ready(function () {
+                $('#banner_image').change(function (e) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#showBannerImage').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                });
+            });
+        </script>
     @endpush
 @endsection

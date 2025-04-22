@@ -1,5 +1,13 @@
 <div>
     <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url('front/assets/fonts/1.ttf');
+        }
+
+        .new-font {
+            font-family: myFirstFont !important;
+        }
         .autocomplete-dropdown {
             position: absolute;
             background: white;
@@ -29,7 +37,7 @@
         <div class="container">
             <div class="row justify-content-center position-relative">
                 <div class="col-lg-10 text-center">
-                    <h1 class="text-white text-shadow">{{ __('home.slider title') }}</h1>
+                    <h1 class="text-white text-shadow" style="font-family: myFirstFont">{{ __('home.slider title') }}</h1>
                     <p class="text-white banner-sub-title text-shadow">{{ __('home.slider description') }}</p>
                 </div>
             </div>

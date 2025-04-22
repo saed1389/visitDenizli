@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\HistoryPlace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class HistoryPlaceController extends Controller
@@ -36,23 +38,24 @@ class HistoryPlaceController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:history_places',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = Str::slug($request->input('name')) . '-' . time() . '.' . $request->image->extension();
-            $request->file('image')->move('uploads/places/', $imageName);
-            $imageUrl = 'uploads/places/' . $imageName;
-        } else {
-            $imageUrl = '';
+        $imageUrls = [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = Str::slug($request->input('name')).'-'.time().'-'.uniqid().'.'.$image->extension();
+                $image->move('uploads/places/', $imageName);
+                $imageUrls[] = 'uploads/places/'.$imageName; // Store image path
+            }
         }
 
         if ($request->hasFile('banner_image')) {
@@ -66,13 +69,13 @@ class HistoryPlaceController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'image' => $imageUrl,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
+            'images' => json_encode($imageUrls),
             'banner_image' => $bannerUrl,
             'status' => $request->status,
         ];
@@ -104,24 +107,29 @@ class HistoryPlaceController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:history_places',
             'name_en' => 'nullable',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'images.*' => 'required|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = Str::slug($request->input('name')) . '-' . time() . '.' . $request->image->extension();
-            $request->file('image')->move('uploads/places/', $imageName);
-            $imageUrl = 'uploads/places/' . $imageName;
-        } else {
-            $imageUrl = $history->image;
+        $existingImages = json_decode($history->images, true) ?? [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = Str::slug($request->input('name')).'-'.time().'-'.uniqid().'.'.$image->extension();
+                $image->move(public_path('uploads/places/'), $imageName);
+                $existingImages[] = 'uploads/places/'.$imageName;
+            }
+        }
+
+        if ($request->has('existing_images')) {
+            $existingImages = explode(',', $request->input('existing_images'));
         }
 
         if ($request->hasFile('banner_image')) {
@@ -135,13 +143,13 @@ class HistoryPlaceController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'image' => $imageUrl,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
+            'images' => json_encode($existingImages),
             'banner_image' => $bannerUrl,
             'status' => $request->status,
         ];
@@ -159,7 +167,12 @@ class HistoryPlaceController extends Controller
     public function delete(string $id)
     {
         $history = HistoryPlace::where('id', $id)->first();
-        @unlink($history->image);
+        $images = json_decode($history->images, true) ?? [];
+        foreach ($images as $image) {
+            if (File::exists(public_path($image))) {
+                File::delete(public_path($image));
+            }
+        }
         @unlink($history->banner_image);
         $history->delete();
 
@@ -189,5 +202,60 @@ class HistoryPlaceController extends Controller
     public function changeStatus($id, $status)
     {
         HistoryPlace::where('id', $id)->update(['status' => $status]);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $history = HistoryPlace::findOrFail($request->id);
+        $images = json_decode($history->images, true);
+
+        if (($key = array_search($request->image, $images)) !== false) {
+            unset($images[$key]);
+
+            if (File::exists(public_path($request->image))) {
+                File::delete(public_path($request->image));
+            }
+
+            $history->update(['images' => json_encode(array_values($images))]);
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'history_places' || $currentId === null) {
+                $conflict |= DB::table('history_places')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('history_places')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'natural_places' || $currentId === null) {
+                $conflict |= DB::table('natural_places')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('natural_places')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'museum_places' || $currentId === null) {
+                $conflict |= DB::table('museum_places')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('museum_places')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

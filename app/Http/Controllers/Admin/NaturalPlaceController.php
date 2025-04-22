@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\County;
 use App\Models\NaturalPlace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class NaturalPlaceController extends Controller
@@ -36,23 +38,24 @@ class NaturalPlaceController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:natural_places',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = Str::slug($request->input('name')) . '-' . time() . '.' . $request->image->extension();
-            $request->file('image')->move('uploads/places/', $imageName);
-            $imageUrl = 'uploads/places/' . $imageName;
-        } else {
-            $imageUrl = '';
+        $imageUrls = [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = Str::slug($request->input('name')).'-'.time().'-'.uniqid().'.'.$image->extension();
+                $image->move('uploads/places/', $imageName);
+                $imageUrls[] = 'uploads/places/'.$imageName; // Store image path
+            }
         }
 
         if ($request->hasFile('banner_image')) {
@@ -66,13 +69,13 @@ class NaturalPlaceController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'image' => $imageUrl,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
+            'images' => json_encode($imageUrls),
             'banner_image' => $bannerUrl,
             'status' => $request->status,
         ];
@@ -100,28 +103,33 @@ class NaturalPlaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $history = NaturalPlace::where('id', $id)->first();
+        $natural = NaturalPlace::where('id', $id)->first();
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:natural_places',
             'name_en' => 'nullable',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'images.*' => 'required|image|max:2048|mimes:jpeg,png,jpg,gif,svg',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = Str::slug($request->input('name')) . '-' . time() . '.' . $request->image->extension();
-            $request->file('image')->move('uploads/places/', $imageName);
-            $imageUrl = 'uploads/places/' . $imageName;
-        } else {
-            $imageUrl = $history->image;
+        $existingImages = json_decode($natural->images, true) ?? [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = Str::slug($request->input('name')).'-'.time().'-'.uniqid().'.'.$image->extension();
+                $image->move(public_path('uploads/places/'), $imageName);
+                $existingImages[] = 'uploads/places/'.$imageName;
+            }
+        }
+
+        if ($request->has('existing_images')) {
+            $existingImages = explode(',', $request->input('existing_images'));
         }
 
         if ($request->hasFile('banner_image')) {
@@ -129,19 +137,19 @@ class NaturalPlaceController extends Controller
             $request->file('banner_image')->move('uploads/places/', $bannerName);
             $bannerUrl = 'uploads/places/' . $bannerName;
         } else {
-            $bannerUrl = $history->banner_image;
+            $bannerUrl = $natural->banner_image;
         }
 
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'image' => $imageUrl,
+            'latitude' => $request->latitude !== null ? (float) $request->latitude : null,
+            'longitude' => $request->longitude !== null ? (float) $request->longitude : null,
+            'images' => json_encode($existingImages),
             'banner_image' => $bannerUrl,
             'status' => $request->status,
         ];
@@ -158,10 +166,16 @@ class NaturalPlaceController extends Controller
      */
     public function delete(string $id)
     {
-        $history = NaturalPlace::where('id', $id)->first();
-        @unlink($history->image);
-        @unlink($history->banner_image);
-        $history->delete();
+        $natural = NaturalPlace::where('id', $id)->first();
+        $images = json_decode($natural->images, true) ?? [];
+
+        foreach ($images as $image) {
+            if (File::exists(public_path($image))) {
+                File::delete(public_path($image));
+            }
+        }
+        @unlink($natural->banner_image);
+        $natural->delete();
 
         toastr()->success('Doğal Güzellik Başarıyla Silindi.');
 
@@ -189,5 +203,60 @@ class NaturalPlaceController extends Controller
     public function changeStatus($id, $status)
     {
         NaturalPlace::where('id', $id)->update(['status' => $status]);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $natural = NaturalPlace::findOrFail($request->id);
+        $images = json_decode($natural->images, true);
+
+        if (($key = array_search($request->image, $images)) !== false) {
+            unset($images[$key]);
+
+            if (File::exists(public_path($request->image))) {
+                File::delete(public_path($request->image));
+            }
+
+            $natural->update(['images' => json_encode(array_values($images))]);
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'history_places' || $currentId === null) {
+                $conflict |= DB::table('history_places')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('history_places')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'natural_places' || $currentId === null) {
+                $conflict |= DB::table('natural_places')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('natural_places')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'museum_places' || $currentId === null) {
+                $conflict |= DB::table('museum_places')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('museum_places')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

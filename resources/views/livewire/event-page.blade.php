@@ -28,9 +28,6 @@
                                 <div class="pb-3">
                                     <a class="collapse-title" data-bs-toggle="collapse" href="#filters">{{ __('pages.Advanced Filters') }} <i class="fas fa-minus-circle"></i></a>
                                     <div class="collapse show" id="filters">
-                                        <div class="form-group mb-3">
-                                            <input type="text" class="form-control" placeholder="{{ __('pages.Who are you looking for?') }}" wire:model.live="searchKeyword">
-                                        </div>
                                         <div class="form-group mb-3 select-border">
                                             <select class="form-control" wire:model.live="selectedCounty">
                                                 <option value="">{{ __('pages.All Counties') }}</option>
@@ -38,6 +35,9 @@
                                                     <option value="{{ $county->id }}">{{ $county->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <input type="text" class="form-control" placeholder="{{ __('pages.Who are you looking for?') }}" wire:model.live="searchKeyword">
                                         </div>
                                     </div>
                                 </div>

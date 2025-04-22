@@ -8,6 +8,7 @@ use App\Models\County;
 use App\Models\Festival;
 use App\Models\Tradition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class TraditionController extends Controller
@@ -37,7 +38,6 @@ class TraditionController extends Controller
         $request->validate([
             'name' => 'required',
             'name_en' => 'nullable',
-            'slug' => 'unique:traditions',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
             'description_en' => 'nullable',
@@ -65,7 +65,7 @@ class TraditionController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
@@ -101,7 +101,6 @@ class TraditionController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'slug' => 'unique:traditions,slug,' . $tradition->id,
             'name_en' => 'nullable',
             'county_id' => 'required|exists:counties,id',
             'description' => 'required',
@@ -132,7 +131,7 @@ class TraditionController extends Controller
         $data = [
             'county_id' => $request->input('county_id'),
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $this->generateUniqueSlug($request->name),
             'name_en' => $request->name_en,
             'description' => $request->description,
             'description_en' => $request->description_en,
@@ -184,5 +183,46 @@ class TraditionController extends Controller
     public function changeStatus($id, $status)
     {
         Tradition::where('id', $id)->update(['status' => $status]);
+    }
+
+    private function generateUniqueSlug($name, $currentModel = null, $currentId = null)
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        do {
+            $conflict = false;
+
+            if ($currentModel !== 'festivals' || $currentId === null) {
+                $conflict |= DB::table('festivals')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('festivals')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'traditions' || $currentId === null) {
+                $conflict |= DB::table('traditions')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('traditions')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'handicrafts' || $currentId === null) {
+                $conflict |= DB::table('handicrafts')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('handicrafts')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($currentModel !== 'culinaries' || $currentId === null) {
+                $conflict |= DB::table('culinaries')->where('slug', $slug)->exists();
+            } else {
+                $conflict |= DB::table('culinaries')->where('slug', $slug)->where('id', '!=', $currentId)->exists();
+            }
+
+            if ($conflict) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+        } while ($conflict);
+
+        return $slug;
     }
 }

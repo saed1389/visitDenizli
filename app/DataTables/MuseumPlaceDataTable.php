@@ -29,7 +29,9 @@ class MuseumPlaceDataTable extends DataTable
 
                 return $edit.$delete;
             })->addColumn('image', function ($query) {
-                return '<img src="'.asset($query->image).'" width="50" height="50" />';
+                $images = json_decode($query->images, true);
+                $firstImage = $images[0];
+                return '<img src="'.asset($firstImage).'" width="50" height="50" />';
             })->addColumn('status', function (MuseumPlace $place) {
                 $status = $place->status == 1 ? 'checked' : '';
                 return "

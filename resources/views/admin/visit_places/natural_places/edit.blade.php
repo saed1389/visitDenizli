@@ -128,16 +128,24 @@
                                     @enderror
                                 </div>
                                 <div class="col-sm-4 mt-3">
-                                    <label for="image" class="form-label"><strong>Resim</strong></label>
-                                    <input type="file" class="form-control" id="image" name="image" placeholder="" value="{{ old('image') }}">
-                                    @error('image')
-                                    <span class="text-danger">
-                                        {{ $message }}
-                                    </span>
+                                    <label for="images" class="form-label"><strong>Resim <small class="text-danger">Size: 700x420</small></strong></label>
+                                    <input type="file" class="form-control" id="images" name="images[]" multiple>
+                                    @error('images')
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-2 mt-3">
-                                    <img src="{{ $natural->image ? asset($natural->image) : asset('panel/assets/images/def.png') }}" id="showImage" class="img-thumbnail" alt="" >
+
+                                <!-- Image Preview Section -->
+                                <div class="col-sm-6 mt-3 d-flex flex-wrap" id="preview-container">
+                                    @php
+                                        $images = json_decode($natural->images, true) ?? [];
+                                    @endphp
+                                    @foreach($images as $image)
+                                        <div class="image-preview position-relative m-2">
+                                            <img src="{{ asset($image) }}" class="img-thumbnail" width="100" alt="">
+                                            <button type="button" class="btn btn-danger btn-sm remove-existing-image position-absolute top-0 end-0" data-image="{{ $image }}" data-id="{{ $natural->id }}">X</button>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="col-sm-4 mt-3">
@@ -240,22 +248,63 @@
                     });
             });
 
-            // Image Preview
             $(document).ready(function () {
-                $('#image').change(function (e) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#showImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(e.target.files[0]);
+                let dt = new DataTransfer();
+                let existingImages = @json($images);
+
+                $('#images').on('change', function (e) {
+                    $('#preview-container').html('');
+                    dt.clearData();
+
+                    let files = Array.from(e.target.files);
+
+                    files.forEach((file, index) => {
+                        let reader = new FileReader();
+                        reader.onload = function (event) {
+                            let img = `<div class="image-preview position-relative m-2" data-index="${index}">
+                        <img src="${event.target.result}" class="img-thumbnail" width="100">
+                        <button type="button" class="btn btn-danger btn-sm remove-image position-absolute top-0 end-0">X</button>
+                   </div>`;
+                            $('#preview-container').append(img);
+                        };
+                        reader.readAsDataURL(file);
+                        dt.items.add(file);
+                    });
+
+                    this.files = dt.files;
                 });
 
-                $('#banner_image').change(function (e) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#showBannerImage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(e.target.files['0']);
+                $(document).on('click', '.remove-image', function () {
+                    let indexToRemove = $(this).parent().data('index');
+                    dt.items.remove(indexToRemove);
+                    document.getElementById('images').files = dt.files;
+                    $(this).parent().remove();
+                });
+
+                $(document).on('click', '.remove-existing-image', function () {
+                    let imageToRemove = $(this).data('image');
+                    let housingId = $(this).data('id');
+                    let parentDiv = $(this).parent();
+
+                    $.ajax({
+                        url: "{{ route('admin.natural-places.delete-image') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            image: imageToRemove,
+                            id: housingId
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                parentDiv.remove();
+                            } else {
+                                alert('Failed to delete image.');
+                            }
+                        },
+                        error: function () {
+                            alert('Error deleting image.');
+                        }
+                    });
                 });
             });
         </script>

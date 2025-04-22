@@ -2,7 +2,7 @@
 return [
     'Filters' => 'Filtreler',
     'Advanced Filters' => 'Gelişmiş Filtreler',
-    'Who are you looking for?' => 'Kimi arıyorsunuz?',
+    'Who are you looking for?' => 'Arama',
     'All Counties' => 'Tüm İlçeler',
     'All lists are sorted by alphabet' => 'Tüm listeler alfabetik olarak sıralanmıştır',
     'Alphabetic' => 'Alfabetik',
@@ -65,7 +65,7 @@ return [
     'call now' => 'Şimdi ara',
     'No results found' => 'Hiçbir sonuç bulunamadı',
     'Let’s Get In Touch' => 'Bizimle iletişime geçin',
-    'Your Name' => 'Adınız',
+    'Your Name' => 'Ad Soyad',
     'Your Email' => 'E-postanız',
     'Your Phone' => 'Telefonunuz',
     'Subject' => 'Konu',

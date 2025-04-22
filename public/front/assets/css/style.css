@@ -1,57 +1,3 @@
-/*
-
-Template: Directro - Directory and Listing Template
-Version: 2.0.0
-Author: potenzaglobalsolutions
-Design and Developed by: potenzaglobalsolutions.com
-
-NOTE: This is main stylesheet of template, This file contains the styling for the actual Template.
-
-*/
-/*==============================================
-[  Table of contents  ]
-================================================
-
- :: Typography
- :: Helper Classes
- :: Shortcodes
-    - Accordion
-    - Button
-    - Countdown
-		- Counter
-		- Date time Picker
-		- Feature box
-		- Gallery
-		- Newsletter
-		- Owl carousel
-		- Range Slider
-		- Select
-		- Tabs
-		- Team
-		- Testimonial
- :: Header
-   - Header default
-   - Header transparent
-   - Header light
- :: Banner
- :: Layout
-   - Section Title
-   - Page title
- :: listing
- :: Sidebar
- :: Blog
-   - Blog post
-   - Blog sidebar
-   - Blog detail
- :: Footer
- :: Responsive
-
-======================================
-[ End table content ]
-======================================*/
-/*****************************
-    Typography
-*****************************/
 body {
     font-family: "Helvetica", sans-serif;
     font-weight: 400;
@@ -7189,6 +7135,9 @@ textarea.form-control {
 }
 .navbar-lang {
     display: none;
+}
+.banner-shadow {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /*# sourceMappingURL=../css/style.css.map */
