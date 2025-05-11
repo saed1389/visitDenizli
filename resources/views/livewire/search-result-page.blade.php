@@ -16,7 +16,7 @@
     </section>
 
     @if($newsResults->isNotEmpty() || $eventResults->isNotEmpty() || $placesResults->isNotEmpty() || $categoriesResults->isNotEmpty())
-        <section class="space-ptb bg-holder">
+        <section class="space-ptb bg-holder pt-11">
             <div class="container">
                 <div class="row">
                     @if($newsResults->isNotEmpty())
@@ -71,7 +71,7 @@
             </div>
         </section>
     @else
-        <section class="space-ptb bg-holder">
+        <section class="space-ptb bg-holder pt-11">
             <div class="container">
                 <div class="row justify-content-center align-items-center">
                     <div class="col-md-5 text-center position-relative overflow-hidden">

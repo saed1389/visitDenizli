@@ -15,7 +15,7 @@
             </div>
         </div>
     </section>
-    <section class="space-ptb">
+    <section class="space-ptb pt-11">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-7">

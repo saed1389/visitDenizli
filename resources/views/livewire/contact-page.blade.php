@@ -14,7 +14,7 @@
             </div>
         </div>
     </section>
-    <section class="space-pb mt-n5 position-relative z-index-1">
+    <section class="space-pb mt-n5 position-relative z-index-1 pt-11">
         <div class="container">
             <div class="row g-0 bg-white shadow">
                 <div class="col-lg-7 bg-white">
